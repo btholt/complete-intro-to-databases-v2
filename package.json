@@ -1,0 +1,33 @@
+{
+  "private": true,
+  "type": "module",
+  "license": "(CC-BY-NC-4.0 OR Apache-2.0)",
+  "author": "Brian Holt <btholt+next-course-starter@gmail.com>",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && npm run csv && npm run llm-text",
+    "start": "next start",
+    "csv": "node csv/index.js",
+    "seo": "node summary/index.js",
+    "llm-text": "node summary/generateFullText.js"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "gray-matter": "^4.0.3",
+    "highlight.js": "^11.11.1",
+    "marked": "^17.0.1",
+    "marked-highlight": "^2.2.3",
+    "next": "^16.1.6",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "title-case": "^4.3.2"
+  },
+  "devDependencies": {
+    "@ai-sdk/anthropic": "^3.0.35",
+    "@ai-sdk/openai": "^3.0.25",
+    "ai": "^6.0.68",
+    "convert-array-to-csv": "^2.0.0",
+    "dotenv": "^17.2.3",
+    "zod": "^4.3.6"
+  }
+}
