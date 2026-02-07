@@ -1,20 +1,29 @@
 {
   "author": {
     "name": "Brian Holt",
-    "company": "Databricks"
+    "company": ""
   },
-  "title": "Next.js Course Starter Kit",
-  "subtitle": "for Frontend Masters",
-  "frontendMastersLink": "https://frontendmasters.com/courses/complete-react-v9/",
+  "title": "Complete Intro to Databases v2",
+  "subtitle": "How to store and retrieve data for apps and AI",
+  "frontendMastersLink": "https://frontendmasters.com/workshops/databases-v2/",
   "social": {
     "linkedin": "btholt",
     "github": "btholt",
     "twitter": "holtbt",
     "bluesky": "brianholt.me"
   },
-  "description": "A starter kit for making really amazing courses, optimized for Frontend Masters",
-  "keywords": ["your", "Google", "keywords", "here"],
-  "productionBaseUrl": "/next-course-starter",
+  "description": "Learn to work with various databases so you have the right for the job - learn Postgres, MongoDB, Redis, Neo4J and more",
+  "keywords": [
+    "postgres",
+    "sql",
+    "redis",
+    "mongodb",
+    "neo4j",
+    "database",
+    "data",
+    "agents"
+  ],
+  "productionBaseUrl": "",
   "csvPath": "./out/lessons.csv",
   "llmFullTextPath": "./out/llms.txt"
 }
