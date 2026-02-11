@@ -1,0 +1,2805 @@
+# Introduction
+
+Welcome! Hello! This is the Complete Intro to Databases. I'm so excited to share with you some of my knowledge that I've earned working in the field. Knowing how to properly use a database will give you a leg up in your career, both from the perspective of being able to achieve more in your apps and from the perspective of being able to interview well for jobs that need to use databases. And if I'm being honest, I think learning how to and using these databases is a lot of fun. It's a fantastic feeling to throw some data into one of these databases and then be able to retrieve data and insight using various querying techniques and abilities.
+
+## Who is this course for?
+
+This course is for anyone who wants to understand the various sorts of databases that are available to them, how to use a few of them, and when to choose which one.
+
+In order to get the most out of this course, you should be comfortable with a command line prompt and a little bit of programming. If you are not familiar with a command line prompt, [I taught a course on it here][command-line] that if you take that will more than get you ready for this course. If you are not familiar with programming, [I have course on that too][web-dev].
+
+All the programming samples will be in JavaScript with Node.js but if you code in something else like Python or Ruby these code samples should look familiar enough that you should be fine. The code won't be the focus of the samples, the database interactions will be.
+
+## Who am I?
+
+![Brian drinking a beer](./images/brian-beer.jpg)
+
+My name is Brian Holt and I am a principal program manager at Microsoft (as of writing.) I have been writing code most of my life thanks to my dad and brother and I have been a professional developer for a decade. Actually, funnily enough, my father used to work one of the OG large-scale databases, IBM DB2. It is a bit of a full circle for me to be coming in and teaching a course on databases considering that. Of course we're going to be focusing on open source databases!
+
+I'm excited to share with you my experience using databases that I've garnered over my career at companies like Reddit, Netflix, LinkedIn, and Microsoft. I had to write a lot of SQL early in my career (from MySQL primarily) and it has only helped me throughout my career. I was also an early user of MongoDB and attended one of the first MongoDB Days in San Francisco. Believe it or not that was actually my first tech conference (I've since been to 150+ events.)
+
+![Brian speaking at conference](./images/brian.jpg)
+
+When I'm not working at Microsoft or working on Frontend Masters content I try to get away from my keyboard. I enjoy exercising (I'm on Peloton at [btholt][peloton] if you want exercise with me!), Islay Scotches, local beer, medium roast coffee, traveling around the world, playing with my adorable Havanese dog Luna, hanging out with my amazing wife [Niki][niki], and getting my ass kicked at Dota 2 and Overwatch. I'm passionate about people and helping them fulfill their own potentials, having amazing local experiences where ever I am, and having a drink with those I love.
+
+![Luna, havanese dog](./images/lunasit.jpg)
+
+Lastly, while I have your attention, just wanted to call some attention to my favorite charitable organizations. Spare a dollar for these fine people if you have one to give.
+
+- [AnnieCannons][ac]
+- [The Last Mile][tlm]
+- [VetsWhoCode][vwc]
+- [Legal Counsel for Youth and Children][lcyc]
+
+## Special Thanks to Frontend Masters
+
+![Frontend Masters](./images/FrontendMastersLogo.png)
+
+I want to thank Marc and the whole Frontend Masters team explicitly. In addition to being family to me these are some of the most wonderful people I've ever met. You are reading or watching this course thanks to their hard work to make the world of tech more approachable with high quality instructors teaching what they know best. I want to thank them for creating the platform, garnering a community of knowledge-seeking developers, and giving me incentive and a platform to speak to you all. One specific kindness is that while the videos are on the platform (and I think they are worth every penny to watch) they let me release this website and materials as open source so every person can acquire the knowledge.
+
+Thanks Frontend Masters. Y'all are the best.
+
+## PS
+
+Please catch up with me on social media! Do note I'm not the best at responding to private messages, especially Twitter DMs and LinkedIn messages!
+
+- [Twitter][tw]
+- [LinkedIn][li]
+- [GitHub][gh]
+
+[command-line]: https://frontendmasters.com/courses/linux-command-line/
+[web-dev]: https://frontendmasters.com/courses/web-development-v2/
+[peloton]: https://members.onepeloton.com/members/btholt/overview
+[niki]: https://twitter.com/ImNikiHolt
+[lcyc]: http://lcycwa.org/donate
+[tw]: https://twitter.com/holtbt
+[gh]: https://github.com/btholt
+[li]: https://linkedin.com/in/btholt
+[course]: https://github.com/btholt/complete-intro-to-linux-and-the-cli
+[tlm]: https://thelastmile.org/donate/
+[ac]: https://anniecannons.org/invest
+[vwc]: https://vetswhocode.io/donate
+
+=================
+
+# Installation Notes
+
+In this course we will be using four different databases: MongoDB, PostgreSQL, Neo4j, and Redis. These are software packages that you will have to download and get running and you have several options to do that. All of these will work on macOS, Windows, and Linux. I'll be sure to cover in depth how to do it on macOS and Windows and I assume all my Linux friends can adapt the macOS instructions to themselves.
+
+In every case, make sure you are getting the same version I am using. If you don't you will likely run into problems as the syntax and queries can change from version to version. Here are the version I'm using for this course.
+
+- MongoDB v4.4.1
+- PostgreSQL v13.0
+- Neo4j v4.1.3
+- Redis v6.0.8
+
+Here are a few of your options:
+
+## Docker
+
+This is going to be how I'm going to do it and I will show you the correct Docker commands to run it this way. If you are unfamiliar with Docker and containers, [I have a course here][containers] that will quickly get you up to speed on this. Even if containers aren't super familiar to you, if you install Docker and follow the commands everything should just work. [Head here][docker] to install Docker Desktop which will handle everything you need.
+
+## Package manager
+
+Another perfectly good option is to install the databases from a package manager. If you're on macOS, that will be [homebrew][brew] on macOS and if you're on Windows that will can be either [winget][winget] (this is still in public preview so it may not work totally well yet) or [Chocolatey][choc]. As of writing, winget only has MongoDB and PostgreSQL. Homebrew and Chocolatey have all of the requisite databases.
+
+For Linux, you will be using whatever your distro's package manager is. If you're using Linux as your desktop I assume you know how to do that.
+
+## Download and install the binary yourself.
+
+You can just head to all of the websites and install them yourself! I prefer to do this through a package manager but there's no reason you can't do it this way if you prefer. Here are all the correct URLs for you. Make sure you downloading the version I'm listing or you may have issues (it likely won't be the current version.)
+
+- [MongoDB][mongodb] – v4.4.1
+- [PostgreSQL][postgresql] -v13.0
+- [Neo4j][neo4j] - v4.1.3
+- [Redis][redis] - v6.0.8
+
+## Cloud solutions
+
+I'm going to throw this out as a possibility if your computer simply cannot run a database. Chromebooks and iPads could potentially have this problem. All of these databases do run in the cloud and you could probably get a free trial version of each of these running in the cloud and just connect remotely to these databases. This could be difficult because it'll be a lot of managing connection strings and firewall rules and the like. I'll let you look for these on your own since I have a bit of a conflict of interest here in which one you choose (as of present I work for Microsoft's cloud, Azure.)
+
+## Node.js Version
+
+We will be running some code samples with Node.js. It's less important which version of Node.js you choose as long you're above version 10. I will be using the latest LTS for this course, v12.18.4. Feel free to install through [the website][node] or through some sort of version manager like [nvm][nvm].
+
+[containers]: https://frontendmasters.com/courses/complete-intro-containers/
+[docker]: https://www.docker.com/products/docker-desktop
+[winget]: https://docs.microsoft.com/en-us/windows/package-manager/winget/#install-winget
+[choc]: https://chocolatey.org/
+[brew]: https://brew.sh/
+[mongodb]: https://www.mongodb.com/try/download/community
+[postgresql]: https://www.postgresql.org/download/
+[neo4j]: https://neo4j.com/download-center/#community
+[redis]: https://redis.io/download
+[nvm]: https://github.com/nvm-sh/nvm
+[node]: https://nodejs.org/download/release/v12.18.4/
+
+=================
+
+# Terminology
+
+Before we hop in to working with these various sorts of database I want to make sure we are clear on some common terminology and what the goals are for today, what we are going to cover and what we are not.
+
+## What is a database and other common terms
+
+A database is a place to store data. Another way to think about this is that it is a place to save your application's state so that it can be retrieved later. This allows you to make your servers stateless since your database will be storing all the information. A lot of things can be thought of as a type of database, like an Excel spreadsheet or even just a text file with data in it.
+
+A query is a command you send to a database to get it to do something, whether that's to get information out of the database or to add/update/delete something in the database. It can also aggregate information from a database into some sort of overview.
+
+## Schema
+
+If a database is a table in Microsoft Excel, then a schema is the columns. It's a rigid structure used to model data.
+
+If I had a JSON object of user that looked like `{ "name": "Brian", "city": "Seattle", "state": "WA" }` then the schema would be name, city, and state. It's the shape of the data. Some databases like PostgreSQL have strict schemas where you have to know the shape of your data upfront. Others like MongoDB let you invent it on the fly.
+
+## What are the types of databases
+
+There are many types of database available today. We're only going to cover four types but it's good to know what else is other there. Today we're covering relational databases (often called RDBMS or SQL databases,) document-based databases (often called NoSQL,) a graph database, and a key-value store. Here's a few we are _not_ covering.
+
+- **Search engines** like Solr or Sphinx are often paired with databases to make search possible. If your database doesn't support full-text search this is a tool you could pair with a database to make a site-wide search engine possible.
+- **Wide Column Databases** uses the concepts of tables, rows, and columns like a relational database but has a dynamic nature to those formats of rows and names. As such it can sorta be interepted like a two dimensional key-value store. Apache Cassandra and Google Bigtable are two famous examples of this. These databases are famous for being able to be massive scale and very resilient.
+- **Message brokers** are a vastly underutilized piece of architecture by Node.js developers that can really improve your flexibility and scalability without greatly increasing complexity. They allow apps and services to publish events/messages on a system and allow the message broker to publish/inform subscribers to those events that something happened. It's a powerful paradigm. Apache Kafka, RabbitMQ, and Celery are all related to this paradigm.
+- **Multi model databases** are databases that can actually operate in multiple different ways, fulfilling more than one of these paradigms. Azure Cosmos DB and ArangoDB are two primary examples of this. MongoDB and PostgreSQL technically are these as well since they have features that allow you to bend them into different shapes.
+
+## ACID
+
+This stands for atomicity, consistency, isolation, durability. It's an acronym that's frequently used when talking about databases as it's four of the key factors one should think about when thinking about writing queries.
+
+- Does this query happen all at once? Or is it broken up into multiple actions? Sometimes this is a very important question. If you're doing financial transactions this can be paramount. Imagine if you have two queries: one to subtract money from one person's account and one to add that amount to another person's account for a bank transfer. What if the power went out in between the two queries? Money would be lost. This is an unacceptable trade-off in this case. You would need this to be _atomic_. That is, this transaction cannot be divided.
+- If I have five servers running with one running as the primary server (sometimes called master but we prefer leader or primary) and the primary server crashes, what happens? Again, using money, what if a query had been written to the primary but not yet to the secondaries? This could be a disaster and people could lose money. In this case, we need our servers to be _consistent_.
+- _Isolation_ says that we can have a multi-threaded database but it needs to work the same if a query was ran in parallel or if it was ran sequentially. Otherwise it fails the isolation test.
+- _Durability_ says that if a server crashes that we can restore it to the state that it was in previously. Some databases only run in memory so if a server crashes, that data is gone. However this is slow; waiting for a DB to write to disk before finishing a query adds a lot of time.
+
+Not everything you do needs to be ACID compliant. ACID is safe but slow. You need to make the right trade-offs for every app and query you're making. Many of these databases allow you to be flexible per-query what level of ACID you need your query is. Some queries you want to make sure get written out to the secondary before moving on. Others it's fine with a small amount of risk that it could be lost. Some queries need to be atomic, others partial failures aren't the end of the world. It's about balancing your needs.
+
+## Transactions
+
+Along with atomicity is the idea of transaction. Some queries just need multiple things to happen at once. The way this happens is transcations. A transaction is like an envelope of transactions that get to happen all at the same time with a guarantee that they will all get ran at once or none at all. If they are run, it guarantees that no other query will happen between them. Like the bank transfer example, these can be critical in some places because a partial failure is a disaster, it either needs to all happen or not happen at all.
+
+=================
+
+# Nosql
+
+Let's hop into our first paradigm of databases, NoSQL databases. The term "NoSQL" is definitely a buzzword and actually doesn't really mean much. When you say NoSQL, you're basically saying it's just not a relational database. This can get even more fuzzy when you realize that some NoSQL databases can handle SQL queries. All-in-all, it's a barely-useful marketing term that I put in here just because you'll see it everywhere.
+
+It's more useful to make the distinction of what kind on NoSQL database we're going to be talking about. In this section we're going to be discussing a **document-based** database with MongoDB. There are lots of other NoSQL databases out there and many are quite dissimilar from each other but still get lumped together as "NoSQL" databases.
+
+## Why choose a document based database
+
+There are a myriad of reasons to choose each of these databases and a lot of them overlap. Most of the ones I'm going to show you today are what I'd call a "workhorse" database: they can handle general purpose loads of work and you don't necessarily need a specific advantage you're looking to use; you just need a database.
+
+With document-based databases, one of the most obvious and key advantages is that your data is totally unstructured and that's fine. With a relational database, you'll have to define the shape of your data upfront. You'll say something like this database table has three columns, name which is a string, age which is an integer. With a document-based database, you just start writing objects to the database and it will accomodate that. Some documents can have some fields and others can other ones. It's totally up to you. It can even be a bit of a problem when you misspell field names since the database will just happily accept the misspelled field name. Not that I have literally done that before.
+
+Document-based databases feel very familiar to JavaScript developers. It's very much like taking normal JavaScript objects and throwing them in a database to retrieved later.
+
+## Other NoSQL databases to know about
+
+There are plenty of other types of NoSQL databases out there with new ones being written fairly frequently. Today we'll focus on MongoDB but you should go poke around other awesome NoSQL databases like Cassandra, Couchbase, ReThinkDB, and others.
+
+=================
+
+# MongoDB
+
+[MongoDB][jetbrains] is one of the most popular databases in the world today. Over the past decade it has established itself as a reliable custodian of database workloads both small and large. I think it's a fairly uncontroversial thing to say it is one of the most popular NoSQL database in the world, if not the most popular one.
+
+If you look through MongoDB's history, you will find some rough patches. There was the one time it ended up dropping a lot of data and a lot of people wrote it off after that. You may come across stories or upset people if you Google MongoDB. That was a long time ago and they've had a very solid record since then so I wouldn't worry too much about it.
+
+## Let's get MongoDB going
+
+Let's dive into it. If you're running Docker like me, run the following commands
+
+```bash
+docker run --name test-mongo -dit -p 27017:27017 --rm mongo:4.4.1
+
+docker exec -it test-mongo mongo
+```
+
+This will run a new MongoDB container at version 4.4.1 and call it `test-mongo` so we can reference it by name. We then on the second command run the command `mongo` inside of that `test-mongo` container so we can do things inside of the container. The `mongo` container (which is the official container put together by MongoDB Inc themselves) runs MongoDB automatically so we don't need to do anything. We just need to connect inside the container and run our commands from within the container. At this point you should be dropped into an interactive MongoDB shell. Let's get ourselves acquainted with MongoDB!
+
+## Databases and Collections
+
+Like other databases, MongoDB has the concept of databases inside of it. A database is an overarching group of smaller collections of data. It's up to you how you want to structure your databases and collections but in general you want to keep like-things together. If you have a collection of user information and user notifications, you might consider storing those in the same database but different collections. If you have a user information collection and a collection of items for sale in your store, you might consider storing those in separate databases. Or not! There isn't a hard-and-fast rule here. Organize it how you see fit. One small consideration (don't even have to follow this either) is that if you have one large collection that gets a lot of traffic and a small collection that gets little traffic, it can be logically easier to scale those two servers separately if you put them in separate database.
+
+Collections are groups of documents. A group of objects. Almost always you want each of these objects to represent one thing. If you have a `users` collection, one object should represent one user. I've seen people do things like have throw unlike things in a collection (like putting users and items-for-sale in one collection) and it does not turn out well. Use multiple collections.
+
+Collections also have some fun capabilities. You can do capped collections where you can say "only have 100 items in this collection and toss out the oldest one when you get the 101st". You can also add indexes but we'll get there.
+
+## Let's insert some documents
+
+Inside your MongoDB console run `show dbs`. This will allow you to see all the existing databases. In order to start using one, you do `use <database name>`. Let's make our own. Run `use adoption`. If you run `db` now it'll show you're using the `adoption` database.
+
+Let's make a collection called `pets`. Run `db.pets.insertOne({name: "Luna", type: "dog", breed: "Havanese", age: 8})`. Let's break this down.
+
+The `db` refers to the database you chose with `use adoption`. If you want to use a different database, you just `use` something else.
+
+The `pets` is the name of a collections that we're creating right now on the fly. If a collection doesn't exist, it's created instantly. If it does exist, it'll just insert into that collection. We could have called `pets` anything.
+
+The `insertOne` is a function that exists on collections. As the name implies it allows you to insert one document at a time. There are a lot of ways to insert documents. Just run `db.pets.help()` to see everything available to you. Since the query language is JavaScript, the `()` are just to invoke the function.
+
+The `{name: "Luna", type: "dog", breed: "Havanese", age: 8}` is the actual object being inserted into the collection. Here we're just using strings and numbers, but you can see all the available types [here][bson].
+
+Good so far? Great! Try running `db.pets.count()`. You'll see it returns `1` because we have one pet in our pets collection. Try running `db.pets.findOne()` and you'll see it'll give us Luna back. We'll get more into querying in a second.
+
+Let's insert a lot of documents. Like, 10,000. Since we're querying with JavaScript, we can write some Array fanciness to generate an array of random objects. Copy and paste this into the MongoDB console.
+
+```javascript
+db.pets.insertMany(
+  Array.from({ length: 10000 }).map((_, index) => ({
+    name: [
+      "Luna",
+      "Fido",
+      "Fluffy",
+      "Carina",
+      "Spot",
+      "Beethoven",
+      "Baxter",
+      "Dug",
+      "Zero",
+      "Santa's Little Helper",
+      "Snoopy",
+    ][index % 9],
+    type: ["dog", "cat", "bird", "reptile"][index % 4],
+    age: (index % 18) + 1,
+    breed: [
+      "Havanese",
+      "Bichon Frise",
+      "Beagle",
+      "Cockatoo",
+      "African Gray",
+      "Tabby",
+      "Iguana",
+    ][index % 7],
+    index: index,
+  }))
+);
+```
+
+Basically this makes 10000 pet objects in an array. Because we used modulo, everyone will get the same objects every time. Now run you're `db.pets.count()` and see what you get. You should get back that you have 10,000 items in your database. Great! Let's start querying it.
+
+[jetbrains]: https://www.jetbrains.com/lp/devecosystem-2020/databases/
+[bson]: https://docs.mongodb.com/manual/reference/bson-types/
+
+=================
+
+# Querying Mongodb
+
+So now that we've put a lot of documents into our database, it's time to query our database to get information out of it. There are a variety of reasons and methods you can query a database. You could be querying a database to get one a specific record, like if you're querying for a user object to show a profile page, or you could be querying for a bunch of things at once, like if a user was searching for pets and you wanted to show five results.
+
+## findOne
+
+Let's start with basic querying. Run this in the console.
+
+```javascript
+db.pets.findOne();
+```
+
+This will go out and find the first item in the database that matches your query and return that. In this case we didn't give it a query which is the same as saying "give me anything." You'll probably get back the first item you inserted into your database which in my case is going to be a Havanese dog named Luna.
+
+Okay, so let's we want to find the 1337 item we put in the database. Try this:
+
+```javascript
+db.pets.findOne({ index: 1337 });
+```
+
+This will find you one item (of which there is only one anyway) where the index is equal to 1337. Okay, one more, let's find one where it's a dog named Spot.
+
+```javascript
+db.pets.findOne({ name: "Spot", type: "dog" });
+```
+
+## find
+
+So far we've only been looking at finding one record at time. If you want to find all documents that match your query, you'll have to use find instead of findOne. Let's try it.
+
+```javascript
+db.pets.find({ type: "dog" });
+```
+
+Notice this only giving you twenty results. What MongoDB does by default is only hand you twenty results at a time in the form of what's called an **iterator** or a **cursor**. An iterator will give you twenty records at a time and allow you to iterate over your results. Frequently this is a useful pattern because you could in theory want to iterate over your whole collection and this allows you to do it piece by piece.
+
+Try iterating now. Run this:
+
+```
+it
+it
+it
+```
+
+You'll notice that you're getting twenty different records each time. `it` will tell your iterator that you want it to iterate again on the last iterator you queried for.
+
+## count, limit, and toArray
+
+Okay, so let's try this:
+
+```javascript
+db.pets.count({ type: "dog" }); // probably pretty big number
+db.pets.find({ type: "dog" }).limit(40);
+it; // after this the cursor will end
+```
+
+`count` lets you figure our how many of something there are. `limit` lets the cursor know when you want to stop. But what if you just want to get everything all at once? Try `toArray`
+
+```javascript
+db.pets.find({ type: "dog" }).limit(40).toArray();
+```
+
+This will just dump everything out into an array which is nice if you just want everything all at once. There's a myriad of other things you can do that determine how the data is returned but you can find those fairly easily when you need them.
+
+## Query operators
+
+What if we wanted to find all senior-aged cats in our data set? MongoDB will let you do that! Let's try this
+
+```javascript
+db.pets.count({ type: "cat", age: { $gt: 12 } });
+```
+
+Note you can use these [query operators][operators] anywhere you're providing a query e.g. findOne, find, etc. The ones you're primarily going to be interested in are
+
+- \$gt - greater than
+- \$gte - greater than or equal to
+- \$lt - less than
+- \$lte - less than or equal to
+- \$eq - equals (usually not necessary)
+- \$ne - not equals
+- \$in - has the value in the array (MongoDB can store arrays and objects too!)
+- \$nin - does not have the value in the array
+
+If you wanted to see all Fidos that are not dogs you could do:
+
+```javascript
+db.pets.find({
+  type: { $ne: "dog" },
+  name: "Fido",
+});
+```
+
+## Logical operators
+
+Taking it a step further, you can do logical operators as well. Let's say you want to find birds between 4 and 8 years old
+
+```javascript
+db.pets.find({
+  type: "bird",
+  $and: [{ age: { $gte: 4 } }, { age: { $lte: 8 } }],
+});
+```
+
+You also have $or, $nor, and \$not available to you. Keep in mind that $not and $ne are different. The former is the logical operator and the latter is `!==`.
+
+## Special operators
+
+These won't be useful now but I just wanted to let you know that you can query by type (see if something is a number, array, object, etc.) with $type and you can query if a document has a field or not with $exists.
+
+There's a bunch more you can do too. MongoDB even has [geospatial operators][geo] so you can query if two points on the globe are close to each other!
+
+## Sorts
+
+Frequently you'll need to do different sorts with your queries. Let's say you're making a search page for these pets (foreshadowing what we're about to do!) Maybe the person who searching on your website is a kind soul and looking to adopt some senior dogs. They could say sort by age, descending.
+
+```javascript
+db.pets.find({ type: "dog" }).sort({ age: -1 });
+```
+
+The `-1` means descending and, as you probably guessed, 1 means ascending.
+
+## Projections
+
+Lastly, to conclude our little lesson querying (there's still a lot more you can do), let's talk about projections. The simplest way to use projections is just to limit which fields you return.
+
+```javascript
+db.pets.find({ type: "dog" }, { name: 1, breed: 1 });
+```
+
+The `1` means "definitely include this". In thise case, we're only including name and breed. If you leave something out (like age) then it doesn't come along for the ride. Notice that `_id` does come along. If you don't want that, you have to explictly exclude it
+
+```javascript
+db.pets.find({ type: "dog" }, { name: 1, breed: 1, _id: 0 });
+db.pets.find({ type: "dog" }, { name: true, breed: true, _id: false }); // note that true and false work too
+```
+
+It also works to just exclude fields which means include everything I haven't excluded
+
+```javascript
+db.pets.find({ type: "dog" }, { _id: 0 });
+```
+
+[operators]:
+[geo]:
+
+=================
+
+# Updating Mongodb
+
+## insert, insertOne, and insertMany
+
+You already encountered insert at the beginning of this section but I just wanted to disambiguate insertOne and insertMany for you. insert essentially does the job of both insertMany and insertOne: if you give it an array it will insert many and if you give it an object it will insert one. The insertOne and insertMany methods are nice because if you accidentally give it the wrong thing (like giving it an object when you meant to give it an array) it will cause an error and make you fix it. With insert, you have a higher chance of it doing the wrong thing.
+
+In general use insertOne and insertMany. This also applies to delete vs deleteMany/deleteOne, update vs updateMany/updateOne, etc.
+
+## Updates
+
+When you do updates, you'll have to give a filter as well as what you want to update. Let's just do an example
+
+```javascript
+db.pets.updateOne(
+  { type: "dog", name: "Luna", breed: "Havanese" },
+  { $set: { owner: "Brian Holt" } }
+);
+```
+
+The first object is the query. This is the same sort of query you'd use in a `.find()`. The second is your update object. Here you have a few options with the various update operators. Let's try another one. Let's say today is **every dog's** birthday. How could we increase all of their ages with one update?
+
+```javascript
+db.pets.updateMany({ type: "dog" }, { $inc: { age: 1 } });
+```
+
+This will increase the age of all dogs by 1. There are many more sorts of updates but you can take a look at the docs. [Here are the available update operators][update].
+
+Also worth noting there is an extra parameter you can updateOne and updateMany with additional options. We're about to talk about one of them in the next section, upsert.
+
+Also do note there is a replaceOne as well. This works just like updateOne but it will delete any fields you omit in your update document that exist already in the doc.
+
+## upsert
+
+MongoDB does have a concept of "upserting". This is a portmanteau of the words update and insert and means "insert a new document with these things if you don't find one that exists with that." Like maybe you want to create a new user with an email address if you haven't already, and if it does exist you want to update it with new information.
+
+Let's see how to do that. Let's say you want to want to find a dog named "Sudo" and update its owner to "Sarah Drasner" if it exists (it doesn't in our case) and create a new record with that if there isn't one.
+
+```javascript
+db.pets.updateOne(
+  {
+    type: "dog",
+    name: "Sudo",
+    breed: "Wheaten",
+  },
+  {
+    $set: {
+      type: "dog",
+      name: "Sudo",
+      breed: "Wheaten",
+      age: 5,
+      index: 10000,
+      owner: "Sarah Drasner",
+    },
+  },
+  {
+    upsert: true,
+  }
+);
+```
+
+We're playing this a bit fast and lazy. We should really make sure that we're querying for a unique object based on some sort of a unique key (we'll get into that next.) But yes, make sure you're providing a whole document with an upsert, otherwise on the insert side of upsert you'll get incomplete documents.
+
+## Deletes
+
+Deletes work almost identically to finds except instead of returning documents it deletes them. Both `deleteOne` and `deleteMany` exist (as does `delete` which is discouraged.) Let's say you wanted to delete all Havanese reptiles because that doesn't make sense.
+
+```javascript
+db.pets.deleteMany({ type: "reptile", breed: "Havanese" });
+```
+
+## findAnd\*
+
+Occasionally you need to find a document _and_ update/delete/replace it at the same time. Instead of having to do two queries and thus have a race-condition of something modifying your document in the interim there are three commands that will allow you to do just that, findOneAndUpdate,
+findOneAndReplace, and findOneAndDelete. These work basically identically to updateOne, replaceOne, and deleteOne, they just return it at thend.
+
+## bulkWrite
+
+Particularly when you're writing code, sometimes you need to run a series of queries all at once. That's probably going to be several inserts or maybe a few updates and deletes. Instead of doing a query, waiting, then serially doing the next one, etc. you can do what's called a bulkWrite. bulkWrite allows you to queue up an array of queries and it will execute those queries in the order that you provide them to MongoDB. It's possible but weird to do in the mongo CLI shell so we'll get into it once we're doing code. Suffice to say, it's just what we've been doing but instead of one query object, you provide an array of those same query objects.
+
+[update]: https://docs.mongodb.com/manual/reference/operator/update/#id1
+
+=================
+
+# Indexes in Mongodb
+
+Databases are honestly marvels of technology. I remember in my computer science program I had to write one and it could barely run the rudimentary queries it needed to pass the class. These databases are powering everything around you and munging through petabytes of data at scale.
+
+Frequently these databases can accommodate these queries without any sort of additional configurations; out of the box they're very fast and flexible. However sometimes you'll run into some performance issues for various different reasons. The queries will either be very slow, will cause a lot of load on the server running, make the server run unreliably, or even all of the above. In these cases **indexes** can help you. Indexes are a separate data structure that a database maintains so that it can find things quickly. The tradeoff here is that indexes can cause inserts, updates, and deletes to be a bit slower because they also have to update indexes as well as they just take up more room on disk. But in exchange you get very fast queries as well as some other neat properties we'll explore like enforcing unique keys.
+
+## Explain
+
+Let's start by saying I'm definitely not an a DBA, a database admin or a database architect depending on who you ask. There are people whose entire jobs are doing things like this: knowing how to optimize databases to fit usecases. Instead, I'm going to walk you through a few use cases and show you the tools I know to probe for better solutions. From there it's best to work with people who have a deep knowledge of what you're trying to.
+
+Consider this fairly simple query:
+
+```javascript
+db.pets.find({ name: "Fido" });
+```
+
+Pretty simple: find all pets named Fido. However this query does a really dastardly thing: it will actually cause the database to look at **every single record** in the database. For us toying around on our computer this isn't a big deal but if you're running this a lot in production this going to be very expensive and fragile. In this case, it'd be much more helpful if there was an index to help us. Let's first see what explain can tell us.
+
+```javascript
+db.pets.find({ name: "Fido" }).explain("executionStats");
+```
+
+The two things to notice here are the strategy it used to do our query and how many records it looked at. In this case it looks at _every_ record in our database and it used a `COLLSCAN` strategy which is the same as a linear search aka O(n) search. Not good! Let's build an index to make this work a lot better!
+
+## Create an Index
+
+```javascript
+db.pets.createIndex({ name: 1 });
+db.pets.find({ name: "Fido" }).explain("executionStats");
+db.pets.find({ name: "Fido" }).count();
+db.pets.getIndexes();
+```
+
+Notice that it went faster. In my case the speedup was about 300%. Then notice that the number of records examined is the same number as the count. Lastly you can always inspect what indexes exist using getIndexes.
+
+## Compound Indexes
+
+If you are frequently using two keys together, like type and breed for example, you could consider using a compound index. This will make an index of those two things together. In the specific case that you are querying with those things together it will perform better than two separate indexes of the two things. Since this isn't meant to be an in-depth treatise of indexes, I'll let you explore that when you need it.
+
+## Unique Indexes
+
+Frequently you want to enforce uniqueness on one of the fields in your database. A good example is that an email in your user database should be unique i.e. a user should not be able to sign up twice with the same email address. Our database of pets doesn't really have a good use case for a unique index but let's do one on index to show you how to make one. Since `_id` already exists it's a redundant to make another number unique index.
+
+```javascript
+db.pets.createIndex({ index: 1 }, { unique: true });
+```
+
+If you get an error like the one below, run a deleteOne on the duplicate key to drop one of them and then try again.
+
+```json
+{
+  "ok": 0,
+  "errmsg": "Index build failed: 681332bb-c753-45fb-80c2-00ef2ec1a4e7: Collection test.pets ( 2aa18781-33ae-4aa8-846b-934594558b72 ) :: caused by :: E11000 duplicate key error collection: test.pets index: index_1 dup key: { index: 10000.0 }",
+  "code": 11000,
+  "codeName": "DuplicateKey",
+  "keyPattern": {
+    "index": 1
+  },
+  "keyValue": {
+    "index": 10000
+  }
+}
+```
+
+Once you have it indexed try this query:
+
+```javascript
+db.pets.insertOne({ name: "Doggo", index: 10 });
+```
+
+Now this will fail because 10 already exists. As a bonus, now `index` is indexed so can easily query by it.
+
+```javascript
+db.pets.find({ index: 1337 }).explain("executionStats");
+```
+
+Notice it only looks at one record!
+
+## Text Index
+
+Frequently something you want to do is called "full text search." This is the similar to what happens you search Google for something: you want it to drop "stop words" (things like a, the, and, etc.) and you want it to fuzzy match things. Like if I was searching for "Luna Havanese dog" I'd expect to match all dogs named Luna that are Havanese.
+
+First of all, this is directly possible in MongoDB (it used to not be.) However there is entire style of database that does this for you, called search engines. [Apache Solr][solr] is the one I used to use at my old job. There are tradeoffs and things that a full separate server can do for you that MongoDB can't. And you can scale them separately which can be helpful.
+
+So in MongoDB you'll create a text index. Each collection can only have one text index so make sure you're indexing all the fields you want to in the one you choose. In our case let's index type, breed, and name.
+
+Also bears mentioning that by default it does text search in English. It's possible to set it to other languages or no language at all. [See here][text-index].
+
+```javascript
+db.pets.createIndex({
+  type: "text",
+  breed: "text",
+  name: "text",
+});
+```
+
+Okay, so now we've indexed it, how do we search it? You'll use a special \$text operator.
+
+```javascript
+db.pets.find({ $text: { $search: "dog Havanese Luna" } });
+```
+
+Okay, so notice this is doing an "any" match and not sorting on the most accurate score. Frequently this isn't what you want: you want the thing that matches most closely with your search terms. We can do that, it just doesn't do that by default.
+
+```javascript
+db.pets
+  .find({ $text: { $search: "dog Havanese Luna" } })
+  .sort({ score: { $meta: "textScore" } });
+```
+
+This will now send you back the ones that most closely resemble what you're looking for. If you want to see the actual text scores, here's how you can see them.
+
+```javascript
+db.pets
+  .find(
+    { $text: { $search: "dog Havanese Luna" } },
+    { score: { $meta: "textScore" } }
+  )
+  .sort({ score: { $meta: "textScore" } });
+```
+
+One more note, the `""` and `-` operators from Google do work here. If you want to search for all Lunas that are not cats you can do this:
+
+```javascript
+db.pets
+  .find({ $text: { $search: "-cat Luna" } })
+  .sort({ score: { $meta: "textScore" } });
+```
+
+There's more to the \$text search operator which I'll leave you to explore. [See here][text].
+
+[solr]: https://lucene.apache.org/solr/
+[text-index]: https://docs.mongodb.com/manual/tutorial/specify-language-for-text-index/
+[text]: https://docs.mongodb.com/manual/reference/operator/query/text/index.html
+
+=================
+
+# Aggregation
+
+MongoDB has a fun feature called aggregation. There's two ways of doing it, aggregation pipelines and map-reduce. Map-reduce is exactly what you'd expect if you're from a functional programming background: you provide MongoDB a map function that it will run every item in the array and then a reduce function to aggregate your collection into a smaller set of data.
+
+MongoDB also released a newer feature of aggregation pipelines that tend to perform better and can also be easier to maintain. With these you provide a configuration object to the `aggregation` pipeline
+
+What if we wanted to know how many puppies, adult, and senior dogs we have in our pets collection? Let's try just that
+
+```javascript
+db.pets.aggregate([
+  {
+    $bucket: {
+      groupBy: "$age",
+      boundaries: [0, 3, 9, 15],
+      default: "very senior",
+      output: {
+        count: { $sum: 1 },
+      },
+    },
+  },
+]);
+```
+
+- With the aggregation pipelines, you provide a step of things to do. In this case we only have one step, bucket pets into 0-2 years old, 3-8 years old, 9-15 years, and "very senior" (which is the default bucket.)
+- With the output you're defining what you want to pass to the next step. In this case we just want to sum them up by adding 1 to the count each time we see a pet that matches a bucket.
+
+This is all pets. We want just dogs. Let's add another stage.
+
+```javascript
+db.pets.aggregate([
+  {
+    $match: {
+      type: "dog",
+    },
+  },
+  {
+    $bucket: {
+      groupBy: "$age",
+      boundaries: [0, 3, 9, 15],
+      default: "very senior",
+      output: {
+        count: { $sum: 1 },
+      },
+    },
+  },
+]);
+```
+
+Using the `$match` stage of the aggregation, we can exclude every pet that isn't a dog.
+
+Last one, what if we wanted to sort the results by which group had the most pets?
+
+```javascript
+db.pets.aggregate([
+  {
+    $match: {
+      type: "dog",
+    },
+  },
+  {
+    $bucket: {
+      groupBy: "$age",
+      boundaries: [0, 3, 9, 15],
+      default: "very senior",
+      output: {
+        count: { $sum: 1 },
+      },
+    },
+  },
+  {
+    $sort: {
+      count: -1,
+    },
+  },
+]);
+```
+
+As you can see, you just add more stages to the aggregation until you gather the insights you're looking for. There are many more things you can do, so [here's a link to all the existing aggregation stages][stages].
+
+This is definitely one of the most fun parts about MongoDB. We used to use MongoDB's aggregation features to catch fraudsters in our classifieds app!
+
+[stages]: https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline/
+
+=================
+
+# Write a Node.js App with MongoDB
+
+Let's quickly write up a quick Node.js project to help you transfer your skills from the command line to the coding world.
+
+[You can access all samples for this project here][samples].
+
+Make a new directory. In that directory run:
+
+```bash
+npm init -y
+npm i express mongodb@3.6.2 express@4.17.1
+mkdir static
+touch static/index.html server.js
+code . # or open this folder in VS Code or whatever editor you want
+```
+
+Let's make a dumb front end that just makes search queries against the backend. In static/index.html put:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MongoDB Sample</title>
+  </head>
+  <body>
+    <input type="text" placeholder="Search" id="search" />
+    <button id="btn">Search</button>
+    <pre>
+        <code id="code"></code>
+    </pre>
+
+    <script>
+      const btn = document.getElementById("btn");
+      const code = document.getElementById("code");
+      const search = document.getElementById("search");
+
+      btn.addEventListener("click", async () => {
+        code.innerText = "loading";
+
+        const res = await fetch(
+          "/get?search=" + encodeURIComponent(search.value)
+        );
+        const json = await res.json();
+
+        code.innerText = "\n" + JSON.stringify(json, null, 4);
+      });
+    </script>
+  </body>
+</html>
+```
+
+Normally I'd say don't put a big script tag in there but we're going for simplicity right now. You can refactor this later to something better.
+
+In server.js, put this:
+
+```javascript
+const express = require("express");
+const { MongoClient } = require("mongodb");
+
+const connectionString =
+  process.env.MONGODB_CONNECTION_STRING || "mongodb://localhost:27017";
+
+async function init() {
+  const client = new MongoClient(connectionString, {
+    useUnifiedTopology: true,
+  });
+  await client.connect();
+
+  const app = express();
+
+  app.get("/get", async (req, res) => {
+    const db = await client.db("adoption");
+    const collection = db.collection("pets");
+
+    const pets = await collection
+      .find(
+        {
+          $text: { $search: req.query.search },
+        },
+        { _id: 0 }
+      )
+      .sort({ score: { $meta: "textScore" } })
+      .limit(10)
+      .toArray();
+
+    res.json({ status: "ok", pets }).end();
+  });
+
+  const PORT = process.env.PORT || 3000;
+  app.use(express.static("./static"));
+  app.listen(PORT);
+
+  console.log(`running on http://localhost:${PORT}`);
+}
+init();
+```
+
+**Potential problem you may see:** if you're seeing the error `UnhandledPromiseRejectionWarning: MongoError: text index required for $text query (no such collection 'adoption.pets')` then you probably have the wrong database name in your code. In my example, I called my database `adoption`. If you didn't change the name of your database, it will be called `test`. If you don't know the name of your database, run `db` in your mongo shell and it should tell you. Once you discover the name of your database, change the line `const db = await client.db("<the name of your database here>");` so that it matches the name of your database.
+
+Let's go over a few notes here. To be clear, this is mostly to show you how to connect to MongoDB from code and to show you that all those queries that you learned over the last section apply almost without modification (there are some small differences)
+
+- We grab a MongoDB connection string out of an environment variable (so you can do that if it's running on a server out in the cloud) otherwise it'll use a local running copy like we will right now.
+- You need to connect to the DB, then to a db (database), then to a collection.
+- You run all the queries at the collection level
+- find, sort, limit, toArray, deleteOne, findOneAndReplace, etc. all work the way you'd expect them to.
+
+That's it! That's a quick Node.js server that connects to MongoDB!
+
+[samples]: https://github.com/btholt/db-samples
+
+=================
+
+# MongoDB Ops
+
+I am not going to teach you how to run a MongoDB cluster in production. Chances are high you don't need to know how and chances are even higher that I wouldn't know how to teach you anyway!
+
+But before we move on to SQL I wanted to teach you a tiny bit about some of the concepts of how MongoDB servers get run in production so you can understand what's happening, understand what can go wrong, and make yourself a better developer
+
+## Primaries, Secondaries, and Replica Sets
+
+A replica set is a set of MongoDB servers (all running the `mongod` process) that all have the same set of data on them. This is done so that if one of the servers goes down, there are other servers available to step up and continue running without downtime as well as making sure that if a server blows up that you're not losing data.
+
+The primary server is the server that can accept reads (queries that don't modify anything e.g. find) and writes (queries that do modify things e.g. deleteOne, insertMany, etc.). Because it is the only server that can accept writes, it is usually the server under the most load. There is only one primary server per replica set at a time. It always has the most up-to-date information, guaranteed. It is the source of truth.
+
+The secondary servers can only accept reads. All writes must go through the primary. However if you're just doing a read operation you can freely use the secondary. It does end up storing all the information from the primary eventually but it's key to note the MongoDB has **eventual consistency**. That means the secondaries may have a lag time between when you write to the primary and when it updates the secondary. Some times this is acceptable (like storing a social feed of pictures) and some times it's not (like storing banking transactions.) MongoDB does have the ability to set write priorities so you can make your app pause until it can guarantee that all secondaries have received the write.
+
+## Arbiters and Elections
+
+When a primary server goes down, your remaining MongoDB servers hold an election. I won't go into the whole process but through an algorithm the secondaries will decide on a new primary and resume from there. This is MongoDB's failover strategy.
+
+Sometimes it's necessary to have another vote in the election, like if you're only running one primary and one secondary. In these cases you'll have another server that will be an arbiter. An arbiter just votes, it doesn't store data and cannot become a primary. You'd do this so that elections don't become deadlocked. You don't always need arbiters if you have a sufficient amount of secondaries.
+
+## Sharding
+
+Sometimes your data sets so large that it wouldn't be wise to store all of it on set of servers due to resources like RAM and CPU. In these cases it becomes necessary to shard your data. This adds a non-trivial amount of complexity to your app so I'd suggest great caution before jumping into sharding.
+
+For example let's say you're storing all the personal social media information for every person in your country. How would you shard that data across multiple replica sets? One could be tempted to say all users with last names A-M go to one set and N-Z go to another. But is that really 50/50? No, and it's not close. Frequently you'll end up with a hashing strategy of some variety. In any case, just know it's an added layer of complexity and don't adopt it without some forethought.
+
+## Managed Cloud Version
+
+In all honesty, as a developer, it's much easier to just use a managed cloud service like [MongoDB Atlas][atlas], [Microsoft Azure Cosmos DB][cosmosdb], or [Amazon Web Services DocumentDB][documentdb]. These services will manage literally everything for you so you can just focus on writing your app. It's what I do every time I go run a production database.
+
+[documentdb]: https://aws.amazon.com/documentdb/
+[cosmosdb]: https://docs.microsoft.com/en-us/azure/cosmos-db/mongodb-introduction
+[atlas]: https://www.mongodb.com/cloud/atlas
+
+=================
+
+# Intro to SQL Database
+
+First things first: when I saw SQL databases I mean relational databases (also frequently abbreviated as RDBMS, relational database management system.) It's important to note that not all relational databases use SQL and not all non-relational databases don't use SQL (i.e. some NoSQL databases do use SQL.) However I'm using the most common terminology here to help you integrate with the information already out on the Internet. This is a case (like serverless) where marketing won and we ended up with weird terminology.
+
+## What is a relational database
+
+The best way I can think of to describe a relational database is to think of a spreadsheet like Excel, Numbers, or Sheets. It's a big table with many columns and rows. Each row reprents one entry in the database and each column represents one field in the database.
+
+Most relational databases have structured schema to them; you can't just make stuff up on the fly like MongoDB. You have to follow a pre-made schema when you insert into the database. For example, when you create your address database, it will have address, city, and state on it. If someone tries to insert a "comment" column into it, it won't let them because it's outside of your pre-defined schema. This can be a benefit because it enforces some discipline in your app but it also can be inflexible.
+
+The secret power of relational databases is in their name: you can have multiple databases that all relate to each other. I guess if it's in the name it's not that secret. Whereas in MongoDB it's a bad idea to try and JOIN together documents across collections, it's a great idea for multiple tables in a relational databases to JOIN together.
+
+## What is SQL
+
+SQL stands for structured query language. It's basically a way of forming questions and statements to send to a database to create, read, update, and delete records. Each relational database has its own flavor of how it wants that SQL to look but in general they're mostly withing spitting distance of each other. Whereas with MongoDB we were sending JSON query objects, here we'll send query strings that the database will read and execute for us. It's a very powerful and flexible language but this is a deep ocean. [Technically SQL is Turing Complete][turing]. I remember my very first job, an internship actually, I was spending all day crafting enormous (dozens of lines) queries. We're not going that deep. We'll cover the basics here and then you can go deeper when you need to.
+
+The key here is that you understand how a relational databases work, can break data architectures down into relations, and know how to write proper queries to a relational databases.
+
+## The SQL Landscape
+
+Today we're going to be talking about PostgreSQL and I want to justify that decision to you. There were a lot to choose from here (whereas MongoDB was really only the choice in the NoSQL space.) Before I extol the virtues of PostgreSQL to you, let's explore what we could have chosen.
+
+## MySQL / MariaDB
+
+The other "obvious" choice would have been MySQL and honestly it's the one I've used the most personally in my career. It also backs the wildly popular WordPress and is just really popular in general with companies like Facebook, Google, and Netflix being known for being big users of them. It is absolutely a valid choice to use them today; it's highly scalable, a very well understood and mature codebase, and has plenty features to keep you happy. It is owned by Oracle which does offer some users pause (they acquired it via their Sun acquisition.)
+
+Some of the original creators of MySQL forked it after the Oracle acquisition to make MariaDB which is mostly a drop-in replacement for MySQL. It's also a very good choice and widely used today.
+
+## SQLite
+
+Another very, very common database. SQLite is a stripped down, very small, and very performant database. It's actually meant to ship with whatever server it's running with; it's not meant to be its own server. Gutting all the necessary network code and replication code makes it a tiny database easy to ship with IoT devices, on operating systems, game consoles (both PlayStation and Xbox use it!), fridges, and literally everywhere around you.
+
+It's not terribly useful for web development. While easy to run, it falls over with any sort of scale and can't be scaled independently. Useful to know for embedded scenarios but not for shipping to production
+
+## Microsoft SQL Server / Oracle / DB2
+
+All of these are commercial products. They're all fairly old products (my father actually worked on DB2!) that work well at huge scales but their price tags can be very hefty. And since I've never used them nor would I because of the great open source databases available, I'll leave you to explore them on your times.
+
+## PostgreSQL
+
+This takes us to PostgreSQL (said "post-gress"). PostgreSQL is another wonderful open source database that continues to gain lots of marketshare and how some absolutely killer features to it. We'll get into those as we go but know it scales, it is reach with great features, and is a very popular. It has illustrious users such as Apple, Microsoft, Etsy, and many others.
+
+[turing]: https://stackoverflow.com/a/7580013
+
+=================
+
+# PostgreSQL
+
+So we examined a bit of the general relational databases in the previous section, let's get into some interacting with some databases.
+
+## Let's get PostgreSQL going
+
+Let's start by getting a PostgreSQL container going. I'm going to use version 13.0 (the latest container available) and I'd recommend for this tutorial you do the same. While newer ones might be available, this is the one that will work with this tutorial.
+
+```bash
+docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d --rm postgres:13.0
+
+docker exec -it -u postgres my-postgres psql
+```
+
+We have to give it a password or PostgreSQL won't start by default. Don't worry, this isn't how'd you start it in production.
+
+At this point you should
+
+## Databases and Tables
+
+PostgreSQL has the same concept of databases as MongoDB. This will be a group of tables that are related to similar problem-area. It'll be up to you how you choose to group these. Some apps are focused enough to all be in one database; others will need many databases. It's up to you and your data architect to figure out how to do that. In general, things that should be scaled separately (like maybe payment transactions and items in your store?)
+
+Tables are similar to collections. This will be a group of records. It's like one Excel spreadsheet. A record is like an object in MongoDB. It's one thing in a table. One record would be a user in the users database.
+
+Tables will have a defined schema. Like in Excel, one column will reprent one bit of information, so too will a field in a record represent one bit of information. As opposed to MongoDB, this schema has to be defined in advance and cannot be done on the fly. Altering a table's schema is a hefty operation and on big tables can literally takes hours or days to do. Forethought is a lot more important here.
+
+This is a simple intro to this. There's a lot more to this but we'll get into as we go through our defined example.
+
+## Our first SQL queries
+
+The first order of business it create a new database. And we're going to do that using SQL. All SQL is fairly similar but are not necessarily drop-in compatible with each other. So while this would be similar in getting started to MySQL, it wouldn't be identical.
+
+First thing you'll notice is I'll capitlize all the key words. This is to make reading the query easier, you can see what's a key word and what's not at a glance. And moreover it's just common to do so I stick with common best practices.
+
+By default you connect to database "postgres" which is just a default database name. Let's make our own called `message_board`.
+
+So go ahead and run your first query here to create a new database. **Make sure you include the `;` at the end.** While the semi-colon is optional in JS it is not in SQL! It thinks you're still going until you include that `;`.
+
+```sql
+CREATE DATABASE message_boards;
+```
+
+You should see `CREATE DATABASE` underneath that as a confirmation that it went through. Great! Now we have a new database to switch to, so let's do that.
+
+```sql
+\c message_boards;
+-- \connect message_boards works too
+```
+
+This `\` notation is how you give admin commands to PostgreSQL through its `psql` CLI which is what we're using right now. In this case we're saying connect to this new database. Let's try a few other commands real quick!
+
+```sql
+-- see all databases
+\l
+
+-- see all tables in this database, probably won't see anything
+\d
+
+-- see all available commands
+\?
+
+-- see available queries
+\h
+
+-- run a shell command
+\! ls && echo "hi from shell!"
+```
+
+In case you didn't know, `--` is how you do comments in SQL.
+
+## First table
+
+Okay, so now we have a database and we're connected to it, let's create our first table.
+
+```sql
+CREATE TABLE users (
+  user_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  username VARCHAR ( 25 ) UNIQUE NOT NULL,
+  email VARCHAR ( 50 ) UNIQUE NOT NULL,
+  full_name VARCHAR ( 100 ) NOT NULL,
+  last_login TIMESTAMP,
+  created_on TIMESTAMP NOT NULL
+);
+```
+
+So let's break this down
+
+- CREATE TABLE is the command we'll use to create a new table. We're naming it the users table
+- `user_id` will be an incrementing field The first users will have a user_if of 1, the second one will have user_id of 2, etc. That's what the `GENERATED ALWAYS AS IDENTITY` means. It's autoincrementing. The PRIMARY KEY part means it's what the table will be indexed on which means inherently that it is indexed.
+- Previously PostgreSQL used a field type called `SERIAL` to describe the serially incrementing IDs. The `GENERATED AS ALWAYS` syntax is newer, more compliant to the generic SQL spec, and works better. Always use it over `SERIAL`.
+- Before, in MongoDB, we relied on the `_id` field to be that key field. PostgreSQL doesn't do that for you by default.
+- We created two VARCHARS which is the SQL way of saying string. The username will have a character limit of 25 and the email will have a charcter limit of 50. Each of them will be guaranteed unique (thanks to UNIQUE) and to not be omitted (thanks to NOT NULL).
+- They could still be empty strings with NOT NULL but you'd have to intentionally specify that.
+- full_name is not unique so you could have two Sally Rogers.
+- We our last_login field it will be the last time the user logged in. We could use this later to clean out inactive accounts. Notice this doesn't have NOT NULL so when we create a new user they can have a null login time because they haven't logged in yet.
+- Lastly we'll provide it with a date via the created_on field so we can keep track of when a user was created.
+
+We won't be going into too many more PostgreSQL data types but there are a lot. [See here][types].
+
+## First record
+
+Let's insert a user into our new table. This is like adding a new row into a spreadsheet.
+
+```sql
+INSERT INTO users (username, email, full_name, created_on) VALUES ('btholt', 'lol@example.com', 'Brian Holt', NOW());
+```
+
+- This is how you insert a new record into a relational database.
+- The `INSERT INTO` tells the SQL engine you're going to be doing an insert, and we're doing it into `users`.
+- The `()` is where you provide the order you're going to be giving the fields to PostgreSQL in the VALUES part.
+- Notice we're not providing user_id since PostgreSQL will provide that itself.
+- We're also not providing a `last_login` time because it's not required and in theory the user hasn't logged in yet.
+- For the created_on, we're using a special PostgreSQL built in function called `NOW()`. This provide the current time as a parameter in that space.
+
+You should see `INSERT 0 1` to let you know that the query succeeded. The 1 represents that 1 record was inserted successfully and the 0 represents the OID which we're not covering nor using and will be 0 for us throughout our course i.e. no need to worry about it.
+
+## See your first record
+
+We're about to get into more advance querying but I want you to see the fruits of your labor! Run this query to fetch every record and every field from a table
+
+```sql
+SELECT * FROM users;
+```
+
+You should see your one row you've inserted! Good job! You're off to a great start. We'll go over the query we just ran in the next section.
+
+[types]: https://www.postgresql.org/docs/9.5/datatype.html#DATATYPE-TABLE
+
+=================
+
+# Querying Postgresql
+
+You'll find there's a lot of depth to SQL. There are people who most of their jobs is just writing SQL. But let's hop into the basics here. First thing I want to do is insert some dummy data into our users database.
+
+[Click here][sql] for a sample set of tables for your database. What this query will do is drop all your existing tables and then re-set them up. At any time you can re-run this to get a fresh copy of your tables. You can literally just copy this whole thing and paste it into your command line connection to PostgreSQL (psql) and it'll work. There's a more elegant way to load it from the command line but we're in Docker and it's annoying so I'd just copy/paste it. It'll probably take 90 seconds to run.
+
+## SELECT
+
+Let's start with SELECT. This is how you find things in a SQL database. Let's run again the SELECT statement from our previous section and talk about it.
+
+```sql
+SELECT * FROM users;
+```
+
+This will get every field (which is what the `*` means, a.k.a. the wildcard) from the users database. This will be 1000 users.
+
+## LIMIT
+
+Let's select fewer users;
+
+```sql
+SELECT * FROM users LIMIT 10;
+```
+
+This will scope down to how many records you get to just 10.
+
+## Projection
+
+Let's just some of the columns now, not all of them (remember projections?)
+
+```sql
+SELECT username, user_id FROM users LIMIT 15;
+```
+
+In general it's a good idea to only select the columns you need. Some of these databases can have 50+ columns. Okay we've seen basic reads.
+
+## WHERE
+
+Let's find specific records
+
+```sql
+SELECT username, email, user_id FROM users WHERE user_id=150;
+SELECT username, email, user_id FROM users WHERE last_login IS NULL LIMIT 10;
+```
+
+The first one will give us one user whose user_id is 150. The second one will give us 10 users that have never logged.
+
+## AND plus date math
+
+What if we wanted to see if they hadn't logged in and were created more than six months ago?
+
+```sql
+SELECT username, email, user_id, created_on FROM users WHERE last_login IS NULL AND created_on < NOW() - interval '6 months'  LIMIT 10;
+```
+
+- This shows off the AND keyword where you can query multiple conditions.
+- This shows off a bit of date math too. To be honest every time I have to do date math I have to look it up but here's the scoop for this one. created_on is a timestamp and we're comparing to `NOW()` (the current time of the server) minus the time period of six months. This will give us all users who haven't ever logged in and have had accounts for six months.
+
+## ORDER BY
+
+What if wanted to find the oldest accounts? Let's use a sort.
+
+```sql
+SELECT user_id, email, created_on FROM users ORDER BY created_on LIMIT 10;
+```
+
+For the newest account, just add `DESC` (you can put `ASC` above, it's just implied)
+
+```sql
+SELECT user_id, email, created_on FROM users ORDER BY created_on DESC LIMIT 10;
+```
+
+## COUNT(\*)
+
+Wondering how many records we have in our database?
+
+```sql
+SELECT COUNT(*) FROM users;
+```
+
+This will tell you how many users we have in the database total. The `*` represents that we're just looking total rows. If we wanted to look at how many users have ever logged in (since COUNT will ignore NULL values)
+
+```sql
+SELECT COUNT(last_login) FROM users;
+```
+
+## UPDATE, RETURNING
+
+Let's say user_id 1 logged in. We'd need to go into their record and update their last_login. Here's how we'd do that.
+
+```sql
+UPDATE users SET last_login = NOW() WHERE user_id = 1 RETURNING *;
+```
+
+Tools we already know! Let's say user_id 2 choose to update their full_name and email
+
+```sql
+UPDATE users SET full_name= 'Brian Holt', email = 'lol@example.com' WHERE user_id = 2 RETURNING *;
+```
+
+- You just comma separate to do multiple sets.
+- Make sure you use single quotes. Double quotes cause errors.
+- RETURNING \* is optional. This is basically saying "do the update and return to me the records after they've been updated.
+
+## DELETE
+
+This works as you would expect based on what we've done before
+
+```sql
+DELETE FROM users WHERE user_id = 1000;
+```
+
+[sql]: https://btholt.github.io/complete-intro-to-databases/sample-postgresql.sql
+
+=================
+
+# Complex Sql Queries
+
+Let's get into some more complicated querying. First thing we're going to need is two more tables, comments and boards. We'll be making the data structure for a very simple message board system that has users, comments, and boards. The interesting part here is that every comment is posted by a user and therefore will need to reference the user table, and it will be posted to board and therefore will need to reference a board from the boards table. This is what you would call relational data and where relational databases really shine.
+
+## Foreign Keys
+
+Let's jot down all of our schemas for our users, boards, and comments.
+
+```sql
+
+CREATE TABLE users (
+  user_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  username VARCHAR ( 25 ) UNIQUE NOT NULL,
+  email VARCHAR ( 50 ) UNIQUE NOT NULL,
+  full_name VARCHAR ( 100 ) NOT NULL,
+  last_login TIMESTAMP,
+  created_on TIMESTAMP NOT NULL
+);
+
+CREATE TABLE boards (
+  board_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  board_name VARCHAR ( 50 ) UNIQUE NOT NULL,
+  board_description TEXT NOT NULL
+);
+
+CREATE TABLE comments (
+  comment_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  user_id INT REFERENCES users(user_id) ON DELETE CASCADE,
+  board_id INT REFERENCES boards(board_id) ON DELETE CASCADE,
+  comment TEXT NOT NULL,
+  time TIMESTAMP
+);
+
+```
+
+- The first two should look pretty familiar. The only new-ish thing is the user of the `TEXT` data type. This is basically a VARCHAR with no cap (or rather a very large cap.) It has some other small differences but for now just know it's uncapped text.
+- `user_id INT REFERENCES users(user_id)` is technically all you need to make a foreign key. The first part, `INT`, makes it known that this key will be stored as an integer. It then uses the `REFERENCES` key word to let PostgreSQL know that it is a foreign key. A foreign key is a field in one table that references the **primary** key of another table. In this case, a comment will reference the user_id in another table, the users table. The `users` part say it's reference the users table and the `(user_id)` is the name of the key in the other table. In this case, we called both user_id (which will probably happen somewhat frequently but not always) so they match but if we had called the user_id just id in the users table, we'd put `id` there.
+- `ON DELETE CASCADE` lets PostgreSQL know what to do if the user gets deleted. So if a user makes a comment on the message board and then deletes their account, what do you want it to do? If you omit the `ON DELETE CASCADE` part, it's the same as doing `ON DELETE NO ACTION` which means it'll just error and not let you delete the user until you've deleted all the comments first. You can also do `ON DELETE SET NULL` which means it'll make the user_id null on any comment that was made by that user.
+- We've dne the same for board_id, just referencing the boards table instead of the users table.
+
+Let's go ahead and put some dummy data in there. Copy / paste [this query] into your psql terminal. It may take a few minutes.
+
+## JOIN
+
+So a user goes to your message board and click
+
+```sql
+SELECT comment_id, user_id, LEFT(comment, 20) AS preview FROM comments WHERE board_id = 39;
+```
+
+- Two new things here. The `LEFT` function will return the first X characters of a string (as you can guess, RIGHT returns the last X charcters). We'r doing this because this hard to read otherwise in the command line.
+- The `AS` keyword lets you rename how the string is projected. If we don't use AS here, the string will be returned under they key `left` which doesn't make sense.
+
+Okay so you'll get something back like this:
+
+```
+ comment_id | user_id |       preview
+------------+---------+----------------------
+         63 |     858 | Maecenas tristique,
+        358 |     876 | Mauris enim leo, rho
+        429 |     789 | Maecenas ut massa qu
+        463 |     925 | Phasellus sit amet e
+        485 |     112 | Maecenas tristique,
+        540 |     588 | Nullam porttitor lac
+        545 |     587 | Praesent id massa id
+        972 |     998 | Aenean lectus. Pelle
+(8 rows)
+```
+
+We can't really use this to display the comments on our web app because your users don't care what user_id posted these comments, they want the username. But that doesn't live in the comments table, that exists in the users table. So how do we connect those together?
+
+```sql
+SELECT
+  comment_id, comments.user_id, users.username, time, LEFT(comment, 20) AS preview
+FROM
+  comments
+INNER JOIN
+  users
+ON
+  comments.user_id = users.user_id
+WHERE
+  board_id = 39;
+```
+
+Magic! The big key here is the `INNER JOIN` which allows us to match up all the keys from one table to another. We do that in `ON` clause where we say user*ids match is where you can \_join* together those records into one record.
+
+Let's talk about `INNER` for a second. There are multiple kinds of JOINs. INNER is a good one start with. It says "find where user_ids match. If you find a record where the user_id exists in one but not in the other, omit it in the results." This isn't a particularly useful distinction for us right now becase all user_ids will exist in users and we're assured of that due to the foreign key restraints we used. However if a comment had a user_id that didn't exist, it would omit that comment in the results.
+
+[![diagram of SQL joins](./images/SQL_Joins.png)](https://commons.wikimedia.org/wiki/File:SQL_Joins.svg)
+
+A `LEFT JOIN` would say "if a comment has a user_id that doesn't exist, include it anyway." A `RIGHT JOIN` wouldn't make much sense here but it would include users even if they didn't have a comment on that board.
+
+We can also an `OUTER JOIN` which would be everything that _doesn't match_. In our database, that would be nothing because we're guaranteed everything has match due to our constraints.
+
+You can also do a `FULL OUTER JOIN` which says just include everything. If it doesn't have a match from either side, include it. If it does have a match, include it.
+
+Another rarely useful join is the `CROSS JOIN`. This gives the _Cartesian product_ of the two tables which can be enormous. A Cartesian product would be every row matched with every other row in the other table. If you have A, B, and C in one table with D and E in the other, your CROSS JOIN would be AD, AE, BD, BE, CD, an CE. If you do a cross join between two tables with 1,000 rows each, you'd get 1,000,000 records back.
+
+Tables can also be self-joined. Imagine you have a table of employees and one of the fields is direct_reports which contains employee_ids of employees that report the original employee. You could do a SELF JOIN to get the information for the reports.
+
+Honestly 95% of what I do is covered by INNER and LEFT joins.
+
+One neat trick we could do here is a NATURAL JOIN.
+
+```sql
+SELECT
+  comment_id, comments.user_id, users.username, time, LEFT(comment, 20) AS preview
+FROM
+  comments
+NATURAL INNER JOIN
+  users
+WHERE
+  board_id = 39;
+```
+
+This will work like it did above. NATURAL JOIN tells PostgreSQL "I named things the same in both tables, go ahead and match it together yourself. This is fun when it lines up but I don't often end up using it myself. And in the end it's often better to be explicit what about your intent is for joins. So use cautiously and/or for neat party tricks.
+
+## Subqueries
+
+Let's say you need to find all the comments made by Maynord Simonich. You could make two queries: query for Kate's user_id from users, and then use that user_id to query comments. Or we could do it all at once with a subquery!
+
+```sql
+SELECT comment_id, user_id, LEFT(comment, 20) FROM comments WHERE user_id = (SELECT user_id FROM users WHERE full_name = 'Maynord Simonich');
+```
+
+This will query for Maynord's ID and immediately use that in the other query. Make sure this returns exactly one row or this will fail. You can use subqueries in a variety of ways but it generally looks like this with `()` surrounding the subqueries. You can even have subqueries in your subqueries!
+
+## GROUP BY
+
+What if you were making a report and you wanted to show the top ten most posted-to message boards? You could run something like this.
+
+```sql
+SELECT
+  boards.board_name, COUNT(*) AS comment_count
+FROM
+  comments
+INNER JOIN
+  boards
+ON
+  boards.board_id = comments.board_id
+GROUP BY
+  boards.board_name
+ORDER BY
+  comment_count DESC
+LIMIT 10;
+```
+
+`GROUP BY` is going to collapse all the same board_names (guaranteed unique due to our UNIQUE constraint on the board) and then we use the `COUNT(*)` to count how many boards have that same `board_name`. So this works! This will give us the precise number of comments on the top board!
+
+Now what if you wanted to see the boards that were the least populated? We could just flip the `ORDER BY` to `ASC` but there's a distinct problem here: what happens if there's no post on a board?
+
+```sql
+SELECT
+  boards.board_name, COUNT(*) AS comment_count
+FROM
+  comments
+INNER JOIN
+  boards
+ON
+  boards.board_id = comments.board_id
+GROUP BY
+  boards.board_name
+ORDER BY
+  comment_count ASC
+LIMIT 10;
+```
+
+It wouldn't show up because of the `INNER JOIN`. So what do we need? Well, the "LEFT" board here is the comments (the one that's in the FROM will be LEFT) and we don't need anything more from the comments board since all of them will show up in the query thanks to the foreign key constraints. So then we need a RIGHT JOIN! We need to include boards that don't have any comments. We also need to change `COUNT(*)` because any row counts for a `*` and that would make it look like there was one comment on our empty boards when in reality there was zero. We need therefore it to be `COUNT(comment_id)` because that will actually count how many comments exist.
+
+```sql
+SELECT
+  boards.board_name, COUNT(comment_id) AS comment_count
+FROM
+  comments
+RIGHT JOIN
+  boards
+ON
+  boards.board_id = comments.board_id
+GROUP BY
+  boards.board_name
+ORDER BY
+  comment_count;
+```
+
+Tricky! It's important to know your data, what you expect to see, and be aware of the constraints of your queries!
+
+=================
+
+# JSON in PostgreSQL
+
+## Error in this course
+
+This course incorrectly chooses to use the `JSON` data type when it should have used the `JSONB` data type. Everything in this course will work with either one but when you're creating your own database you almost always (let's just say always) want to choose JSONB because it stores the data in a more queryable format and more optimized for querying whereas JSON is a glorified text field. So feel free to use `JSONB` everywhere where it says `JSON` or you can just use `JSON` knowing that when you go do it for yourself you're going to use `JSONB`. I've correct the references in this doc from JSON to JSONB but the videos will still says JSON.
+
+[For more info read this blog post about it][jsonb].
+
+## JSON
+
+Sometimes you have data that just doesn't have a nice schema to it. If you tried to fit it into a table database like PostgreSQL, you would end having very generic field names that would have to be interprepted by code or you'd end up with multiple tables to be able describe different schemas. This is one place where document based databases like MongoDB really shine; their schemaless database works really well in these situations.
+
+However PostgreSQL has a magic superpower here: the JSONB data type. This allows you to put JSONB objects into a column and then you can use SQL to query those objects.
+
+Let's make an example for our message board. You want to add a new feature that allows users to do rich content embeds in your message board. For starters they'll be able to embed polls, images, and videos but you can imagine growing that in the future so they can embed tweets, documents, and other things we haven't dreamed up yet. You want to maintain that future flexibility.
+
+This would be possible to model with a normal schema but it'd come out pretty ugly and hard to understand, and it's impossible to anticipate all our future growth plans now. This is where the `JSONB` data type is going to really shine. These are the queries we ran to create them. (you don't need to run them again)
+
+```sql
+DROP TABLE IF EXISTS rich_content;
+
+CREATE TABLE rich_content (
+  content_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+  comment_id INT REFERENCES comments(comment_id) ON DELETE CASCADE,
+  content JSONB NOT NULL
+);
+
+INSERT INTO rich_content
+  (comment_id, content)
+VALUES
+  (63, '{ "type": "poll", "question": "What is your favorite color?", "options": ["blue", "red", "green", "yellow"] }'),
+  (358, '{ "type": "video", "url": "https://youtu.be/dQw4w9WgXcQ", "dimensions": { "height": 1080, "width": 1920 }}'),
+  (358, '{ "type": "poll", "question": "Is this your favorite video?", "options": ["yes", "no", "oh you"] }'),
+  (410, '{ "type": "image", "url": "https://btholt.github.io/complete-intro-to-linux-and-the-cli/WORDMARK-Small.png", "dimensions": { "height": 400, "width": 1084 }}'),
+  (485, '{ "type": "image", "url": "https://btholt.github.io/complete-intro-to-linux-and-the-cli/HEADER.png", "dimensions": { "height": 237 , "width": 3301 }}');
+```
+
+- The `JSONB` data type is the shining star here. This allows us to insert JSON objects to be queried later.
+- PostgreSQL won't let you insert malformatted JSON so it does validate it for you.
+- Notice you can have as much nesting as you want. Any valid JSON is valid here.
+
+So let's do some querying! We're going to use two new symbols, `->` and `->>`. The `->` means "give me back the JSON object". The return type will be a JSON object, even if it's just a string. It's basically a black box to PostgreSQL and it treats all JSON the same, whether it's an array, object, or just a string. The `->>` means "give me this back as a string."
+
+Find the all the different types of rich content.
+
+```sql
+SELECT content -> 'type' FROM rich_content;
+```
+
+You'll get something like this
+
+```md
+## ?column?
+
+"poll"
+"video"
+"poll"
+"image"
+"image"
+```
+
+It repeats poll and image twice because there's two of those. What if we just wanted the distinct options and no repeats? GROUP BY would work but let's detour to talk about `SELECT DISTINCT`. SELECT DISTINCT will deduplicate your results for you. Try this (this will error)
+
+```sql
+SELECT DISTINCT content -> 'type' FROM rich_content;
+```
+
+PostgreSQL doesn't actually know what data type it's going to get back from JSON so it refuses to do any sort of comparisons with the results. We have to tell PostgreSQL "this is definitely going to be text.
+
+```sql
+SELECT DISTINCT CAST(content -> 'type' AS TEXT) FROM rich_content;
+```
+
+However this is a ton easier if you just `->>`
+
+```sql
+SELECT DISTINCT content ->> 'type' FROM rich_content;
+```
+
+That's the key difference between `->` and `->>`.
+
+What if we wanted to only query for polls?
+
+```sql
+SELECT content ->> 'type' AS content_type, comment_id FROM rich_content WHERE content ->> 'type' = 'poll';
+```
+
+Unfortunately due to the execution order (WHERE happens before SELECT) you can't reference content_type and have to give it the full expression.
+
+Okay, last one. What if we wanted to find all the widths and heights?
+
+```sql
+SELECT
+  content -> 'dimensions' ->> 'height' AS height,
+  content -> 'dimensions' ->> 'width' AS width,
+  comment_id
+FROM
+  rich_content;
+```
+
+You can use the `->` and `->>` multiple times to look at nested values. This will give you back the ones that don't have heights and widths too. To filter those out just do:
+
+```sql
+SELECT
+  content -> 'dimensions' ->> 'height' AS height,
+  content -> 'dimensions' ->> 'width' AS width,
+  comment_id
+FROM
+  rich_content
+WHERE
+  content -> 'dimensions' IS NOT NULL;
+```
+
+[jsonb]: https://www.citusdata.com/blog/2016/07/14/choosing-nosql-hstore-json-jsonb/
+
+=================
+
+# Indexes in Postgresql
+
+This works very similarily to how it works in MongoDB so we're going to breeze over this pretty quickly.
+
+Let's take this query:
+
+```sql
+SELECT comment_id, user_id, time, LEFT(comment, 20) FROM comments WHERE board_id = 39 ORDER BY time DESC LIMIT 40;
+```
+
+This should be a pretty common query if we're making a message board: grab all the comments for a particular board. Let's see what PostgreSQL does under the hood by adding an `EXPLAIN` in front of it.
+
+```sql
+EXPLAIN SELECT comment_id, user_id, time, LEFT(comment, 20) FROM comments WHERE board_id = 39 ORDER BY time DESC LIMIT 40;
+```
+
+This part should break your heart: `Seq Scan on comments`. This means it's looking at every comment in the table to find the answer. This is a place we'd need an index to prevent this. Let's make an index on board_ids to speed this up.
+
+```sql
+CREATE INDEX ON comments (board_id);
+EXPLAIN SELECT comment_id, user_id, time, LEFT(comment, 20) FROM comments WHERE board_id = 39 ORDER BY time DESC LIMIT 40; -- run again
+```
+
+If you're looking the EXPLAIN again, you'll see it does a `Bitmap Heap Scan` instead of a Seq Scan. Much better!
+
+Let's do one more; all users should have a unique username. Let's ensure that with a unique index.
+
+```sql
+CREATE UNIQUE INDEX username_idx ON users (username);
+INSERT INTO users (username, email, full_name, created_on) VALUES ('aaizikovj', 'lol@example.com', 'Brian Holt', NOW()); -- this will fail
+```
+
+- The `username_idx` is just a name for the index. You can call it whatever you want.
+- Try inserting a duplicate username. The query will fail.
+- A pleasant byproduct is that this field is now indexed so you can easily search it.
+
+PostgreSQL has [more types of indexes][indexes]. Feel free to explore them more.
+
+[indexes]: https://www.postgresql.org/docs/13.0/indexes.html
+
+=================
+
+# Node.js App with PostgreSQL
+
+Let's quickly write up a quick Node.js project to help you transfer your skills from the command line to the coding world.
+
+[You can access all samples for this project here][samples].
+
+Make a new directory. In that directory run:
+
+```bash
+npm init -y
+npm i express pg@8.4.1 express@4.17.1
+mkdir static
+touch static/index.html server.js
+code . # or open this folder in VS Code or whatever editor you want
+```
+
+Let's make a dumb front end that just makes search queries against the backend. In static/index.html put:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PostgreSQL Sample</title>
+  </head>
+  <body>
+    <input type="text" placeholder="Board ID Number" id="search" />
+    <button id="btn">Search</button>
+    <pre>
+        <code id="code"></code>
+    </pre>
+
+    <script>
+      const btn = document.getElementById("btn");
+      const code = document.getElementById("code");
+      const search = document.getElementById("search");
+
+      btn.addEventListener("click", async () => {
+        code.innerText = "loading";
+
+        const res = await fetch(
+          "/get?search=" + encodeURIComponent(search.value)
+        );
+        const json = await res.json();
+
+        code.innerText = "\n" + JSON.stringify(json, null, 4);
+      });
+    </script>
+  </body>
+</html>
+```
+
+Normally I'd say don't put a big script tag in there but we're going for simplicity right now. You can refactor this later to something better.
+
+In server.js, put this:
+
+```javascript
+const express = require("express");
+const { Pool } = require("pg");
+const pool = new Pool({
+  connectionString:
+    "postgresql://postgres:mysecretpassword@localhost:5432/message_boards",
+});
+
+async function init() {
+  const app = express();
+
+  app.get("/get", async (req, res) => {
+    const client = await pool.connect();
+    const [commentsRes, boardRes] = await Promise.all([
+      client.query(
+        `SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = ${req.query.search}`
+        // "SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = $1",
+        // [req.query.search]
+      ),
+      client.query("SELECT * FROM boards WHERE board_id = $1", [
+        req.query.search,
+      ]),
+    ]);
+    res
+      .json({
+        status: "ok",
+        board: boardRes.rows[0] || {},
+        posts: commentsRes.rows,
+      })
+      .end();
+    await client.end();
+  });
+
+  const PORT = process.env.PORT || 3000;
+  app.use(express.static("./static"));
+  app.listen(PORT);
+
+  console.log(`running on http://localhost:${PORT}`);
+}
+init();
+```
+
+- This app is intentionally very similar to MongoDB one to show you accessing a database is pretty similar across the board.
+- We're using a connection pool. PostgreSQL can only handle so many connections and it's a slow process to constantly and disconnect. This instead will hold onto as many connections as it needs to and reuse them as it can.
+- We're using two queries. This is common. In this case we can optimize each query individually and probably even cache each result individually for performance.
+- I'm lazily requesting `*` here. You should request only what you need.
+- With rich*content, it will create a new row in the response for \_each* rich_content row it gets. You'd have to combine these in the code which is okay. There are some fancier way to query to get it pre-combined or you could just do a third query.
+
+## SQL Injection
+
+- We're using what's a called a parameterized query with the `$1` business. Whenever you put user-given content directly into an SQL statement you need to be aware of the danger that a user can abuse that to run queries themselves against your database, potentially exposing sensitive data (like our user table) or doing destructive things (like dropping all of our tables).
+
+Let's say we were a little less cautious and our code looked like this:
+
+```javascript
+const express = require("express");
+const { Pool } = require("pg");
+const pool = new Pool({
+  connectionString:
+    "postgresql://postgres:mysecretpassword@localhost:5432/message_boards",
+});
+
+async function init() {
+  const app = express();
+
+  app.get("/get", async (req, res) => {
+    const client = await pool.connect();
+    const [commentsRes, boardRes] = await Promise.all([
+      client.query(
+        `SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = ${req.query.search}`
+        // "SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = $1",
+        // [req.query.search]
+      ),
+      client.query("SELECT * FROM boards WHERE board_id = $1", [
+        // req.query.search,
+        39,
+      ]),
+    ]);
+    res
+      .json({
+        status: "ok",
+        board: boardRes.rows[0] || {},
+        // posts: commentsRes.rows,
+        posts: commentsRes,
+      })
+      .end();
+    await client.end();
+  });
+
+  app.use(express.static("./static"));
+  app.listen(process.env.PORT || 3000);
+}
+init();
+```
+
+- What if we put `1; SELECT * FROM users; --` as our search term. The `1;` would satisfy the first query, and then we could run a second query to show all of the users in our database. Very, very bad.
+- Now, I had to change some code to actually get it to display the exfiltrated data but that's not even necessary. What if we put `1; DROP TABLE users; --`? It'd wipe out our entire users database! Hope we have a backup.
+- There's actually a lot more they can do. They could add a new user to PostgreSQL, grab its IP address, and then connect to the database itself.
+- Needless to say, this is a disaster if it happens to you. Parameterized queries prevent this (the way we coded it above). It won't let the thing going into the query be anything that SQL can interept as an action.
+
+[samples]: https://github.com/btholt/db-samples
+
+=================
+
+# Hasura
+
+[Hasura][hasura] is a tool too cool to not talk about. It's a server you will put inside your cluster of servers that allows you to treat your database like it was a GraphQL data source. If you don't know GraphQL, it's a really nice way to write queries against any data source. [Frontend Masters has an amazing class from Scott Moss on it][hasura-help] if you want to skill up at it.
+
+I just want to show how to quickly get it up and running with what we've been doing and you can play more with it later.
+
+Okay, so this is the tricky bit here. If the following command here doesn't work for you, you may have to mess around with your connection string to get it to work. [See here][here] if you have problems.
+
+```bash
+docker run -d -p 8080:8080 \
+  -e HASURA_GRAPHQL_DATABASE_URL=postgresql://postgres:mysecretpassword@host.docker.internal:5432/message_boards \
+  -e HASURA_GRAPHQL_ENABLE_CONSOLE=true --name=my-hasura --rm \
+  hasura/graphql-engine:v1.3.2
+```
+
+With any luck you'll have Hasura running in Docker. `docker ps` can confirm if it is or not. If not, maybe try their [Docker Compose][compose] and re-run our [queries][sql] to get your data replicated in a fresh database.
+
+Once you're running, head to [http://localhost:8080](http://localhost:8080) to play around with it. Specifically you'll want to click the data tab at the top and all tables to it then head back to the GraphiQL tab to run some queries.
+
+I'm not a GraphQL expert anymore so I won't walk you through the paces but here's an example of one if we wanted to get info about a board
+
+```graphql
+{
+  boards(where: { board_id: { _eq: 39 } }) {
+    board_id
+    board_name
+    board_description
+  }
+  comments(where: { board_id: { _eq: 39 } }) {
+    board_id
+    comment
+    comment_id
+    time
+    user_id
+  }
+}
+```
+
+[scott]: https://frontendmasters.com/courses/client-graphql-react/introduction/
+[hasura]: https://hasura.io/
+[help]: https://hasura.io/docs/1.0/graphql/core/getting-started/index.html#get-started-using-an-existing-database
+[sql]: https://btholt.github.io/complete-intro-to-databases/sample-postgresql.sql
+[compose]: https://hasura.io/docs/1.0/graphql/core/getting-started/docker-simple.html
+
+=================
+
+# PostgreSQL Ops
+
+Like the MongoDB section, my goal here is not to teach you to be a DBA. [Take a look at the documentation][docs]. There is _a lot_ to managing a database in production and I am simply not equipped to take you there.
+
+## Primary & Secondary / Master & Slave
+
+I expose you to the terms master & slave so that you know when reading dated docs that you know what they're talking about but don't use those terms due to horrible connotations. The better, preferred terms are primary and secondary or standby. PostgreSQL no longer has the term slave anywhere in their docs.
+
+Like MongoDB, PostgreSQL has a replication strategy that allows you to write to a primary server (and read from it) as well as reading from the secondaries.
+
+## User Accounts
+
+When creating accounts for your servers to connect to PostgreSQL in production, make multiple accounts. Each account should only have access to what it needs and nothing else. Do you have one service that only works with users and a different one that only works with comments? Give them scoped access to tables and databases. Never use the superuser (like we just did) in production.
+
+I'll leave it at this. There's a lot more to ops but these I felt are the most important points for devs to know.
+
+[docs]: https://www.postgresql.org/docs/13/admin.html
+
+=================
+
+# Graph Databases
+
+Another tool in your toolbox should be graph databases. Graph databases, as the name belies, are wonderful for defining data that has complex relationships with other pieces of data in your database. The docs for Neo4j (the database we'll be learning today) uses the examples of movies, actors/actresses, and directors. A movie will have many actors and actresses, and one or more directors while the actors, actresses, and directors will all likely have been in more than one movies. Some people like Taika Waititi or Angelina Jolie have done both acting and directing! This is where a graph database can come in super handy.
+
+## Nodes / Entities
+
+A node in a graph database represents a thing, an entity. In our movies example above, it would either be a movie or a person. These nodes will have certain labels to denote those. In these case, a person would probably a label of Person and then one or both of Actress (I'm just going to combine Actor and Actress into Actress for brevity) and Director. This is basically saying "this is what kind of node this is."
+
+Our example is going to be employees and employers. So a place of work would have a Company label and people could have a Person label.
+
+## Relationships / Edges
+
+Nodes can have relationships between each other. Companies EMPLOYED people or CONTRACTED with them, people MANAGED other people or WERE_PEERS with each other. Many of these relationships have a direction liked MANAGED, other are more biredirectional like WERE_PEERS. In Neo4j every relationship has a direction but sometimes you can just ignore it like in the case of WERE_PEERS. Other times you need two relationships to between nodes to describe adequately the graph. A good example is if you were describing who loved who in a play: if Taylor loved Sue, it wouldn't mean that Sue also loved Taylor. You'd need a relationship in both directions.
+
+Neo4j calls these connections relationships but know that lots of graphs will call these edges.
+
+Nodes can have a relationship with themselves. If Taylor loves herself and we want to express that, she could have a self-referential relationship of love.
+
+## Properties
+
+Both nodes and relationships have properties. These would be like fields or columns. For an employee it might be their full name, location, etc. For a company it could be its location, business type, and other things like that.
+
+## Other Graph Databases
+
+I chose to do Neo4j because it's the one I've used and it's one of the most popular if not the most popular. Other databases out there exist but the concepts will largely be the same.
+
+This will be a much lighter overview than MongoDB and PostgreSQL. This is more to make you aware that this tool exists and may solve one of your future problems but it is a specialized tool whereas MongoDB and PostgreSQL are much more general purpose.
+
+=================
+
+# Neo4j
+
+Let's get our database up and running! Run the following.
+
+```bash
+docker run -dit --rm --name=my-neo4j -p 7474:7474 -p 7687:7687 --env=NEO4J_AUTH=none neo4j:4.1.3
+```
+
+This will spin up a new instance of Neo4j in docker and expose both its HTTP client and its querying port. We're going to start by querying the commandline called `cypher-shell` and then we'll move on to the awesome browser experience.
+
+First thing to know is that the database is called Neo4j and the query language is called Cypher, just like the database is PostgreSQL and the query language is SQL. There are other graph query langauges like Gremlin but we'll just be talking Cypher today.
+
+So let's get connected. Run the following:
+
+```bash
+docker exec -it my-neo4j cypher-shell
+```
+
+This should drop you into an interactive with Neo4j. The first thing we're going to do is use a CREATE statement to make our first actor, Michael Cera. I love the movie Scott Pilgrim vs. the World so we're going to describe the actors in it here.
+
+```cql
+CREATE (Person {name:'Michael Cera', born:1988});
+```
+
+You can see we created a new node with a label of Person and two attributes: a name of Michael Cera and a birth year of 1988. CREATE (Person {name:'Michael Cera', born:1988});
+
+Now what if we want to find that same record?
+
+```cql
+MATCH (p {name: "Michael Cera"}) RETURN p;
+```
+
+- Now we're using a shorthand variable, `p`. We could call this anything.
+- The first part reprsents what we're querying for. We didn't specify what label it was going to be but we have. Then it would look like `MATCH (p {name: "Michael Cera"}) RETURN p;`
+- You need the return at the end or you wouldn't get anything back.
+
+Let's create a movie and then query for it.
+
+```cql
+CREATE (m:Movie {title: 'Scott Pilgrim vs the World', released: 2010, tagline: 'An epic of epic epicness.' }) RETURN m;
+```
+
+- This will create and return all in the same query because there's no semicolon so it's treated as one query.
+- It's easy to make big complicated queries with Cypher.
+
+Let's now make them associated with each other so that Michael Cera acted in Scott Pilgrim vs the World.
+
+```cql
+MATCH (Michael:Person),(ScottVsWorld:Movie)
+WHERE Michael.name = "Michael Cera" AND ScottVsWorld.title = "Scott Pilgrim vs the World"
+CREATE (Michael)-[relationship:ACTED_IN {roles:["Scott Pilgrim"]}]->(ScottVsWorld)
+RETURN relationship;
+```
+
+- The first match says we're looking for two separate things, a Person and a Movie.
+- We then give a WHERE (there are a few ways to write queries that all work).
+- We then identify that we're going to CREATE something new.
+- This reads like ASCII art You have (node) - \[RELATIONSHIP] -> (node). This identifies that Michael ACTED_IN Movie. The -> identifies the direction of the relationship. We also can totally right it as (Scott Pilgrim vs the World) <- \[ACTED_IN] - (Michael Cera). Both work.
+- `relationship` is a variable that refers to the new relationship we just created. It's optional but I wanted to return it at the end.
+- Neo4j recommends you do CapitalCasing with label names (like Person and Movie) and that you SCREAMING_CASE relationship types (like DIRECTED and ACTED_IN.) I just follow their recommendations. [See here][naming].
+
+Okay, so let's put a few more relationships to the movie in. Copy/paste this to add a few more actors, actresses, and the director. (How many good actors and actresses were in Scott Pilgrim!?)
+
+```cql
+MATCH (ScottVsWorld:Movie) WHERE ScottVsWorld.title = "Scott Pilgrim vs the World"
+CREATE (Anna:Person {name:'Anna Kendrick', born:1985})
+CREATE (Brie:Person {name:'Brie Larson', born:1989})
+CREATE (Aubrey:Person {name:'Aubrey Plaza', born:1984})
+CREATE (Mary:Person {name:'Mary Elizabeth Winstead', born:1984})
+CREATE (Kieran:Person {name:'Kieran Culkin', born:1982})
+CREATE (Chris:Person {name:'Chris Evans', born:1981})
+CREATE (Edgar:Person {name:'Edgar Wright', born:1974})
+CREATE
+(Anna)-[:ACTED_IN {roles:['Stacey Pilgrim']}]->(ScottVsWorld),
+(Brie)-[:ACTED_IN {roles:['Envy Adams']}]->(ScottVsWorld),
+(Aubrey)-[:ACTED_IN {roles:['Julie Powers']}]->(ScottVsWorld),
+(Mary)-[:ACTED_IN {roles:['Ramona Flowers']}]->(ScottVsWorld),
+(Kieran)-[:ACTED_IN {roles:['Wallace Wells']}]->(ScottVsWorld),
+(Chris)-[:ACTED_IN {roles:['Lucas Lee']}]->(ScottVsWorld),
+(Edgar)-[:DIRECTED]->(ScottVsWorld);
+```
+
+Shouldn't be anything too surprising, just a lot of stuff being added at once.
+
+So let's do a relationship query now. Find all movies Aubrey Plaza has acted in according to our database.
+
+```cql
+MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
+WHERE p.name = "Aubrey Plaza"
+RETURN m.title;
+```
+
+- It's actually pretty easy when you see it written out. That's one of the nice parts of Cypher is that it reads well for the most part. It can start having a lot of `([{}])` which can get to be a bit much.
+- The `>` part of `->` is optional. If you omit the direction in the query it just assumes you're saying "find me a relationship here, I don't care which way the direction goes."
+
+One thing you'll notice is that Aubrey Plaza isn't connected to any of the other people directly, just via being attached to the same movie. What if we wanted to find every person who acted in the same movie as Aubrey (in this case everyone we've added so far.)
+
+```cql
+MATCH (p:Person)-[:ACTED_IN]->(Movie)<-[:ACTED_IN]-(q:Person)
+WHERE p.name = "Aubrey Plaza" AND q.name <> "Aubrey Plaza"
+RETURN q.name;
+```
+
+- There you go! We just describe out the relationship a bit further and use those variables.
+- `<>` is how you do not equals in Cypher
+- Technically Aubrey was in the movie with herself? In any case we have to say don't include her in the results if we don't want to have her.
+
+But what if we wanted to find everyone who was younger than Aubrey that acted in the same movie?
+
+```cql
+MATCH (p:Person)-[:ACTED_IN]->(Movie)<-[:ACTED_IN]-(q:Person)
+WHERE p.name = "Aubrey Plaza" AND q.born > p.born
+RETURN q.name;
+```
+
+## Constraint
+
+Just like in the other databases you can enforce uniqueness which can be helpful. Here's how you'd do that (though a bad idea in this case because there are lots of actors, actresses, and directors named the same thing as there are multiple movies called the same thing.)
+
+```cql
+CREATE CONSTRAINT ON (a:Person) ASSERT a.name IS UNIQUE;
+CREATE CONSTRAINT ON (a:Movie) ASSERT a.title IS UNIQUE;
+```
+
+[naming]: https://neo4j.com/docs/cypher-manual/4.1/syntax/naming/
+
+=================
+
+# Neo4j Browser
+
+Let's hop into their nice portal that Neo4j provides. Open [http://localhost:7474](http://localhost:7474) in a browser. When asked to authenticate just choose the drop down "no authentication." If you didn't provide the no auth option on startup, the default username and password is neo4j/neo4j.
+
+This lets you run queries from the browser and see visualizations!
+
+The first thing that confused me was where to enter queries. I made a screenshot to show you but it's at the top in a text bar.
+
+![Neo4j browser query area](./images/neo4j-browser.png)
+
+Click in that text area and then you can run queries there. Let's run a quick one to see everyone who acted in Scott Pilgrim vs the World.
+
+```cql
+MATCH (p:Person)-[:ACTED_IN]->(m:Movie)
+WHERE m.title = "Scott Pilgrim vs the World"
+RETURN p, m;
+```
+
+![Neo4j browser data visualization](./images/neo4j-viz.png)
+
+You get a nice little graph view of your nodes and relationships. You can also see everything as a table if that's better for your data.
+
+Another very cool feature of the browser is it has some built in datasets that you can use to play around with the query features. They have a built in movie database so let's use that. Run the query from the browser (this won't work in cypher-shell)
+
+```cql
+:play movie-graph
+```
+
+This will pop up a little slide show that teaches some querying. Click the next arrow to get to the next page.
+
+![Neo4j play movies next button](./images/neo4j-next.png)
+
+From there click on the query in the middle of the page.
+
+![Neo4j play movies query button](./images/neo4j-query.png)
+
+Lastly, quick the run button in the query area
+
+![Neo4j play movies run button](./images/neo4j-run.png)
+
+This will insert a lot of movies and people into your database. Alternatively, [here is a link][sample] to the same query you can copy / paste into either the browser or cypher-shell. It should be the exact same data so no need to do both.
+
+[sample]: https://btholt.github.io/complete-intro-to-databases/sample-neo4j.cql
+
+=================
+
+# Complex Neo4j Queries
+
+This section assumes you've inserted all the people and movies from the previous section. If not, [run this query][sample] to get all the data.
+
+Let's do some queries to familiarize ourselves with the data.
+
+```cql
+MATCH (n) RETURN distinct labels(n), count(*);
+```
+
+This will query the database for all nodes (which is the `(n)` part, notice no label) and then it uses the builtin `labels()` function to get all the labels, and then counts those with `count(*)` function.
+
+```cql
+MATCH (n)-[r]->() RETURN type(r), count(*);
+```
+
+Similar to above, we are now counting how many relationships we have in a database.
+
+Okay, so let's pick an actor or actress and find out what other people they've been in movies with. I'll pick Keanu Reeves here.
+
+```cql
+MATCH (Keanu:Person)-[:ACTED_IN]->(m:Movie)<-[:ACTED_IN]-(Costar:Person)
+WHERE Keanu.name = "Keanu Reeves"
+RETURN DISTINCT Costar.name, count(*)
+ORDER BY count(*) DESC, Costar.name;
+```
+
+- We've seen similar queries before as far as the MATCH goes.
+- Similar to above we're using a DISTINCT clause and then using `count(*)` to aggregate how many movies Keanu appeared in these movies with these people in.
+- ORDER BY should look familiar as it works very similar to PostgreSQL. I gave it two fields to order by so it'll order first by quantity of films they're in together then alphabetical by name.
+
+If you're using the browser and you want to see a pretty graph, try this:
+
+```cql
+MATCH (Keanu:Person)-[:ACTED_IN]->(m:Movie)<-[r:ACTED_IN]-(Costar:Person)
+WHERE Keanu.name = "Keanu Reeves"
+RETURN Costar, m, Keanu;
+```
+
+If you want the nice graphics you need to return whole nodes and not just fields.
+
+## Degrees of Kevin Bacon
+
+So the whole point of this dataset is to solve the [Six Degrees of Kevin Bacon][bacon] problem i.e. every actor and actress in Hollywood can be connected Kevin Bacon via them having acted in a film that acted in a film with him directly, with someone who was in a film with Kevin Bacon, or with someone who acted in a film with someone who was in a film with Kevin Bacon, and so-on-and-so-forth up to six degrees of separation.
+
+So let's see how you could solve that problem with our dataset. Let's see how close Keanu is. (run this in the browser)
+
+```cql
+MATCH path = shortestPath(
+  (Bacon:Person {name:"Kevin Bacon"})-[*]-(Keanu:Person {name:"Keanu Reeves"})
+)
+RETURN path;
+```
+
+- `shortestPath` is a function that will find the shortest path between two nodes by looking at their relationships.
+- The variable `path` ends up being a path type. It contains all the information for a whole path within your grasp.
+- You can run this in cypher-shell but it'll give you a lot of data back.
+
+For something more friendly to see in cypher-shell, just look at the length
+
+```cql
+MATCH path = shortestPath(
+  (Bacon:Person {name:"Kevin Bacon"})-[*]-(Keanu:Person {name:"Keanu Reeves"})
+)
+RETURN length(path);
+```
+
+To unwind this in a way that would be readable in cypher-shell with all the movies and actors/actresses you could do this:
+
+```cql
+MATCH path = shortestPath(
+    (First:Person {name:"Kevin Bacon"})-[*]-(Second:Person {name:"Keanu Reeves"})
+)
+UNWIND nodes(path) AS node
+RETURN coalesce(node.name, node.title) AS text;
+```
+
+- UNWIND takes something not a list and makes it a list. With `nodes(path)` we're getting all the nodes out (which will be Persons and Movies)
+- `coalesce` is necessary because Persons have names and Movies have titles. This will take the first thing in there that's not null.
+- We use AS here to make these things easier to refer to later (both `node` and `text`)
+
+## Find Degrees in a Network
+
+You could imagine if this was a recommendation engine, you may want to recommend people other actors and actresses based on movies people have appeared in together. What if we wanted to take that two degrees out?
+
+```cql
+MATCH (Halle:Person)-[:ACTED_IN*1..4]-(Recommendation:Person)
+WHERE Halle.name = "Halle Berry"
+RETURN DISTINCT Recommendation.name
+ORDER BY Recommendation.name;
+```
+
+This will give you that extended network of people to check out. If you wanted to include diretory and writers in that count, just omit the `:ACTED_IN` so it's `-[*1..4]-` and that will give you any relationship.
+
+[sample]: https://btholt.github.io/complete-intro-to-databases/sample-neo4j.cql
+[bacon]: https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon
+
+=================
+
+# Indexes in Neo4j
+
+Just as with PostgreSQL and MongoDB, frequently having an index becomes very important to query performance for your "hot paths" for your database querying habits.
+
+Let's say a new facet of our app is that people can find celebrities born the same year they are. Your query would look something like this.
+
+```cql
+MATCH (p:Person) WHERE p.born = 1967 RETURN p;
+```
+
+A fairly simple query but like we've seen before, this will look at every person on the graph to examine their birth year. Imagine you had all of IMDB's database; that query could wreck a system. Let's use EXPLAIN to see why.
+
+```cql
+EXPLAIN MATCH (p:Person) WHERE p.born = 1967 RETURN p;
+```
+
+You'll see it gives you a pretty in-depth answer that it will scan all 133 persons and then narrow it down to 13. Let's throw an index on Person's born attribute.
+
+```cql
+CREATE INDEX FOR (p:Person) ON (p.born);
+EXPLAIN MATCH (p:Person) WHERE p.born = 1967 RETURN p;
+MATCH (p:Person) WHERE p.born = 1967 RETURN p;
+```
+
+Now you'll see it immediately can narrow it down. My computer saw a 6x increase in query speed.
+
+[Neo4j has a great article on query planning][query-planning] if you want to dig further into improving query performance.
+
+Lastly, sometimes it's useful to see all existing indexes. Try this:
+
+```cql
+CALL db.indexes;
+```
+
+[query-planning]: https://neo4j.com/docs/cypher-manual/4.1/query-tuning/
+
+=================
+
+# Node.js App with Neo4j
+
+Let's quickly write up a quick Node.js project to help you transfer your skills from the command line to the coding world.
+
+[You can access all samples for this project here][samples].
+
+Make a new directory. In that directory run:
+
+```bash
+npm init -y
+npm i express neo4j-driver@4.1.2 express@4.17.1
+mkdir static
+touch static/index.html server.js
+code . # or open this folder in VS Code or whatever editor you want
+```
+
+Let's make a dumb front end that just makes search queries against the backend. In static/index.html put:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neo4j Sample</title>
+  </head>
+  <body>
+    <input type="text" placeholder="Person 1" id="person1" />
+    <input type="text" placeholder="Person 2" id="person2" />
+    <button id="btn">Search</button>
+    <pre>
+        <code id="code"></code>
+    </pre>
+
+    <script>
+      const btn = document.getElementById("btn");
+      const code = document.getElementById("code");
+      const person1 = document.getElementById("person1");
+      const person2 = document.getElementById("person2");
+
+      btn.addEventListener("click", async () => {
+        code.innerText = "loading";
+
+        const res = await fetch(
+          `/get?person1=${encodeURIComponent(
+            person1.value
+          )}&person2=${encodeURIComponent(person2.value)}`
+        );
+        const json = await res.json();
+
+        code.innerText = "\n" + JSON.stringify(json, null, 4);
+      });
+    </script>
+  </body>
+</html>
+```
+
+- Normally I'd say don't put a big script tag in there but we're going for simplicity right now. You can refactor this later to something better.
+- It'd be way better if we had a dropdown of all actors, actresses, and directors in the graph instead of freeform text. I'll leave you to make that query and update the UI.
+
+In server.js, put this:
+
+```javascript
+const express = require("express");
+const neo4j = require("neo4j-driver");
+
+const CONNECTION_STRING =
+  process.env.NEO4J_CONNECTION_STRING || "bolt://localhost:7687";
+
+const driver = neo4j.driver(NEO4J_CONNECTION_STRING);
+
+async function init() {
+  const app = express();
+
+  app.get("/get", async (req, res) => {
+    const session = driver.session();
+    const result = await session.run(
+      `
+        MATCH path = shortestPath(
+            (First:Person {name: $person1 })-[*]-(Second:Person {name: $person2 })
+        )
+        UNWIND nodes(path) as node
+        RETURN coalesce(node.name, node.title) as text;
+    `,
+      {
+        person1: req.query.person1,
+        person2: req.query.person2,
+      }
+    );
+
+    res.json({
+      status: "ok",
+      path: result.records.map((record) => record.get("text")),
+    });
+
+    await session.close();
+  });
+
+  app.use(express.static("./static"));
+  app.listen(process.env.PORT || 3000);
+}
+init();
+```
+
+- Neo4j has its own transfer protocol (as opposed to HTTP) called bolt. Both PostgreSQL and MongoDB have their own too.
+- Like PostgreSQL's pools, Neo4j's driver does that for you and gives you a client via a session. Make sure you close sessions when you're done so connections can be reused.
+- We're doing a parameterized query just like PostgreSQL. As you can see you're sending a string to Neo4j which is the interpreting that string as a command. Any time this is happening you could suffer an injection attack. Luckily you can do the same thing here with a parameterized query so the driver ensures nothing bad can be injected.
+- This is basically the Kevin Bacon query but generalized to be any two people.
+- Neo4j gives you back a list of Record objects and you have to call `get()` on each of the records to get the attributes you want which is what we did with the map statement to get each of the names and titles.
+
+[samples]: https://github.com/btholt/db-samples
+
+=================
+
+# Neo4j Ops
+
+I admittedly know far less about running Neo4j in production. The biggest consideration here is that if you want to run anything other than a single server of Neo4j at a time (which is basically anyone who want to run Neo4j in production) then you need to buy an enterprise license from them. The Community edition is suitable for hobby tasks and very-small scale things but any sort of real product dev at a company means you need to pay them (which to me isn't the worst thing.) All the core functionality of the graph database does exist in the community edition. Everything we just did was on the community edition.
+
+The enterprise edition has support for clusters of server (primaries and secondaries.) Its other key is its ability to do backups without downtime. The Community version does do backups but it has to stop the server while it does it.
+
+There's a bunch of other features that enterprise has that companies will need like ActiveDirectory integration, unlimited size (Community does have a cap, a large cap, but still a cap on the graph size), and some other stuff.
+
+That's it for Neo4j! Hope you liked it!
+
+=================
+
+# Key Value Store
+
+A key-value store is a very different beast than what we've been looking at so far. The first thing to realize is that very rarely will a key-value store be your primary database. It will almost always be a supplementary tool to another database that you're using. There are examples of people _just_ using a key-value store so I can be proven wrong but I'll say that's a very advance and rarer use case. You'd best know what you're doing.
+
+Key-value stores have a few interesting characteristics of what makes them interesting. One of their biggest pluses is they tend to be very simple in terms of their APIs and capabilities. This is a feature in the sense they're easy to understand and easy to use. Due to their simple nature and simple operations, this makes them highly scalable and able to deals with extreme amounts of traffic (even more than our other databases) because they can't do complicated queries. Whereas you can send an SQL query to PostgreSQL to join multiple tables and aggregate them into fascinating insights, with a key-value store you're limited more-or-less to "write this to the database" and "read this from the database". They do a few more things but that's the gist.
+
+I like to think of a key-value store as a giant JavaScript object. You can `store['my-key'] = 5` and then later you can come back later and ask for `store['key']` and get `5` back. Honestly that's 90% of the use right there. You store a value under a key and then later you can ask for that key back. There are a few other operations you can too and we'll get there, but that's the general idea.
+
+## Use cases
+
+Key-value stores are commonly used as caches. Imagine you have a very expensive PostgreSQL query that takes five seconds to run, is commonly needed by users, and rarely updates. If your app ran that five second query every single time a user needed to see that data it would bring down your servers. Since it rarely updates what we could do is only run that query once a day and then store the result in Redis. Instead of your app running the query against PostgreSQL, it would read first from the key-value store. If it found it, it would use that instead. This is an extreme example of when to use caching but it can be a very useful mechanism for increasing app performance.
+
+Another good use case is non-essential data that is frequently used but it would be okay if it went away. A really good example of that is storing session data for users browsing your site. If your entire cache dropped every use would log out. It's not ideal but it's not the end of the world either. We'll get into in a second but you normally don't want mission critical data in one of these key-value stores.
+
+Another good use case is analytics or telemetry. Most of these key-value stores are very good at quick arithmetic operations like increment, decrement, and other such number-modifying operations. So if you're counting page views on a high traffic site, a key-value is possibly a good place to put it.
+
+There are plenty of other use cases and we'll do a few so you can see but keep an open mind. People do a lot of amazing things with key-value stores.
+
+## Key-value stores to choose from
+
+You have a few options to choose from but I'll highlight a few quick ones for you.
+
+### PostgreSQL hstore
+
+Our old friend PostgreSQL does have a built in key-value store mechanism called hstore! We won't be focusing too much on this feature of PostgreSQL but it's worth you knowing about. hstore is more about the paradigm of using keys to store values than it is for caching and high scale like the other key-vaue stores are. You don't want to do high-traffic caching or sessions via hstore, for example. However if you're interested in storing some of your in key-value pairs instead of in a table, hstore is a good idea for that.
+
+### Memcached
+
+One of the oldest key-value store databases still heavily in use. Like SQLite, its strength is its simplicity. Unlike all the other databases we've talked about, it is not designed to have clusters, it doesn't have a ton of features, and it won't even write to disk! Everything in Memcached is always kept in memory and if it runs out of memory it just starts evicting old stuff out of the store. Memcached is perfect for sessions and caching where it's data where it's accessed a lot but it's not the end of the world if it gets evicted since if your server shuts down it will lose everything. Very high performance but has its down sides.
+
+Memcached only stores strings. You can put anything in the strings but it doesn't do any validation whatsoever. People will frequently store JSON objects stringified to get other data types into it.
+
+### Redis
+
+This is the tool we'll be focusing on and one I've used a lot in my career. Redis stands for **re**mote **di**ctionary **s**erver. It has many similar facets that Memcached does but it's more feature-rich product. It can do multiple servers (called clusters), has multiple data types, will actually write your cache to disk so it can restore state after a server restarts, and lots of other features. It's meant to be a bit less volatile than Memcached but still be aware you don't get the same sort of data guarantees that get with a database like MongoDB or PostgreSQL.
+
+=================
+
+# Redis
+
+Let's get Redis running through Docker. Run this
+
+```bash
+docker run -dit --rm --name=my-redis -p 6379:6379 redis:6.0.8
+docker exec -it my-redis redis-cli
+```
+
+This should drop you into an interactive shell with Redis. Let's start with some basic sets and gets.
+
+## SET and GET
+
+```redis
+SET name "Brian Holt"
+GET name
+```
+
+There ya go. That's it. Pack it up. Go home. We're done here.
+
+I mean, just kidding, but pretty close. Redis commands are almost very simple like this. You send a command (e.g. `GET` and `SET`), a key (e.g. `name`) and a value (e.g. the string `"Brian Holt"`.)
+
+## Naming Keys
+
+Let's talk a second about naming keys. It's not sustainable to just a flat name like `name`. Unlike PostgreSQL and MongoDB where you have tables and collections to logically separate entities, with Redis it's all one mishmosh of stuff. Only the keys separate what's in there. So that means you need some sort of key system to keep things separate yet retrievable.
+
+Let's say you cache user information. The most commons strategy is to use `:` to separate and "namespace" keys. So if you had three users named `btholt`, `sarah_edo` and `scotups`, you may store their user info in three different keys like this: `user:sarah_edo`, `user:btholt`, and `user:scotups`. Now we know we can always retrieve `user:<user name here>` whenever we want user info. We also don't have to worry that if we cache payments later that we'll overwrite the `scotups` key, we can just namespace it different like `payment:scotups`, `payment:1marc`, etc. You can even go further and have multiple layers like `user:address:btholt`. These keys can actually be up to 512MB in length (don't do that haha) so you can have very long key names. Again, Redis just see this as a key so it's up to us how we want to namespace it. Redis won't enforce anything about it.
+
+While I see `:` mostly as the delimiter, you'll see some use `/` too.
+
+Technically Redis keys are "binary safe" which means you could have a JPEG (like the actual image itself) as a key. In general I wouldn't using a binary like that directly since the key will be long and the key comparison it will do will slow down Redis but you could MD5 an image and use that as a key if you were using Redis to disallow-list images or something like that.
+
+## INCR DECR INCRBY DECRBY
+
+A very common thing is wanting to do is do some quick additions or substracts on a value in the store. One of them could be that you're tracking page views. You could do something like this:
+
+```redis
+SET visits 0
+INCR visits
+INCR visits
+INCR visits
+DECR visits
+```
+
+Every time a user hits your website, you could just send a quick command to Redis to increment its store. You don't need to know right then what the count of visits is. It's enough to blindly fire off "whatever is there, add 1". I added a `DECR` at the end just so you can see how to decrement too.
+
+What if you need to add or subtract more than just one? One case could be that you're tracking someone's score in a (American) football game and one team scores a touchdown. You could do:
+
+```redis
+SET scor
+INCRBY score:seahawks 6
+DECRBY score:broncos 3
+```
+
+Same idea, you just have to tell Redis by how much you want to add or subtract.
+
+## MSET MGET
+
+Another thing you can do is do multiple gets at a time as well as multipe sets
+
+```redis
+MSET score:seahawks 43 score:broncos 8
+MGET score:seahawks score:broncos
+```
+
+You can have a lot of keys here so this is useful if you need to write or get a lot of things at once.
+
+There is also [pipelines][pipelines] as well as [transactions][transactions] available to you as well if you need to batch write things. That's beyond the scope of this intro but just be aware all of these are helpers for doing multiple things at once.
+
+## EXISTS
+
+This is very helpful for making sure you don't duplicate anything. If you're write code you're write a code that needs to explore a maze and you want to make sure you don't revisit points on a cartesian plane. You could do something like
+
+```redis
+SET plane:0:0 visited
+EXISTS plane:1:0
+SET plane:1:0 visited
+EXISTS plane:0:0
+EXISTS plane:1:1
+SET plane:1:1 visited
+```
+
+So it would check each spot on the graph if it had been there, if it had, it would try the next area until it could find somewhere it hadn't been there before. EXISTS will just give you a true or false if a key exists.
+
+## DEL
+
+Sometimes you need to explictly need to delete something from the cache.
+
+```redis
+SET greeting hello
+EXISTS greeting
+DEL greeting
+EXISTS greeting
+```
+
+=================
+
+# Redis Command Options
+
+## NX and XX
+
+These allow you to tell Redis "fail if this key already exists" or "fail if this key doesn't already exists". Occasionally this can be helpful.
+
+Note the `#` comments aren't valid so don't copy and paste those parts.
+
+```redis
+SET color blue XX # fails because it doesn't exist yet
+SET color blue NX # succeeds because it didn't exist
+SET color blue XX # succeeds because it does exist
+SET color blue NX # fails because it does exist
+```
+
+Just thing that `NX` is succeeds when **n**ot e**x**ists and `XX` is the other one.
+
+You could actually re-implement our plane explorer above with this.
+
+```redis
+SET plane:0:0 visited NX # succeeds
+SET plane:1:0 visited NX # succeeds
+SET plane:0:0 visited NX # fails
+SET plane:1:1 visited NX # succeeds
+```
+
+And now you can just track if a read/write fails or succeeds to know if you've been there before.
+
+## TTL
+
+TTL stands for **t**ime **t**o **l**ive. The idea here is you can put an expiration on a key in Redis and after that time Redis will automatically clean up the record for you. MongoDB and PostgreSQL also possess this ability but it becomes essential to caching.
+
+Let's say you run a fitness app and a user wants to see all their fitness statistics for their workouts. Let's say this calculation is fairly expensive to do so it'd be better if we didn't do it multiple times a minute if a user refreshes the page. And typically that data doesn't update so frequently; people don't work out all the time. Yet after an hour or so that data is stale: our users want to see fairly up to date information. We could do this:
+
+```redis
+SET fitness:total:btholt 750kj EX 3600
+```
+
+This will set the key of `fitness:total:btholt` to expire after an hour after which it'll delete itself. Think of `EX` meaning expires. EX is always in seconds. Then in your code you'll first try to grab the cache. If something is there, it means it's still valid so go ahead and serve that. If it's not there, it means you need to recalculate it and you go ahead and do it right then.
+
+There is also `PX` if you need milliseconds.
+
+If you want to see it in action, try this.
+
+```redis
+SET test_expire hi EX 5
+EXISTS test_expire
+```
+
+## Thundering herd
+
+A word of caution: the _thundering herd_ problem is something to consider. Let's say that 1,000 users hit that page all at the same time when the cache has expired. Our server will miss the cache 1,000 times and try to calculate the response 1,000 times. This is referred to as the thundering herd problem. Caching is difficult business. It's not a huge possibility here because we're just targeting one user but if it was a real possibility that multiple users could hit a cache miss then you need to mitigate that. A good way is that the server _only_ reads from the cache and then a separate background job updates the cache automatically (and thus you wouldn't use TTLs at all.)
+
+After five seconds EXISTS will return false. Very useful for all sorts of caching strategies.
+
+=================
+
+# Redis Data Types
+
+Redis has a few differnt types of data. We won't go over all of them because most of them cover more advance usecases but so you know here they are:
+
+- Strings (binary safe, so you could write the contents of JPEG here)
+  - Technically numbers/integers are implemented as strings
+- Lists (i.e. arrays)
+- Sets
+- Sorted sets (similar to above but every thing has a "score" to it so you can grab the top ten values. Think priority queue sort of idea)
+- Hashes (think JS object or Python hash)
+- HyperLogLogs (not kidding, that's the name, we're not covering them)
+- Streams (basically an append-only stream of data, think an ongoing log of data)
+
+You've already seen a string. Try running
+
+```redis
+SET name Brian
+TYPE name # string
+SET visits 10
+TYPE visits # string
+```
+
+## Lists
+
+I don't find myself frequently needing lists with Redis but a good use case may be notifications for a user. Let's say you have a user that has three notifications you need to add
+
+```redis
+RPUSH notifications:btholt "Call your mom" "Feed the dog" "Take out trash"
+LRANGE notifications:btholt 0 -1
+```
+
+- `RPUSH` can be thought of as a push on a stack. You're adding thing(s) to the end of a list.
+- `LRANGE` can be thought of as the `GET` for lists (GET doesn't work on lists). It always requires the indexes you want to get so `0 -1` gets you the whole list. You can give it `1 5` and that will be the 1 index (i.e. the second) element to the 5 index element. Negative numbers count back from the end with -1 being the last element, -2 being the penultimate, etc.
+
+Okay, so let's say btholt dismisses the last item on the list. You could do.
+
+```redis
+RPOP mylist
+```
+
+- This, like pop on stack, will return the last item on the list and remove it from the list.
+- LPOP does the same from the front of the list.
+- LPUSH also works as well, adding items to the front.
+- LTRIM allows you to truncate list. If I said `LTRIM notifications:btholt 0 5` it'd drop any notifications beyond five. This is useful if we don't let btholt get any more than five notifications at a time.
+
+## Hashes
+
+Think of hashes like an object in Redis. Maybe we could repsent btholt's user like this
+
+```redis
+HMSET btholt:profile title "principal program manager" company "Microsoft" city "Seattle" state "WA"
+HGET btholt:profile city
+HGETALL btholt:profile
+```
+
+Userful if we don't want to have separate keys for all of these. Do note that most of the operators like `INCR` exists for hashes as well e.g. `HINCR`. [See here][hash].
+
+## Sets and Sorted Sets
+
+A set is just a group of things. In our case it will be a group of strings which won't have a concept of order. For example if you had a set of colors. There's no "order" to a set of colors, it's just a group. We could do this.
+
+```redis
+SADD colors red blue green yellow
+SMEMBERS colors
+SISMEMBER colors green # true
+SISMEMBER colors gold # false
+SPOP colors # removes and returns a random element
+```
+
+There's another sort of set that's called a sorted set that allows you to add priorities so that you can ask for the top ten things in a list. We won't spend a lot of time on them but here's a quick demonstration
+
+```redis
+ZADD ordinals 3 third
+ZADD ordinals 1 first
+ZADD ordinals 2 second
+ZADD ordinals 10 tenth
+ZRANGE ordinals 0 -1
+```
+
+It's basically an array that sorts itself on the fly based on those priorities you give to it.
+
+If you're keen to learn more [see here][sorted-sets].
+
+## HyperLogLog
+
+Best name ever.
+
+So HLLs are _very similar_ conceptually to a bloom filter which if you've never heard of, I already teach about in one my courses! [See here][bloom-filter].
+
+The general gist if you have an extremely large set of data and need the ability to say something is definitely _not_ in the data set but don't care about false positives. That is to say you need the ability to say "this is not in the data set" and you have tolerance for the algorithm to say "this is not in the data set" even when it was some times. HLLs in Redis allow you to do that. HLLs have a very low false positive rate and a small memory footprint even on large data sets so if you have a problem that fits its use case it's definitely something to consider.
+
+[See here for more docs][hll].
+
+## Streams
+
+Streams are fairly new and not something I've found use for. If you're adding a lot of data to a source and need to be able to subscribe to updates for it (maybe like log streams or readings from an IoT device like a temperature sensor) then this could be useful for you.
+
+[See here][streams].
+
+[hash]: https://redis.io/commands#hash
+[sorted-sets]: https://redis.io/topics/data-types-intro#redis-sorted-sets
+[bloom-filter]: https://btholt.github.io/four-semesters-of-cs-part-two/bloom-filters
+[hll]: https://redis.io/topics/data-types-intro#hyperloglogs
+[streams]: https://redis.io/topics/streams-intro
+
+=================
+
+# More Redis Concepts
+
+Redis has a pretty large surface area of capabilties and power that you should be aware of. These are going to be for advance to very-advance use cases of Redis (as in I have never shipped anything with these in them.)
+
+## EVAL and Lua
+
+Redis has a built in interpreter for Lua which is a fairly simple scripting language. If you need to do a lot of things all at once or for whatever reason need a bit more logic than a simple command that the built-in Redis commands can handle, this is an option.
+
+I'll say once you're in the territory of "I need Redis to evaluate Lua for me", you may want to be asking some questions about what you're doing.
+
+Let's run one for fun, try this one
+
+```redis
+EVAL "for i = 0,9,1 do redis.call('SET', 'lua_key_' .. i, i * 5) end" 0
+```
+
+`EVAL` allows us to pass some Lua to Redis. In this case we're doing a loop and setting ten keys in Redis, `lua_key_0` through `lua_key_9`. Don't worry too much about learning Lua. It's meant to be a very straightforward language to pick up when you need to.
+
+The 0 at the end represents we're not giving any of the keys that Redis is meant to operating on to Redis to know in advance. Redis wants to know the key names in advance so that if it's in Redis Cluster mode (aka sharded) it can know where to send these queries. If we don't give it those keys in advance it makes this incompatible with Redis Cluster. But we're not in Cluster mode so it's fine.
+
+Let's see a bit more complicated.
+
+```redis
+SET lua_key_name cool_stuff_
+EVAL "for i = 0,9,1 do redis.call('SET', redis.call('get', KEYS[1]) .. i, i * ARGV[1]) end" 1 lua_key_name 100
+```
+
+Here we're referencing the key we're passing (so we're still not fully Cluster compatible since we're making up keys on the fly) and an argument via the `KEYS` and `ARGV` arrays. Keep in mind Lua arrays start at 1, not 0. Same idea at then end though!
+
+There's also the ability to load whole scripts into Redis externally so you can track the scripts separately and then SHA check them. Feel free to look into that yourself.
+
+## Pub/Sub
+
+In several capacities, Redis can do publish / subscribe messaging. You can subscribe to a namespace of keys and then whenver those keys update, you can receive a notification to all listening clients. Very useful for real time notifications where you want your code to react to changes instead of some sort of polling strategy. [See here][pubsub] for more details.
+
+## Transactions
+
+On some occasions you'll want some sort of all-or-nothing sort of behavior from Redis but you don't have the ability to send all those commands at once. Like maybe you need to set multiple keys, delete others, and increments yet different ones all at the same time, and you don't anything happening in the middle of it. This is called a _transaction_. With Redis you can be guaranteed that either all of the commands in a transaction will be run, or none will, and nothing _else_ will happen in the middle of those commands. In this sense these transactions are _atomic_ or cannot be broken up.
+
+You'll used the `MULTI`, `EXEC`, `DISCARD`, and `WATCH` commands to execute transactions in Redis. [See here][transactions] to read more.
+
+## LRU
+
+Some times you just want Redis to act as a simple cache (like Memcached) where you can just write an infinite number of things to Redis and it'll just keep evicting old stuff from memory like a capped collection in MongoDB.
+
+Redis has this capability through a feature called LRU or **l**east **r**ecently **u**sed where Redis will kick out the least recently used thing in its store to make way for new things.
+
+Imagine you have a service that serves users' profile pictures that gets hit a lot (maybe like Gravatar.) You have all these in a database somewhere but you want to serve most of your traffic from Redis only some from your other database. You could use an LRU cache for this. Let's say you have 100 million users. You may not want to keep all those in Redis all at once.
+
+The first thing you would do is set how big you want Redis to get. 100MB, 1GB, 10GB, whatever you have space for. Then in your code you first check to see if the request URL is in the cache. If it is, serve it, if it's not, find in it in the other database, write it to Redis, and serve it to the user. Then Redis, once it reached its space limit, when you wrote to it would evict the least recently used key. The idea is that you will keep the most used keys easily since those users will be using them a lot and users who rarely use it will just have to hit the database and therefore you'll maximize your cache hits!
+
+What I just described is exactly how Memcached works and if that's _all_ you need (and don't mind if you have to rewarm (aka repopulate) that cache again if Redis crashes) then I'd suggest Memcached because it's so fast. However Redis has many ways of doing key eviction and I'll just leave this here for you to peruse later. [See here][lru].
+
+[pubsub]: https://redis.io/topics/notifications
+[transactions]: https://redis.io/topics/transactions
+[lru]: https://redis.io/topics/lru-cache
+
+=================
+
+# Node.js App with Redis
+
+Let's quickly write up a quick Node.js project to help you transfer your skills from the command line to the coding world.
+
+[You can access all samples for this project here][samples].
+
+Make a new directory. In that directory run:
+
+```bash
+npm init -y
+npm i express redis@3.0.2 express@4.17.1
+mkdir static
+touch static/index.html server.js
+code . # or open this folder in VS Code or whatever editor you want
+```
+
+Let's make a dumb front end that just makes search queries against the backend. In static/index.html put:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redis Sample</title>
+  </head>
+  <body>
+    <h1 id="visitors">…</h1>
+    <script>
+      async function registerPageView() {
+        const res = await fetch("/pageview");
+        const { views } = await res.json();
+        document.getElementById("visitors").innerText = `${views} visitors!`;
+      }
+      registerPageView();
+    </script>
+  </body>
+</html>
+```
+
+Then let's make a server.js. Put this in there
+
+```javascript
+const { promisify } = require("util");
+const express = require("express");
+const redis = require("redis");
+const client = redis.createClient();
+
+const rIncr = promisify(client.incr).bind(client);
+
+async function init() {
+  const app = express();
+
+  app.get("/pageview", async (req, res) => {
+    const views = await rIncr("pageviews");
+
+    res.json({
+      status: "ok",
+      views,
+    });
+  });
+
+  const PORT = process.env.PORT || 3000;
+  app.use(express.static("./static"));
+  app.listen(PORT);
+
+  console.log(`running on http://localhost:${PORT}`);
+}
+init();
+```
+
+- The Redis client for Node.js _still_ doesn't support promises natively so we can use a function called `promisify` from the Node.js built in `utils` library to make it do promises. That's what `const rIncr = promisify(client.incr).bind(client);` does.
+- From there it's really easy to just call an increment function from Redis.
+
+Okay let's add one more caching function to our app. In server.js add this
+
+```javascript
+// under rIncr
+const rGet = promisify(client.get).bind(client);
+const rSetex = promisify(client.setex).bind(client);
+
+function cache(key, ttl, slowFn) {
+  return async function (...props) {
+    const cachedResponse = await rGet(key);
+    if (cachedResponse) {
+      return cachedResponse;
+    }
+    const result = await slowFn(...props);
+    await rSetex(key, ttl, result);
+    return result;
+  };
+}
+
+async function verySlowAndExpensiveFunction() {
+  // imagine this is like a really big join on PostgreSQL
+  // or a call to an expensive API
+
+  console.log("oh no an expensive call!");
+  const p = new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(new Date().toUTCString());
+    }, 5000);
+  });
+
+  return p;
+}
+
+const cachedFn = cache("expensive_call", 10, verySlowAndExpensiveFunction);
+
+// inside init, under app.get pageviews
+app.get("/get", async (req, res) => {
+  const data = await cachedFn();
+
+  res.json({
+    data,
+    status: "ok",
+  });
+});
+```
+
+- This is a bit contrived example. Normally these would be separated amongst a bunch of files.
+- Imagine our `verySlowAndExpensiveFunction` is something we're trying to call as infrequently as possible. In this case we're just having it wait and then resolve a promise but imagine it was an expensive database query or a call to an expensive-to-call API endpoint
+- `cache` is a generic caching function. With this you could cache anything. All it does is take in a redis key, how long to cache it, and some function to call when it doesn't find the item in the cache. It returns a function that makes it seamless to the call point: either it will immediately give you back what's in the cache or it will make you wait for the result of the `verySlowAndExpensiveFunction`.
+- This definitely has thundering herd potential. What would be better is to have a second lock key that says "hey, we're already trying to calculate/retrieve this answer." Then you can either have the backend poll that key for an answer or you could return a 503 to the frontend and have a frontend that will poll until the 503 clears. Lots of ways to handle this.
+
+There are lots of ways to use Redis in code and this just two. In summary though you will primarily use it for caching and non-mission critical, high-throughput data like telemetry.
+
+[samples]: https://github.com/btholt/db-samples
+
+=================
+
+# Redis Ops
+
+Similar to Neo4j, I personally haven't done much administration of Redis but a lot of ther principles are the same. Redis has a primary secondary configuration as well. Their preferred terms are leader and follower (they also used to be master/slave but have since changed it so you may still see that in old documentation and StackOverflow answers.)
+
+The leader server will accept all writes and then write those out to the followers so that all followers are exact replicas of the leader. If a leader and follower (also sometimes called replica) loses track of each other, the followers are smart enough to request the delta of changes when the follower reconnects. If a follower cannot figure out the delta, it just drops everything and totally resyncs. So this is to say you can always read from a follower with full confidence because it won't give you a response without confidence it's correct.
+
+The exception to the above is that it's technically possible in Redis's default configuration that in the split second between a write to the leader and the read from a follower you could get the previous data (a.k.a. eventual consistency.) This is usually an acceptable tradeoff because it's usually lightning fast but sometimes that might not be enough. You can change it so Redis will write to the leader and all its followers before it will finish writing, therefore guaranteeing consistency.
+
+You can also use a WAIT command with Redis to tell it to wait for a highly important command to wait until it's been replicated. I've never used it.
+
+## Redis Cluster
+
+Remember talking about MongoDB's sharding? The same thing is available to Redis via Redis Cluster. This will take your keys and shard them out amongst multiple different pockets of replicated leaders and followers. While this will increase the complexity of your Redis service and makes your Redis deployment _less consistent_ (mean it has higher dangers of dropping writes) you greatly increase how much Redis can scale. This is how you handle terabytes and petabytes of data.
+
+## Redis Sentinel
+
+A very cool feature set provided by the purveyors of Redis, Redis Labs. Redis Sentinenal is a service where it will monitor the health of all your Redis servers, will notify you if a server is unhealthy, and will begin failovers if a service becomes unhealthy that you don't have any down time. It can even kick off a new deploy of a new Redis server, restore itself from Redis, and automatically start serving traffic. This often called a _self-healing_ capability or a _highly available_ service.
+
+A big key with Sentinenel is that you want these servers to live in ways that would fail independently. If all of your servers are running the same region of a cloud provider, if that region goes down then sentinel isn't going to much help you. But if you spread them out amongst regions you can survive even regional downtimes!
+
+=================
+
+# Conclusion
+
+Congratulations! You survived a tidal wave of information coming your way about how to store data in a variety different settings. You have enough context now to make a good judgment call on the best way to store you data n a variety of different settings and needs. Let's go over a few more considerations for you to make as you're considering decisions to choose when and where.
+
+## Paradigm
+
+Having a decent amount of familiarity with the databases I've shown you as well as a few others, the first thing I stop to think about with which database I want to use with a project is what paradigm of data do I have?
+
+- Do I have highly relational data where I'll many tables that need to join to other tables? SQL/Relational databases are probably best here
+- Do I have highly unstructured data where I'll have collections of related objects that are differently shaped? Document-based databases are going to shine here
+- Do I have data where I need to describe graphs of relationships? A graph database can work best here
+- Do I have simple needs of just retreiving data based on keys? Key-value stores can be a primary database in these cases
+- Do I have pipelines of information that need to filter, split, combined, and republished? Something like [Apache Kafka][kafka] could be really helpful here
+
+Do none, some, or all of these fit? Do you have other considerations? Take a second to consider all of your data needs.
+
+## Read-Heavy vs Write-Heavy
+
+This has as much to do with _which database_ you're choosing as it does with _how you architect_ your data with whatever database you're choosing.
+
+Here's a great example (shout to my conversation with [Harry Wolff], director at MongoDB Inc that inspired this.) If you have relational data but it's almost never read and more frequently read and your other usecases are more favored to using a document-based database, MongoDB is actually a fine choice to make in that case. MongoDB does do joins, it's just not so optimized as something like PostgreSQL is for it.
+
+Think a lot about where your hotspots of reads and writes are. Optimize for those. You can tolerate slowness and inefficiency in areas where they don't get run frequently.
+
+Also recognize that you can rarely anticipate fully where your hotspots and non-hotspots are going to be in advance so be flexible.
+
+## Familiarity
+
+People don't put enough weight into familiarity. We think as developer we can pick anything at the drop of a hat and that just isn't true. Learning new tech is expensive, both from a time perspective and from you're-going-to-cause-downtime-because-you-don't-know-all-the-problems perspective. I remember at Reddit we went with MySQL despite PostgreSQL being all the hotness at the time because the entire team had familiarity with MySQL and no one knew PostgreSQL at all. Be sure to properly weigh experience into your decision. Some knowledge is only won through experience.
+
+## Quality of Drivers
+
+Be sure to be poke around the SDKs / drivers of whatever database you may choose with the language you're going to use. If MongoDB is amazing but their Elixir SDK is nonexistant or bad (I have no idea if it, just making an example) then no matter how good the database is you're still going to be fighting the SDK. Do the homework here and you'll save yourself some pain.
+
+## Ops Cost
+
+Databases frequently end up being the most expensive part of your app from all perspectives: raw cost, raw time spent writing code for it, and cost of eventual downtime. Take a look at it from the perspective of how much it's going to cost you to hire ops people that know how to run this particular server in production.
+
+In this capacity, and very biasedly, I recommend you look into using a cloud-based database. While the monetary cost of paying for a managed database-as-a-service is higher than just running a few VMs, not having to manage sharding, clusters, peering, elections, networking, firewalls, software updates, operating system updates, capacity allocations, horizontal scaling, vertical scaling, etc. frequently can make it more-than worth the cost. Again, I'm biased here due to my current employment at Microsoft Azure, but this is what I would choose even I wasn't employed here. All major cloud providers have great options here.
+
+## Be Boring
+
+I can't stress this enough. With your core infrastructure (a.k.a. anything that if it went down your app would go down) be as boring as you can tolerate. Instead of choosing what's hot, what's on Hacker News, what's being talked about on Twitter, what people are talking about at conferences, etc. just choose boring, tried-and-true technologies. Everything I've shown you here I think is mature enough to be considered boring. But make it boring to you by using them, finding problems, breaking them, and trying new things with them. Then they'll be boring for you too.
+
+If you're going to do something exciting, have a damn good reason why it's much better than a boring alternative. On the bleeding edge, you're the one who is bleeding.
+
+## Caching
+
+We went over caching a bit but I wanted to say a few things about it.
+
+Caching is a very, very hard problem and causes a lot of problems. Make sure you _need_ caching before you just throw it in there. Don't assume you need caching. Need caching before you put it in. It's hard to know when to cache, how to long to cache, when to invalidate caches, when not to, etc. It's just hard and make sure you need it.
+
+Caching is frequently a band-aid on a worse problem. Instead of fixing inefficiencies in a system that would obviate the need for caching people just throw a cache in front of something and ignore the problems in their systems. This often leads to bigger problems. Again, validate the need for caching and ask the question "if I just improved the performance of this system would I still need caching?"
+
+A big reason I throw out so much caution for caching is that databases are built to handle a lot of load and if you use them with best practices you can get a lot of performance out of them. Problems often arise because we're not using the tools correctly (like writing bad queries or having something misconfigured) and if we can fix these we can achieve greater scale without the need for a cache.
+
+Caching just adds so much indirection to your app. Now you whenever your API isn't responding correctly, you have to ask yourself "is this a stale cache?" God forbid you have multiple layers of caching (maybe you cache the database response, the external API response, and then cache the API response before it goes out) then you need to pick apart which cache was stale or if it's an underlying problem. It's also hard to avoid thundering herd problems. I taught you caching for a reason because sometimes we just do need it but it's a sharp implement; make sure you only use it when you actually need it and keep it as simple as you can.
+
+## Next Courses to Take
+
+Frontend Masters has so many wonderful courses and instructors to offer. Here a handful of ones that I'd recommend after taking this one if you want to further deepen skills
+
+### From me, Brian Holt
+
+- I want to get better at the command line: [Complete Intro to Linux and the CLI][cli]
+- I want to learn about the containers we've been using this whole time: [Complete Intro to Containers][containers]
+
+### From other amazing instructors
+
+- I want to get better at MongoDB from Scott Moss
+  - [Intro to MongoDB (including Mongoose ORM)][intro-mongo]
+  - [API Design with MongoDB][mongo]
+- I want to get better at GraphQL from Scott Moss
+  - [From the server][server-graphql]
+  - [From the client][client-graphql]
+  - [Advance GraphQL][advance-graphql]
+- [I want to get better at managing servers and cloud deployments][full-stack] from Jem Young
+
+## Wrap Up
+
+Thank you for sticking through this tutorial and congrats on your unlocked achievement of understanding databases! Be sure tweet at me your success [here][twitter]. And if you found issues, particularly with grammar, [open a pull request!][pr]
+
+I hope you enjoyed the course!
+
+[kafka]: https://kafka.apache.org/
+[harry]: https://twitter.com/hswolff/
+[twitter]: https://twitter.com/holtbt
+[pr]: https://github.com/btholt/complete-intro-to-databases
+[mongo]: https://frontendmasters.com/courses/api-design-nodejs-v3/
+[cli]: https://frontendmasters.com/courses/linux-command-line/
+[containers]: https://frontendmasters.com/courses/complete-intro-containers/
+[advance-graphql]: https://frontendmasters.com/courses/advanced-graphql-v2/
+[intro-mongo]: https://frontendmasters.com/courses/mongodb/
+[full-stack]: https://frontendmasters.com/courses/fullstack-v2/
+[client-graphql]: https://frontendmasters.com/courses/client-graphql-react/
+[server-graphql]: https://frontendmasters.com/courses/server-graphql-nodejs/
