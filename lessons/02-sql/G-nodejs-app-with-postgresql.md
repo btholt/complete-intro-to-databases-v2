@@ -11,7 +11,7 @@ Make a new directory. In that directory run:
 
 ```bash
 npm init -y
-npm i express pg@8.4.1 express@4.17.1
+npm i express pg@8.20.0 express@5.2.1
 mkdir static
 touch static/index.html server.js
 code . # or open this folder in VS Code or whatever editor you want
@@ -59,11 +59,11 @@ Normally I'd say don't put a big script tag in there but we're going for simplic
 In server.js, put this:
 
 ```javascript
-const express = require("express");
-const { Pool } = require("pg");
+import express from "express";
+import { Pool } from "pg";
 const pool = new Pool({
   connectionString:
-    "postgresql://postgres:mysecretpassword@localhost:5432/message_boards",
+    "postgresql://postgres:mysecretpassword@localhost:5432",
 });
 
 async function init() {
@@ -73,9 +73,9 @@ async function init() {
     const client = await pool.connect();
     const [commentsRes, boardRes] = await Promise.all([
       client.query(
-        `SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = ${req.query.search}`
-        // "SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = $1",
-        // [req.query.search]
+        // `SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = ${req.query.search}`
+        "SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = $1",
+        [req.query.search]
       ),
       client.query("SELECT * FROM boards WHERE board_id = $1", [
         req.query.search,
@@ -100,11 +100,11 @@ async function init() {
 init();
 ```
 
-- This app is intentionally very similar to MongoDB one to show you accessing a database is pretty similar across the board.
+- This app is intentionally very similar to the MongoDB one we'll be doing later to show you accessing a database is pretty similar across the board.
 - We're using a connection pool. PostgreSQL can only handle so many connections and it's a slow process to constantly and disconnect. This instead will hold onto as many connections as it needs to and reuse them as it can.
 - We're using two queries. This is common. In this case we can optimize each query individually and probably even cache each result individually for performance.
 - I'm lazily requesting `*` here. You should request only what you need.
-- With rich*content, it will create a new row in the response for \_each* rich_content row it gets. You'd have to combine these in the code which is okay. There are some fancier way to query to get it pre-combined or you could just do a third query.
+- With `rich_content`, it will create a new row in the response for each `rich_content` row it gets. You'd have to combine these in the code which is okay. There are some fancier way to query to get it pre-combined or you could just do a third query.
 
 ## SQL Injection
 
@@ -113,11 +113,11 @@ init();
 Let's say we were a little less cautious and our code looked like this:
 
 ```javascript
-const express = require("express");
-const { Pool } = require("pg");
+import express from "express";
+import { Pool } from "pg";
 const pool = new Pool({
   connectionString:
-    "postgresql://postgres:mysecretpassword@localhost:5432/message_boards",
+    "postgresql://postgres:mysecretpassword@localhost:5432",
 });
 
 async function init() {
@@ -144,7 +144,7 @@ async function init() {
         posts: commentsRes,
       })
       .end();
-    await client.end();
+    await client.release();
   });
 
   app.use(express.static("./static"));
@@ -153,9 +153,15 @@ async function init() {
 init();
 ```
 
+You'll also need to add this to your package.json to prevent warnings.
+
+```json
+"type": "module",
+```
+
 - What if we put `1; SELECT * FROM users; --` as our search term. The `1;` would satisfy the first query, and then we could run a second query to show all of the users in our database. Very, very bad.
 - Now, I had to change some code to actually get it to display the exfiltrated data but that's not even necessary. What if we put `1; DROP TABLE users; --`? It'd wipe out our entire users database! Hope we have a backup.
 - There's actually a lot more they can do. They could add a new user to PostgreSQL, grab its IP address, and then connect to the database itself.
 - Needless to say, this is a disaster if it happens to you. Parameterized queries prevent this (the way we coded it above). It won't let the thing going into the query be anything that SQL can interept as an action.
 
-[samples]: https://github.com/btholt/db-samples
+[samples]: https://github.com/btholt/db-v2-samples

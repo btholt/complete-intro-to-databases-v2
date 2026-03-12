@@ -6,7 +6,9 @@ Let's get into some more complicated querying. First thing we're going to need i
 
 ## Foreign Keys
 
-Let's jot down all of our schemas for our users, boards, and comments.
+Let's jot down all of our schemas for our users, boards, and comments. 
+
+> You don't need to run these if you ran the previous sample SQL statement. This is just for you to look at the schema.
 
 ```sql
 
@@ -16,7 +18,7 @@ CREATE TABLE users (
   email VARCHAR ( 50 ) UNIQUE NOT NULL,
   full_name VARCHAR ( 100 ) NOT NULL,
   last_login TIMESTAMP,
-  created_on TIMESTAMP NOT NULL
+  created_on TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE boards (
@@ -35,16 +37,16 @@ CREATE TABLE comments (
 
 ```
 
-- The first two should look pretty familiar. The only new-ish thing is the user of the `TEXT` data type. This is basically a VARCHAR with no cap (or rather a very large cap.) It has some other small differences but for now just know it's uncapped text.
+- The first two should look pretty familiar. The only new-ish thing is the user of the `TEXT` data type. This is basically a VARCHAR with no cap on length (or rather a very large cap.) It has some other small differences but for now just know it's uncapped text.
 - `user_id INT REFERENCES users(user_id)` is technically all you need to make a foreign key. The first part, `INT`, makes it known that this key will be stored as an integer. It then uses the `REFERENCES` key word to let PostgreSQL know that it is a foreign key. A foreign key is a field in one table that references the **primary** key of another table. In this case, a comment will reference the user_id in another table, the users table. The `users` part say it's reference the users table and the `(user_id)` is the name of the key in the other table. In this case, we called both user_id (which will probably happen somewhat frequently but not always) so they match but if we had called the user_id just id in the users table, we'd put `id` there.
 - `ON DELETE CASCADE` lets PostgreSQL know what to do if the user gets deleted. So if a user makes a comment on the message board and then deletes their account, what do you want it to do? If you omit the `ON DELETE CASCADE` part, it's the same as doing `ON DELETE NO ACTION` which means it'll just error and not let you delete the user until you've deleted all the comments first. You can also do `ON DELETE SET NULL` which means it'll make the user_id null on any comment that was made by that user.
-- We've dne the same for board_id, just referencing the boards table instead of the users table.
+- We've done the same for board_id, just referencing the boards table instead of the users table.
 
-Let's go ahead and put some dummy data in there. Copy / paste [this query] into your psql terminal. It may take a few minutes.
+Let's go ahead and put some dummy data in there. Copy / paste [this query][sql] into your psql terminal if you haven't already (same sample SQL from before). It may take a few minutes.
 
 ## JOIN
 
-So a user goes to your message board and click
+So we want to build the view of message board where a user can see previews of individual posts. How could we write that query?
 
 ```sql
 SELECT comment_id, user_id, LEFT(comment, 20) AS preview FROM comments WHERE board_id = 39;
@@ -84,7 +86,7 @@ WHERE
   board_id = 39;
 ```
 
-Magic! The big key here is the `INNER JOIN` which allows us to match up all the keys from one table to another. We do that in `ON` clause where we say user*ids match is where you can \_join* together those records into one record.
+Magic! The big key here is the `INNER JOIN` which allows us to match up all the keys from one table to another. We do that in `ON` clause where we say user_ids match is where you can join together those records into one record.
 
 Let's talk about `INNER` for a second. There are multiple kinds of JOINs. INNER is a good one start with. It says "find where user_ids match. If you find a record where the user_id exists in one but not in the other, omit it in the results." This isn't a particularly useful distinction for us right now becase all user_ids will exist in users and we're assured of that due to the foreign key restraints we used. However if a comment had a user_id that didn't exist, it would omit that comment in the results.
 
@@ -115,7 +117,7 @@ WHERE
   board_id = 39;
 ```
 
-This will work like it did above. NATURAL JOIN tells PostgreSQL "I named things the same in both tables, go ahead and match it together yourself. This is fun when it lines up but I don't often end up using it myself. And in the end it's often better to be explicit what about your intent is for joins. So use cautiously and/or for neat party tricks.
+This will work like it did above. NATURAL JOIN tells PostgreSQL "I named the columns the same thing in both tables, go ahead and match it together yourself. This is fun when it lines up but I don't often end up using it myself. And in the end it's often better to be explicit what about your intent is for joins. So use cautiously and/or for neat party tricks.
 
 ## Subqueries
 
@@ -185,3 +187,6 @@ ORDER BY
 ```
 
 Tricky! It's important to know your data, what you expect to see, and be aware of the constraints of your queries!
+
+
+[sql]: https://db-v2.holt.courses/sample-postgresql.sql

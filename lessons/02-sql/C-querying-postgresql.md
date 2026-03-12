@@ -112,4 +112,4 @@ This works as you would expect based on what we've done before
 DELETE FROM users WHERE user_id = 1000;
 ```
 
-[sql]: https://btholt.github.io/complete-intro-to-databases/sample-postgresql.sql
+[sql]: https://db-v2.holt.courses/sample-postgresql.sql
