@@ -14,7 +14,7 @@ db.pets.findOne();
 
 This will go out and find the first item in the database that matches your query and return that. In this case we didn't give it a query which is the same as saying "give me anything." You'll probably get back the first item you inserted into your database which in my case is going to be a Havanese dog named Luna.
 
-Okay, so let's we want to find the 1337 item we put in the database. Try this:
+Okay, so let's say we want to find the 1337 item we put in the database. Try this:
 
 ```javascript
 db.pets.findOne({ index: 1337 });
@@ -51,12 +51,12 @@ You'll notice that you're getting twenty different records each time. `it` will 
 Okay, so let's try this:
 
 ```javascript
-db.pets.count({ type: "dog" }); // probably pretty big number
+db.pets.countDocuments({ type: "dog" }); // probably pretty big number
 db.pets.find({ type: "dog" }).limit(40);
 it; // after this the cursor will end
 ```
 
-`count` lets you figure our how many of something there are. `limit` lets the cursor know when you want to stop. But what if you just want to get everything all at once? Try `toArray`
+`countDocuments` lets you figure our how many of something there are. `limit` lets the cursor know when you want to stop. But what if you just want to get everything all at once? Try `toArray`
 
 ```javascript
 db.pets.find({ type: "dog" }).limit(40).toArray();
@@ -69,7 +69,7 @@ This will just dump everything out into an array which is nice if you just want 
 What if we wanted to find all senior-aged cats in our data set? MongoDB will let you do that! Let's try this
 
 ```javascript
-db.pets.count({ type: "cat", age: { $gt: 12 } });
+db.pets.countDocuments({ type: "cat", age: { $gt: 12 } });
 ```
 
 Note you can use these [query operators][operators] anywhere you're providing a query e.g. findOne, find, etc. The ones you're primarily going to be interested in are
@@ -129,7 +129,7 @@ Lastly, to conclude our little lesson querying (there's still a lot more you can
 db.pets.find({ type: "dog" }, { name: 1, breed: 1 });
 ```
 
-The `1` means "definitely include this". In thise case, we're only including name and breed. If you leave something out (like age) then it doesn't come along for the ride. Notice that `_id` does come along. If you don't want that, you have to explictly exclude it
+The `1` means "definitely include this". In thise case, we're only including name and breed. If you leave something out (like age) then it doesn't come along for the ride. Notice that `_id` does come along. If you don't want that, you have to explictly exclude it. This is similar to doing projections that we talked about with Postgres.
 
 ```javascript
 db.pets.find({ type: "dog" }, { name: 1, breed: 1, _id: 0 });
@@ -142,5 +142,5 @@ It also works to just exclude fields which means include everything I haven't ex
 db.pets.find({ type: "dog" }, { _id: 0 });
 ```
 
-[operators]:
-[geo]:
+[operators]: https://www.mongodb.com/docs/manual/reference/mql/query-predicates/comparison/
+[geo]: https://www.mongodb.com/docs/manual/reference/mql/query-predicates/geospatial/

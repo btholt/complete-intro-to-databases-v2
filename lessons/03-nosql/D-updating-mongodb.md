@@ -4,7 +4,7 @@ description: "Brian shows you how to update and delete the documents that have b
 
 ## insert, insertOne, and insertMany
 
-You already encountered insert at the beginning of this section but I just wanted to disambiguate insertOne and insertMany for you. insert essentially does the job of both insertMany and insertOne: if you give it an array it will insert many and if you give it an object it will insert one. The insertOne and insertMany methods are nice because if you accidentally give it the wrong thing (like giving it an object when you meant to give it an array) it will cause an error and make you fix it. With insert, you have a higher chance of it doing the wrong thing.
+You already encountered insert at the beginning of this section but I just wanted to disambiguate insertOne and insertMany for you. insert essentially does the job of both insertMany and insertOne: if you give it an array it will insert many and if you give it an object it will insert one. `update` is indeed deprecated, but I still see it in docs, so I wanted to include it. The insertOne and insertMany methods are nice because if you accidentally give it the wrong thing (like giving it an object when you meant to give it an array) it will cause an error and make you fix it. With insert, you have a higher chance of it doing the wrong thing, and with it being deprecated, just don't use it. It's totally removed in the SDK.
 
 In general use insertOne and insertMany. This also applies to delete vs deleteMany/deleteOne, update vs updateMany/updateOne, etc.
 
@@ -15,7 +15,7 @@ When you do updates, you'll have to give a filter as well as what you want to up
 ```javascript
 db.pets.updateOne(
   { type: "dog", name: "Luna", breed: "Havanese" },
-  { $set: { owner: "Brian Holt" } }
+  { $set: { owner: "Brian Holt" } },
 );
 ```
 
@@ -56,7 +56,7 @@ db.pets.updateOne(
   },
   {
     upsert: true,
-  }
+  },
 );
 ```
 
@@ -64,7 +64,7 @@ We're playing this a bit fast and lazy. We should really make sure that we're qu
 
 ## Deletes
 
-Deletes work almost identically to finds except instead of returning documents it deletes them. Both `deleteOne` and `deleteMany` exist (as does `delete` which is discouraged.) Let's say you wanted to delete all Havanese reptiles because that doesn't make sense.
+Deletes work almost identically to finds except instead of returning documents it deletes them. Both `deleteOne` and `deleteMany` exist (as does `delete` which is discouraged and deprecated.) Let's say you wanted to delete all Havanese reptiles because that doesn't make sense.
 
 ```javascript
 db.pets.deleteMany({ type: "reptile", breed: "Havanese" });
@@ -72,11 +72,12 @@ db.pets.deleteMany({ type: "reptile", breed: "Havanese" });
 
 ## findAnd\*
 
-Occasionally you need to find a document _and_ update/delete/replace it at the same time. Instead of having to do two queries and thus have a race-condition of something modifying your document in the interim there are three commands that will allow you to do just that, findOneAndUpdate,
-findOneAndReplace, and findOneAndDelete. These work basically identically to updateOne, replaceOne, and deleteOne, they just return it at thend.
+Occasionally you need to find a document _and_ update/delete/replace it at the same time. Instead of having to do two queries and thus have a race-condition of something modifying your document in the interim there are three commands that will allow you to do just that, findOneAndUpdate, findOneAndReplace, and findOneAndDelete. These work basically identically to updateOne, replaceOne, and deleteOne, they just return it at thend.
+
+> Keep in mind, it returns the doc as it was _before_ the update/replace/delete, not after.
 
 ## bulkWrite
 
 Particularly when you're writing code, sometimes you need to run a series of queries all at once. That's probably going to be several inserts or maybe a few updates and deletes. Instead of doing a query, waiting, then serially doing the next one, etc. you can do what's called a bulkWrite. bulkWrite allows you to queue up an array of queries and it will execute those queries in the order that you provide them to MongoDB. It's possible but weird to do in the mongo CLI shell so we'll get into it once we're doing code. Suffice to say, it's just what we've been doing but instead of one query object, you provide an array of those same query objects.
 
-[update]: https://docs.mongodb.com/manual/reference/operator/update/#id1
+[update]: https://www.mongodb.com/docs/manual/reference/mql/update/#fields

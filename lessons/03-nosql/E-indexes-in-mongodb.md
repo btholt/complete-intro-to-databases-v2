@@ -63,7 +63,7 @@ Notice it only examines one record!
 
 ## Text Index
 
-MongoDB has built-in full text search, similar to PostgreSQL's `tsvector`/`tsquery`. You create a text index on the fields you want to search:
+MongoDB has built-in full text search, similar to PostgreSQL's `tsvector`/`tsquery` (which we didn't do, but we talked about when we did vector search). You create a text index on the fields you want to search:
 
 ```javascript
 db.pets.createIndex({
@@ -110,4 +110,7 @@ db.pets
 
 There's more to the `$text` operator which I'll leave you to [explore in the docs][text].
 
+Vector search is also possible with MongoDB - [see documentation here][vector] if you want to learn more.
+
 [text]: https://docs.mongodb.com/manual/reference/operator/query/text/
+[vector]: https://www.mongodb.com/docs/atlas/atlas-vector-search/vector-search-overview/

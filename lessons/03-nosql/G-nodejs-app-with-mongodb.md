@@ -11,11 +11,13 @@ Make a new directory. In that directory run:
 
 ```bash
 npm init -y
-npm i express mongodb@3.6.2 express@4.17.1
+npm i express mongodb@7.1.0 express@5.2.1
 mkdir static
 touch static/index.html server.js
 code . # or open this folder in VS Code or whatever editor you want
 ```
+
+Add `"type": "module"` to your package.json.
 
 Let's make a dumb front end that just makes search queries against the backend. In static/index.html put:
 
@@ -43,7 +45,7 @@ Let's make a dumb front end that just makes search queries against the backend. 
         code.innerText = "loading";
 
         const res = await fetch(
-          "/get?search=" + encodeURIComponent(search.value)
+          "/get?search=" + encodeURIComponent(search.value),
         );
         const json = await res.json();
 
@@ -59,16 +61,14 @@ Normally I'd say don't put a big script tag in there but we're going for simplic
 In server.js, put this:
 
 ```javascript
-const express = require("express");
-const { MongoClient } = require("mongodb");
+import express from "express";
+import { MongoClient } from "mongodb";
 
 const connectionString =
   process.env.MONGODB_CONNECTION_STRING || "mongodb://localhost:27017";
 
 async function init() {
-  const client = new MongoClient(connectionString, {
-    useUnifiedTopology: true,
-  });
+  const client = new MongoClient(connectionString);
   await client.connect();
 
   const app = express();
@@ -82,7 +82,7 @@ async function init() {
         {
           $text: { $search: req.query.search },
         },
-        { _id: 0 }
+        { projection: { _id: 0 } },
       )
       .sort({ score: { $meta: "textScore" } })
       .limit(10)
@@ -100,7 +100,7 @@ async function init() {
 init();
 ```
 
-**Potential problem you may see:** if you're seeing the error `UnhandledPromiseRejectionWarning: MongoError: text index required for $text query (no such collection 'adoption.pets')` then you probably have the wrong database name in your code. In my example, I called my database `adoption`. If you didn't change the name of your database, it will be called `test`. If you don't know the name of your database, run `db` in your mongo shell and it should tell you. Once you discover the name of your database, change the line `const db = await client.db("<the name of your database here>");` so that it matches the name of your database.
+> 🚨 **Potential problem you may see:** if you're seeing the error `UnhandledPromiseRejectionWarning: MongoError: text index required for $text query (no such collection 'adoption.pets')` then you probably have the wrong database name in your code. In my example, I called my database `adoption`. If you didn't change the name of your database, it will be called `test`. If you don't know the name of your database, run `db` in your mongo shell and it should tell you. Once you discover the name of your database, change the line `const db = await client.db("<the name of your database here>");` so that it matches the name of your database.
 
 Let's go over a few notes here. To be clear, this is mostly to show you how to connect to MongoDB from code and to show you that all those queries that you learned over the last section apply almost without modification (there are some small differences)
 
