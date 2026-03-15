@@ -18,7 +18,7 @@ MATCH (n)-[r]->() RETURN type(r), count(*);
 
 Similar to above, we are now counting how many relationships we have in a database.
 
-Okay, so let's pick an actor or actress and find out what other people they've been in movies with. I'll pick Keanu Reeves here.
+Okay, so let's pick an actor and find out what other people they've been in movies with. I'll pick Keanu Reeves here.
 
 ```cql
 MATCH (Keanu:Person)-[:ACTED_IN]->(m:Movie)<-[:ACTED_IN]-(Costar:Person)
@@ -67,11 +67,13 @@ MATCH path = shortestPath(
 RETURN length(path);
 ```
 
+> You may see it complain about it being unbounded. In theory if the path was very long it could take a long time to run it as it explored your graph. It wants you to give it a max number of nodes to jump so that if it doesn't find it within X levels, it will give up. That would look like: `(Bacon:Person {name:"Kevin Bacon"})-[*..5]-(Keanu:Person {name:"Keanu Reeves"})` where the `*..5` is the important part. This tells it to give up if it's not within 5 nodes.
+
 To unwind this in a way that would be readable in cypher-shell with all the movies and actors/actresses you could do this:
 
 ```cql
 MATCH path = shortestPath(
-    (First:Person {name:"Kevin Bacon"})-[*]-(Second:Person {name:"Keanu Reeves"})
+    (First:Person {name:"Kevin Bacon"})-[*..5]-(Second:Person {name:"Keanu Reeves"})
 )
 UNWIND nodes(path) AS node
 RETURN coalesce(node.name, node.title) AS text;
@@ -83,7 +85,7 @@ RETURN coalesce(node.name, node.title) AS text;
 
 ## Find Degrees in a Network
 
-You could imagine if this was a recommendation engine, you may want to recommend people other actors and actresses based on movies people have appeared in together. What if we wanted to take that two degrees out?
+You could imagine if this was a recommendation engine, you may want to recommend people other actors based on movies people have appeared in together. What if we wanted to take that two degrees out?
 
 ```cql
 MATCH (Halle:Person)-[:ACTED_IN*1..4]-(Recommendation:Person)
@@ -94,5 +96,5 @@ ORDER BY Recommendation.name;
 
 This will give you that extended network of people to check out. If you wanted to include diretory and writers in that count, just omit the `:ACTED_IN` so it's `-[*1..4]-` and that will give you any relationship.
 
-[sample]: https://btholt.github.io/complete-intro-to-databases/sample-neo4j.cql
+[sample]: /sample-neo4j.cql
 [bacon]: https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon

@@ -31,7 +31,7 @@ Now you'll see it immediately can narrow it down. My computer saw a 6x increase 
 Lastly, sometimes it's useful to see all existing indexes. Try this:
 
 ```cql
-CALL db.indexes;
+SHOW INDEXES;
 ```
 
 [query-planning]: https://neo4j.com/docs/cypher-manual/4.1/query-tuning/

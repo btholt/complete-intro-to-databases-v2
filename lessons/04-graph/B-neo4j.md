@@ -6,7 +6,7 @@ description: "Graph databases are great when you need to define relations betwee
 Let's get our database up and running! Run the following.
 
 ```bash
-docker run -dit --rm --name=my-neo4j -p 7474:7474 -p 7687:7687 --env=NEO4J_AUTH=none neo4j:4.1.3
+docker run -dit --rm --name=my-neo4j -p 7474:7474 -p 7687:7687 --env=NEO4J_AUTH=none neo4j:2026-community-trixie
 ```
 
 This will spin up a new instance of Neo4j in docker and expose both its HTTP client and its querying port. We're going to start by querying the commandline called `cypher-shell` and then we'll move on to the awesome browser experience.
@@ -19,13 +19,17 @@ So let's get connected. Run the following:
 docker exec -it my-neo4j cypher-shell
 ```
 
+> If you see warnings on startup that has something to do with `org.fusesource.jansi.internal.JansiLoader` making restricted method calls, that's just Java being Java and the cypher-shell needing to update its dependencies. It's nothing to do with you and doesn't affect what we're doing.
+
 This should drop you into an interactive with Neo4j. The first thing we're going to do is use a CREATE statement to make our first actor, Michael Cera. I love the movie Scott Pilgrim vs. the World so we're going to describe the actors in it here.
 
 ```cql
-CREATE (Person {name:'Michael Cera', born:1988});
+CREATE (:Person {name:'Michael Cera', born:1988});
 ```
 
-You can see we created a new node with a label of Person and two attributes: a name of Michael Cera and a birth year of 1988. CREATE (Person {name:'Michael Cera', born:1988});
+> That `:` before Person is very important - it means it's a label. If you leave it out, it's a variable declaration.
+
+You can see we created a new node with a label of Person and two attributes: a name of Michael Cera and a birth year of 1988. CREATE (:Person {name:'Michael Cera', born:1988});
 
 Now what if we want to find that same record?
 
@@ -45,6 +49,7 @@ CREATE (m:Movie {title: 'Scott Pilgrim vs the World', released: 2010, tagline: '
 
 - This will create and return all in the same query because there's no semicolon so it's treated as one query.
 - It's easy to make big complicated queries with Cypher.
+- I did not make up that tag line. It is genuinely the tag line of that movie 😄
 
 Let's now make them associated with each other so that Michael Cera acted in Scott Pilgrim vs the World.
 
@@ -58,11 +63,11 @@ RETURN relationship;
 - The first match says we're looking for two separate things, a Person and a Movie.
 - We then give a WHERE (there are a few ways to write queries that all work).
 - We then identify that we're going to CREATE something new.
-- This reads like ASCII art You have (node) - \[RELATIONSHIP] -> (node). This identifies that Michael ACTED_IN Movie. The -> identifies the direction of the relationship. We also can totally right it as (Scott Pilgrim vs the World) <- \[ACTED_IN] - (Michael Cera). Both work.
+- This reads like ASCII art You have (node) - \[RELATIONSHIP] -> (node). This identifies that Michael ACTED_IN Movie. The -> identifies the direction of the relationship. We also can totally write it as (Scott Pilgrim vs the World) <- \[ACTED_IN] - (Michael Cera). Both work.
 - `relationship` is a variable that refers to the new relationship we just created. It's optional but I wanted to return it at the end.
 - Neo4j recommends you do CapitalCasing with label names (like Person and Movie) and that you SCREAMING_CASE relationship types (like DIRECTED and ACTED_IN.) I just follow their recommendations. [See here][naming].
 
-Okay, so let's put a few more relationships to the movie in. Copy/paste this to add a few more actors, actresses, and the director. (How many good actors and actresses were in Scott Pilgrim!?)
+Okay, so let's put a few more relationships to the movie in. Copy/paste this to add a few more actors, and the director. (How many good actors were in Scott Pilgrim!?)
 
 ```cql
 MATCH (ScottVsWorld:Movie) WHERE ScottVsWorld.title = "Scott Pilgrim vs the World"
@@ -94,7 +99,7 @@ RETURN m.title;
 ```
 
 - It's actually pretty easy when you see it written out. That's one of the nice parts of Cypher is that it reads well for the most part. It can start having a lot of `([{}])` which can get to be a bit much.
-- The `>` part of `->` is optional. If you omit the direction in the query it just assumes you're saying "find me a relationship here, I don't care which way the direction goes."
+- The `>` part of `->` is optional. If you omit the direction in the query it just assumes you're saying "find me a relationship here, I don't care which way the direction goes." Because it's an actor acting in a movie and the inverse relation doesn't make any sense (a movie acting in an actor?) it's fine here to just make that assumption.
 
 One thing you'll notice is that Aubrey Plaza isn't connected to any of the other people directly, just via being attached to the same movie. What if we wanted to find every person who acted in the same movie as Aubrey (in this case everyone we've added so far.)
 
@@ -118,11 +123,13 @@ RETURN q.name;
 
 ## Constraint
 
-Just like in the other databases you can enforce uniqueness which can be helpful. Here's how you'd do that (though a bad idea in this case because there are lots of actors, actresses, and directors named the same thing as there are multiple movies called the same thing.)
+Just like in the other databases you can enforce uniqueness which can be helpful. Here's how you'd do that (though a bad idea in this case because there are lots of actors and directors named the same thing as there are multiple movies called the same thing.)
 
 ```cql
-CREATE CONSTRAINT ON (a:Person) ASSERT a.name IS UNIQUE;
-CREATE CONSTRAINT ON (a:Movie) ASSERT a.title IS UNIQUE;
+CREATE CONSTRAINT FOR (a:Person) REQUIRE a.name IS UNIQUE;
+CREATE CONSTRAINT FOR (a:Movie) REQUIRE a.title IS UNIQUE;
 ```
 
-[naming]: https://neo4j.com/docs/cypher-manual/4.1/syntax/naming/
+> Neo4j version 5 removed the old syntax that used `ON`/`ASSERT` and now you have to use `FOR`/`REQUIRE`.
+
+[naming]: https://neo4j.com/docs/cypher-manual/25/syntax/naming/

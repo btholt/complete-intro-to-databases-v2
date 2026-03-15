@@ -11,6 +11,7 @@ Make a new directory. In that directory run:
 
 ```bash
 npm init -y
+npm pkg set type=module
 npm i express pg@8.20.0 express@5.2.1
 mkdir static
 touch static/index.html server.js
@@ -43,7 +44,7 @@ Let's make a dumb front end that just makes search queries against the backend. 
         code.innerText = "loading";
 
         const res = await fetch(
-          "/get?search=" + encodeURIComponent(search.value)
+          "/get?search=" + encodeURIComponent(search.value),
         );
         const json = await res.json();
 
@@ -62,8 +63,7 @@ In server.js, put this:
 import express from "express";
 import { Pool } from "pg";
 const pool = new Pool({
-  connectionString:
-    "postgresql://postgres:mysecretpassword@localhost:5432",
+  connectionString: "postgresql://postgres:mysecretpassword@localhost:5432",
 });
 
 async function init() {
@@ -75,7 +75,7 @@ async function init() {
       client.query(
         // `SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = ${req.query.search}`
         "SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = $1",
-        [req.query.search]
+        [req.query.search],
       ),
       client.query("SELECT * FROM boards WHERE board_id = $1", [
         req.query.search,
@@ -116,8 +116,7 @@ Let's say we were a little less cautious and our code looked like this:
 import express from "express";
 import { Pool } from "pg";
 const pool = new Pool({
-  connectionString:
-    "postgresql://postgres:mysecretpassword@localhost:5432",
+  connectionString: "postgresql://postgres:mysecretpassword@localhost:5432",
 });
 
 async function init() {
@@ -127,14 +126,17 @@ async function init() {
     const client = await pool.connect();
     const [commentsRes, boardRes] = await Promise.all([
       client.query(
-        `SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = ${req.query.search}`
+        `SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = ${req.query.search}`,
         // "SELECT * FROM comments NATURAL LEFT JOIN rich_content WHERE board_id = $1",
         // [req.query.search]
       ),
-      client.query("SELECT * FROM boards WHERE board_id = $1", [
-        // req.query.search,
-        39,
-      ]),
+      client.query(
+        "SELECT * FROM boards WHERE board_id = $1",
+        [
+          // req.query.search,
+          39,
+        ],
+      ),
     ]);
     res
       .json({
@@ -151,12 +153,6 @@ async function init() {
   app.listen(process.env.PORT || 3000);
 }
 init();
-```
-
-You'll also need to add this to your package.json to prevent warnings.
-
-```json
-"type": "module",
 ```
 
 - What if we put `1; SELECT * FROM users; --` as our search term. The `1;` would satisfy the first query, and then we could run a second query to show all of the users in our database. Very, very bad.

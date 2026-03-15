@@ -11,7 +11,8 @@ Make a new directory. In that directory run:
 
 ```bash
 npm init -y
-npm i express neo4j-driver@4.1.2 express@4.17.1
+npm pkg set type=module
+npm i neo4j-driver@6.0.1 express@5.2.1
 mkdir static
 touch static/index.html server.js
 code . # or open this folder in VS Code or whatever editor you want
@@ -46,8 +47,8 @@ Let's make a dumb front end that just makes search queries against the backend. 
 
         const res = await fetch(
           `/get?person1=${encodeURIComponent(
-            person1.value
-          )}&person2=${encodeURIComponent(person2.value)}`
+            person1.value,
+          )}&person2=${encodeURIComponent(person2.value)}`,
         );
         const json = await res.json();
 
@@ -64,13 +65,13 @@ Let's make a dumb front end that just makes search queries against the backend. 
 In server.js, put this:
 
 ```javascript
-const express = require("express");
-const neo4j = require("neo4j-driver");
+import express from "express";
+import neo4j from "neo4j-driver";
 
 const CONNECTION_STRING =
   process.env.NEO4J_CONNECTION_STRING || "bolt://localhost:7687";
 
-const driver = neo4j.driver(NEO4J_CONNECTION_STRING);
+const driver = neo4j.driver(CONNECTION_STRING);
 
 async function init() {
   const app = express();
@@ -88,7 +89,7 @@ async function init() {
       {
         person1: req.query.person1,
         person2: req.query.person2,
-      }
+      },
     );
 
     res.json({
@@ -100,7 +101,9 @@ async function init() {
   });
 
   app.use(express.static("./static"));
-  app.listen(process.env.PORT || 3000);
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT);
+  console.log(`running on http://localhost:${PORT}`);
 }
 init();
 ```
