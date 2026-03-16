@@ -15,7 +15,7 @@ SET color blue XX # succeeds because it does exist
 SET color blue NX # fails because it does exist
 ```
 
-Just thing that `NX` is succeeds when **n**ot e**x**ists and `XX` is the other one.
+Just think that `NX` is succeeds when **n**ot e**x**ists and `XX` is the other one.
 
 You could actually re-implement our plane explorer above with this.
 

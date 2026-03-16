@@ -11,7 +11,7 @@ docker run -dit --rm --name=my-neo4j -p 7474:7474 -p 7687:7687 --env=NEO4J_AUTH=
 
 This will spin up a new instance of Neo4j in docker and expose both its HTTP client and its querying port. We're going to start by querying the commandline called `cypher-shell` and then we'll move on to the awesome browser experience.
 
-First thing to know is that the database is called Neo4j and the query language is called Cypher, just like the database is PostgreSQL and the query language is SQL. There are other graph query langauges like Gremlin but we'll just be talking Cypher today.
+First thing to know is that the database is called Neo4j and the query language is called Cypher, just like the database is PostgreSQL and the query language is SQL. There are other graph query languages like Gremlin but we'll just be talking Cypher today.
 
 So let's get connected. Run the following:
 
@@ -29,7 +29,7 @@ CREATE (:Person {name:'Michael Cera', born:1988});
 
 > That `:` before Person is very important - it means it's a label. If you leave it out, it's a variable declaration.
 
-You can see we created a new node with a label of Person and two attributes: a name of Michael Cera and a birth year of 1988. CREATE (:Person {name:'Michael Cera', born:1988});
+You can see we created a new node with a label of Person and two attributes: a name of Michael Cera and a birth year of 1988.
 
 Now what if we want to find that same record?
 
@@ -38,7 +38,7 @@ MATCH (p {name: "Michael Cera"}) RETURN p;
 ```
 
 - Now we're using a shorthand variable, `p`. We could call this anything.
-- The first part reprsents what we're querying for. We didn't specify what label it was going to be but we have. Then it would look like `MATCH (p {name: "Michael Cera"}) RETURN p;`
+- The first part represents what we're querying for. We didn't specify a label here but we could have. Then it would look like `MATCH (p {name: "Michael Cera"}) RETURN p;`
 - You need the return at the end or you wouldn't get anything back.
 
 Let's create a movie and then query for it.

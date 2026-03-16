@@ -114,4 +114,4 @@ init();
 - This is basically the Kevin Bacon query but generalized to be any two people.
 - Neo4j gives you back a list of Record objects and you have to call `get()` on each of the records to get the attributes you want which is what we did with the map statement to get each of the names and titles.
 
-[samples]: https://github.com/btholt/db-samples
+[samples]: https://github.com/btholt/db-v2-samples

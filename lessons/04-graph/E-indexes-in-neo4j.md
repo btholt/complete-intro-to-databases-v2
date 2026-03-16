@@ -24,7 +24,7 @@ EXPLAIN MATCH (p:Person) WHERE p.born = 1967 RETURN p;
 MATCH (p:Person) WHERE p.born = 1967 RETURN p;
 ```
 
-Now you'll see it immediately can narrow it down. My computer saw a 6x increase in query speed.
+You should see the index being used. With only 133 nodes it'd be hard to perceive a performance increase but on a large list it would likely be significant.
 
 [Neo4j has a great article on query planning][query-planning] if you want to dig further into improving query performance.
 
@@ -34,4 +34,4 @@ Lastly, sometimes it's useful to see all existing indexes. Try this:
 SHOW INDEXES;
 ```
 
-[query-planning]: https://neo4j.com/docs/cypher-manual/4.1/query-tuning/
+[query-planning]: https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/query-tuning/

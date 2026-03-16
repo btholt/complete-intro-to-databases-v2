@@ -5,7 +5,7 @@ description: "Graph databases are great when you need to define relations betwee
 Let's get Redis running through Docker. Run this
 
 ```bash
-docker run -dit --rm --name=my-redis -p 6379:6379 redis:6.0.8
+docker run -dit --rm --name=my-redis -p 6379:6379 redis:8.6-trixie
 docker exec -it my-redis redis-cli
 ```
 
@@ -24,17 +24,17 @@ I mean, just kidding, but pretty close. Redis commands are almost very simple li
 
 ## Naming Keys
 
-Let's talk a second about naming keys. It's not sustainable to just a flat name like `name`. Unlike PostgreSQL and MongoDB where you have tables and collections to logically separate entities, with Redis it's all one mishmosh of stuff. Only the keys separate what's in there. So that means you need some sort of key system to keep things separate yet retrievable.
+Let's talk a second about naming keys. It's not sustainable to just use a flat name like `name`. Unlike PostgreSQL and MongoDB where you have tables and collections to logically separate entities, with Redis it's all one mishmash of stuff. Only the keys separate what's in there. So that means you need some sort of key system to keep things separate yet retrievable.
 
 Let's say you cache user information. The most commons strategy is to use `:` to separate and "namespace" keys. So if you had three users named `btholt`, `sarah_edo` and `scotups`, you may store their user info in three different keys like this: `user:sarah_edo`, `user:btholt`, and `user:scotups`. Now we know we can always retrieve `user:<user name here>` whenever we want user info. We also don't have to worry that if we cache payments later that we'll overwrite the `scotups` key, we can just namespace it different like `payment:scotups`, `payment:1marc`, etc. You can even go further and have multiple layers like `user:address:btholt`. These keys can actually be up to 512MB in length (don't do that haha) so you can have very long key names. Again, Redis just see this as a key so it's up to us how we want to namespace it. Redis won't enforce anything about it.
 
-While I see `:` mostly as the delimiter, you'll see some use `/` too.
+Rarely I'll see `/` used as the delimiter for namespaces, you should use `:`. It's the community standard and sometimes tools will rely on `:` as being the delimiter. Just use `:`.
 
-Technically Redis keys are "binary safe" which means you could have a JPEG (like the actual image itself) as a key. In general I wouldn't using a binary like that directly since the key will be long and the key comparison it will do will slow down Redis but you could MD5 an image and use that as a key if you were using Redis to disallow-list images or something like that.
+Technically Redis keys are "binary safe" which means you could have a JPEG (like the actual image itself) as a key. In general I wouldn't recommend using a binary like that directly since the key will be long and the key comparison it will do will slow down Redis but you could MD5 an image and use that as a key if you were using Redis to disallow-list images or something like that.
 
 ## INCR DECR INCRBY DECRBY
 
-A very common thing is wanting to do is do some quick additions or substracts on a value in the store. One of them could be that you're tracking page views. You could do something like this:
+A very common thing you'll want to do is quick additions or subtractions. One of them could be that you're tracking page views. You could do something like this:
 
 ```redis
 SET visits 0
@@ -49,7 +49,6 @@ Every time a user hits your website, you could just send a quick command to Redi
 What if you need to add or subtract more than just one? One case could be that you're tracking someone's score in a (American) football game and one team scores a touchdown. You could do:
 
 ```redis
-SET scor
 INCRBY score:seahawks 6
 DECRBY score:broncos 3
 ```
@@ -58,7 +57,7 @@ Same idea, you just have to tell Redis by how much you want to add or subtract.
 
 ## MSET MGET
 
-Another thing you can do is do multiple gets at a time as well as multipe sets
+Another thing you can do is do multiple gets at a time as well as multipe sets.
 
 ```redis
 MSET score:seahawks 43 score:broncos 8

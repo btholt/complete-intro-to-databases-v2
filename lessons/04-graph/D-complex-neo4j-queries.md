@@ -79,7 +79,7 @@ UNWIND nodes(path) AS node
 RETURN coalesce(node.name, node.title) AS text;
 ```
 
-- UNWIND takes something not a list and makes it a list. With `nodes(path)` we're getting all the nodes out (which will be Persons and Movies)
+- UNWIND takes something that's a list and expands it into individual nodes. With `nodes(path)` we're getting all the nodes out (which will be Persons and Movies).
 - `coalesce` is necessary because Persons have names and Movies have titles. This will take the first thing in there that's not null.
 - We use AS here to make these things easier to refer to later (both `node` and `text`)
 
@@ -94,7 +94,7 @@ RETURN DISTINCT Recommendation.name
 ORDER BY Recommendation.name;
 ```
 
-This will give you that extended network of people to check out. If you wanted to include diretory and writers in that count, just omit the `:ACTED_IN` so it's `-[*1..4]-` and that will give you any relationship.
+This will give you that extended network of people to check out. If you wanted to include directors and writers in that count, just omit the `:ACTED_IN` so it's `-[*1..4]-` and that will give you any relationship.
 
 [sample]: /sample-neo4j.cql
 [bacon]: https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon
