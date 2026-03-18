@@ -4,19 +4,21 @@ description: "Brian gives you notes on how you can install the various databases
 
 In this course we will be using four different databases: MongoDB, PostgreSQL, Neo4j, and Redis. These are software packages that you will have to download and get running and you have several options to do that. All of these will work on macOS, Windows, and Linux. I'll be sure to cover in depth how to do it on macOS and Windows and I assume all my Linux friends can adapt the macOS instructions to themselves.
 
-In every case, make sure you are getting the same version I am using. If you don't you will likely run into problems as the syntax and queries can change from version to version. Here are the version I'm using for this course.
+In every case, if you have issues that I'm not having, you may need to make sure you are getting the same version I am using. If you don't you will may run into problems as the syntax and queries can change from version to version. Here are the version I'm using for this course.
 
 - MongoDB v8.2.5
 - PostgreSQL v18.1
 - Neo4j 2026.01.4-community-trixie
 - Redis v8.6.0
-- DuckDB v1.4.4
+- DuckDB v1.5.0
+
+I made sure that all my installation options should get you a similar minor version to me.
 
 Here are a few of your options:
 
 ## Docker
 
-This is going to be how I'm going to do it and I will show you the correct Docker commands to run it this way. If you are unfamiliar with Docker and containers, [I have a course here][containers] that will quickly get you up to speed on this. Even if containers aren't super familiar to you, if you install Docker and follow the commands everything should just work. [Head here][docker] to install Docker Desktop which will handle everything you need.
+This is going to be how I'm going to do it (except for DuckDB) and I will show you the correct Docker commands to run it this way. If you are unfamiliar with Docker and containers, [I have a course here][containers] that will quickly get you up to speed on this. Even if containers aren't super familiar to you, if you install Docker and follow the commands everything should just work. [Head here][docker] to install Docker Desktop which will handle everything you need.
 
 ## Package manager
 
@@ -32,7 +34,7 @@ You can just head to all of the websites and install them yourself! I prefer to 
 - [PostgreSQL][postgresql] - v18.1
 - [Neo4j][neo4j] - 2026.01.4-community-trixie
 - [Redis][redis] - v8.6.0
-- [DuckDB][duckdb] - v1.4.4
+- [DuckDB][duckdb] - v1.5.0
 
 ## Cloud solutions
 
@@ -41,6 +43,12 @@ I'm going to throw this out as a possibility if your computer simply cannot run 
 ## Node.js Version
 
 We will be running some code samples with Node.js. It's less important which version of Node.js you choose as long you're above version 10. I will be using the latest LTS for this course, v24.13.1. Feel free to install through [the website][node] or through some sort of version manager like [nvm][nvm].
+
+## LLM
+
+If you are able to, it's great to use an LLM like ChatGPT, Claude, or Gemini with this course. I have made all of these course note available as one giant text doc that you can load directly into your LLM so you can ask it about the course.
+
+[Here is the link to the text file][llms].
 
 [containers]: https://frontendmasters.com/courses/complete-intro-container-v2/
 [docker]: https://www.docker.com/products/docker-desktop
@@ -54,3 +62,4 @@ We will be running some code samples with Node.js. It's less important which ver
 [duckdb]: https://duckdb.org/install/?platform=macos&environment=cli
 [nvm]: https://github.com/nvm-sh/nvm
 [node]: https://nodejs.org/en/download
+[llms]: /llms.txt

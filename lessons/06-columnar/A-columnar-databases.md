@@ -36,4 +36,6 @@ However Databricks had grievances with Iceberg and created their own version of 
 
 Now enter Apache Iceberg v3 which was mostly Databricks adding what it needed to Iceberg for it to work well for Databricks. Hopefully this means we can all mostly standardize on Iceberg v3 and the ecosystem will be less fractured. In any case, you can use any of the formats across most of the major providers and they'll make it work.
 
-Today we're going to be working with Parquet files, but DuckDB can read and write to Delta Lake and has experimental support for Iceberg.
+Today we're going to be working with Parquet files, but DuckDB can read and write to Delta Lake and Iceberg but doesn't support all operations yet. [Here's the support for both][duck-support].
+
+[duck-support]: https://duckdb.org/docs/stable/lakehouse_formats

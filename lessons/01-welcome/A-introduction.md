@@ -2,7 +2,9 @@
 description: "Welcome to the Complete Intro to Databases! Brian goes over what you need to know to get started."
 ---
 
-Welcome! Hello! This is the Complete Intro to Databases. I'm so excited to share with you some of my knowledge that I've earned working in the field. Knowing how to properly use a database will give you a leg up in your career, both from the perspective of being able to achieve more in your apps and from the perspective of being able to interview well for jobs that need to use databases. And if I'm being honest, I think learning how to and using these databases is a lot of fun. It's a fantastic feeling to throw some data into one of these databases and then be able to retrieve data and insight using various querying techniques and abilities.
+> This the second revision of the Complete Intro to Databases. You do not need to have taken v1 - this is just an updated version of it!
+
+Welcome! Hello! This is the Complete Intro to Databases v2. I'm so excited to share with you some of my knowledge that I've earned working in the field. Knowing how to properly use a database will give you a leg up in your career, both from the perspective of being able to achieve more in your apps and from the perspective of being able to interview well for jobs that need to use databases. And if I'm being honest, I think learning how to and using these databases is a lot of fun. It's a fantastic feeling to throw some data into one of these databases and then be able to retrieve data and insight using various querying techniques and abilities.
 
 ## Who is this course for?
 
@@ -14,28 +16,21 @@ All the programming samples will be in JavaScript with Node.js but if you code i
 
 ## Who am I?
 
-![Brian drinking a beer](./images/brian-beer.jpg)
+![Brian drinking a beer](/images/social-share-cover.jpg)
 
-My name is Brian Holt and I am a principal program manager at Microsoft (as of writing.) I have been writing code most of my life thanks to my dad and brother and I have been a professional developer for a decade. Actually, funnily enough, my father used to work one of the OG large-scale databases, IBM DB2. It is a bit of a full circle for me to be coming in and teaching a course on databases considering that. Of course we're going to be focusing on open source databases!
+My name is Brian Holt and I am an engineer and product manager. I have been writing code most of my life thanks to my dad and brother and I have been a professional developer for a decade. Actually, funnily enough, my father used to work one of the OG large-scale databases, IBM DB2. It is a bit of a full circle for me to be coming in and teaching a course on databases considering that. Of course we're going to be focusing on open source databases!
 
-I'm excited to share with you my experience using databases that I've garnered over my career at companies like Reddit, Netflix, LinkedIn, and Microsoft. I had to write a lot of SQL early in my career (from MySQL primarily) and it has only helped me throughout my career. I was also an early user of MongoDB and attended one of the first MongoDB Days in San Francisco. Believe it or not that was actually my first tech conference (I've since been to 150+ events.)
+I'm excited to share with you my experience using databases that I've garnered over my career at companies like Reddit, Netflix, LinkedIn, Microsoft, Stripe, Snowflake, Neon, and Databricks. I had to write a lot of SQL early in my career (from MySQL primarily) and it has only helped me throughout my career. I was also an early user of MongoDB and attended one of the first MongoDB Days in San Francisco. Believe it or not that was actually my first tech conference (I've since been to 100+ events.)
 
-![Brian speaking at conference](./images/brian.jpg)
+![Brian speaking at conference](/images/tahoe.jpg)
 
-When I'm not working at Microsoft or working on Frontend Masters content I try to get away from my keyboard. I enjoy exercising (I'm on Peloton at [btholt][peloton] if you want exercise with me!), Islay Scotches, local beer, medium roast coffee, traveling around the world, playing with my adorable Havanese dog Luna, hanging out with my amazing wife [Niki][niki], and getting my ass kicked at Dota 2 and Overwatch. I'm passionate about people and helping them fulfill their own potentials, having amazing local experiences where ever I am, and having a drink with those I love.
+When I'm not working or creating content I try to get away from my keyboard. I enjoy snowboarding, exercising, local beer, coffee, traveling around the world, playing with my adorable Havanese dog Luna, hanging out with my amazing wife and two kids, and getting my ass kicked at Overwatch. I'm passionate about people and helping them fulfill their own potentials, having amazing local experiences where ever I am, and having a drink with those I love.
 
-![Luna, havanese dog](./images/lunasit.jpg)
-
-Lastly, while I have your attention, just wanted to call some attention to my favorite charitable organizations. Spare a dollar for these fine people if you have one to give.
-
-- [AnnieCannons][ac]
-- [The Last Mile][tlm]
-- [VetsWhoCode][vwc]
-- [Legal Counsel for Youth and Children][lcyc]
+![Luna, havanese dog](/images/luna-sit.jpg)
 
 ## Special Thanks to Frontend Masters
 
-![Frontend Masters](./images/FrontendMastersLogo.png)
+![Frontend Masters](/images/fem.png)
 
 I want to thank Marc and the whole Frontend Masters team explicitly. In addition to being family to me these are some of the most wonderful people I've ever met. You are reading or watching this course thanks to their hard work to make the world of tech more approachable with high quality instructors teaching what they know best. I want to thank them for creating the platform, garnering a community of knowledge-seeking developers, and giving me incentive and a platform to speak to you all. One specific kindness is that while the videos are on the platform (and I think they are worth every penny to watch) they let me release this website and materials as open source so every person can acquire the knowledge.
 
@@ -48,16 +43,12 @@ Please catch up with me on social media! Do note I'm not the best at responding 
 - [Twitter][tw]
 - [LinkedIn][li]
 - [GitHub][gh]
+- [Bluesky][bs]
 
 [command-line]: https://frontendmasters.com/courses/linux-command-line/
 [web-dev]: https://frontendmasters.com/courses/web-development-v2/
-[peloton]: https://members.onepeloton.com/members/btholt/overview
-[niki]: https://twitter.com/ImNikiHolt
-[lcyc]: http://lcycwa.org/donate
 [tw]: https://twitter.com/holtbt
 [gh]: https://github.com/btholt
 [li]: https://linkedin.com/in/btholt
+[bs]: https://bsky.app/profile/brianholt.me
 [course]: https://github.com/btholt/complete-intro-to-linux-and-the-cli
-[tlm]: https://thelastmile.org/donate/
-[ac]: https://anniecannons.org/invest
-[vwc]: https://vetswhocode.io/donate

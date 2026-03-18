@@ -11,7 +11,8 @@ Having a decent amount of familiarity with the databases I've shown you as well 
 - Do I have highly relational data where I'll many tables that need to join to other tables? SQL/Relational databases are probably best here
 - Do I have highly unstructured data where I'll have collections of related objects that are differently shaped? Document-based databases are going to shine here
 - Do I have data where I need to describe graphs of relationships? A graph database can work best here
-- Do I have simple needs of just retreiving data based on keys? Key-value stores can be a primary database in these cases
+- Do I have simple needs of just retreiving data based on keys? Key-value stores are super useful here
+- Do I want to run analytics on large amounts of data and derive insight? I should look at an OLAP database like a columnar database
 - Do I have pipelines of information that need to filter, split, combined, and republished? Something like [Apache Kafka][kafka] could be really helpful here
 
 Do none, some, or all of these fit? Do you have other considerations? Take a second to consider all of your data needs.
@@ -20,7 +21,7 @@ Do none, some, or all of these fit? Do you have other considerations? Take a sec
 
 This has as much to do with _which database_ you're choosing as it does with _how you architect_ your data with whatever database you're choosing.
 
-Here's a great example (shout to my conversation with [Harry Wolff], director at MongoDB Inc that inspired this.) If you have relational data but it's almost never read and more frequently read and your other usecases are more favored to using a document-based database, MongoDB is actually a fine choice to make in that case. MongoDB does do joins, it's just not so optimized as something like PostgreSQL is for it.
+Here's a great example. If you have relational data but it's almost never read and more frequently read and your other usecases are more favored to using a document-based database, MongoDB is actually a fine choice to make in that case. MongoDB does do joins, it's just not so optimized as something like PostgreSQL is for it.
 
 Think a lot about where your hotspots of reads and writes are. Optimize for those. You can tolerate slowness and inefficiency in areas where they don't get run frequently.
 
@@ -28,7 +29,7 @@ Also recognize that you can rarely anticipate fully where your hotspots and non-
 
 ## Familiarity
 
-People don't put enough weight into familiarity. We think as developer we can pick anything at the drop of a hat and that just isn't true. Learning new tech is expensive, both from a time perspective and from you're-going-to-cause-downtime-because-you-don't-know-all-the-problems perspective. I remember at Reddit we went with MySQL despite PostgreSQL being all the hotness at the time because the entire team had familiarity with MySQL and no one knew PostgreSQL at all. Be sure to properly weigh experience into your decision. Some knowledge is only won through experience.
+People don't put enough weight into familiarity. We think as developer we can pick anything at the drop of a hat and that just isn't true. Learning new tech is expensive, both from a time perspective and from you're-going-to-cause-downtime-because-you-don't-know-all-the-problems perspective. I remember at Reddit for my little team we went with MySQL despite PostgreSQL being all the hotness at the time because the entire team had familiarity with MySQL and no one knew PostgreSQL at all. Be sure to properly weigh experience into your decision. Some knowledge is only won through experience.
 
 ## Quality of Drivers
 
@@ -38,11 +39,11 @@ Be sure to be poke around the SDKs / drivers of whatever database you may choose
 
 Databases frequently end up being the most expensive part of your app from all perspectives: raw cost, raw time spent writing code for it, and cost of eventual downtime. Take a look at it from the perspective of how much it's going to cost you to hire ops people that know how to run this particular server in production.
 
-In this capacity, and very biasedly, I recommend you look into using a cloud-based database. While the monetary cost of paying for a managed database-as-a-service is higher than just running a few VMs, not having to manage sharding, clusters, peering, elections, networking, firewalls, software updates, operating system updates, capacity allocations, horizontal scaling, vertical scaling, etc. frequently can make it more-than worth the cost. Again, I'm biased here due to my current employment at Microsoft Azure, but this is what I would choose even I wasn't employed here. All major cloud providers have great options here.
+In this capacity, and very biasedly, I recommend you look into using a cloud-based database. While the monetary cost of paying for a managed database-as-a-service is higher than just running a few VMs, not having to manage sharding, clusters, peering, elections, networking, firewalls, software updates, operating system updates, capacity allocations, horizontal scaling, vertical scaling, etc. frequently can make it more-than worth the cost. Again, I'm biased here due to my previos employment at various cloud data companies, but this is what I would choose even I wasn't employed there. All major cloud providers have great options here.
 
 ## Be Boring
 
-I can't stress this enough. With your core infrastructure (a.k.a. anything that if it went down your app would go down) be as boring as you can tolerate. Instead of choosing what's hot, what's on Hacker News, what's being talked about on Twitter, what people are talking about at conferences, etc. just choose boring, tried-and-true technologies. Everything I've shown you here I think is mature enough to be considered boring. But make it boring to you by using them, finding problems, breaking them, and trying new things with them. Then they'll be boring for you too.
+I can't stress this enough. With your core infrastructure (a.k.a. anything that if it went down your app would go down) be as boring as you can tolerate. Instead of choosing what's hot, what's on Hacker News, what's being talked about on Twitter, what people are talking about at conferences, etc. just choose boring, tried-and-true technologies. Everything I've shown you here I think is mature enough to be considered boring. But make it boring to you by using them, finding problems, breaking them, and trying new things with them. Then they'll be boring for you too. AI tools like ChatGPT and Claude tend to do better with boring things as there's ample material on the Internet about common problems and how to best architect them.
 
 If you're going to do something exciting, have a damn good reason why it's much better than a boring alternative. On the bleeding edge, you're the one who is bleeding.
 
@@ -56,27 +57,26 @@ Caching is frequently a band-aid on a worse problem. Instead of fixing inefficie
 
 A big reason I throw out so much caution for caching is that databases are built to handle a lot of load and if you use them with best practices you can get a lot of performance out of them. Problems often arise because we're not using the tools correctly (like writing bad queries or having something misconfigured) and if we can fix these we can achieve greater scale without the need for a cache.
 
-Caching just adds so much indirection to your app. Now you whenever your API isn't responding correctly, you have to ask yourself "is this a stale cache?" God forbid you have multiple layers of caching (maybe you cache the database response, the external API response, and then cache the API response before it goes out) then you need to pick apart which cache was stale or if it's an underlying problem. It's also hard to avoid thundering herd problems. I taught you caching for a reason because sometimes we just do need it but it's a sharp implement; make sure you only use it when you actually need it and keep it as simple as you can.
+Caching just adds so much indirection to your app. Now you whenever your API isn't responding correctly, you have to ask yourself "is this a stale cache?" God forbid you have multiple layers of caching (maybe you cache the database response, the external API response, and then cache the API response before it goes out) then you need to pick apart which cache was stale or if it's an underlying problem. It's also hard to avoid thundering herd problems. I taught you caching for a reason because sometimes we just do need it but it's a sharp sword; make sure you only use it when you actually need it and keep it as simple as you can.
+
+## Projects You Can Do
+
+- We built 4 little apps, but you definitely could go build better and bigger apps that use one or more of these database!
+- In particular, [Kaggle][kaggle] (a Google company) and [Hugging Face][hf] have a myriad of interesting and cool free datasets - find one that interests you, pick a database, and go play with querying them!
+- We didn't build an app with DuckDB, but that's because normally you wouldn't build an app of your OLAP database. However you could build a cool dashboard for it!
 
 ## Next Courses to Take
 
 Frontend Masters has so many wonderful courses and instructors to offer. Here a handful of ones that I'd recommend after taking this one if you want to further deepen skills
 
-### From me, Brian Holt
+I'd recommend the [Fullstack to Backend][fullstack] learning path - lots of good stuff on there and more database stuff.
 
-- I want to get better at the command line: [Complete Intro to Linux and the CLI][cli]
-- I want to learn about the containers we've been using this whole time: [Complete Intro to Containers][containers]
+Beyond that, here are a few specific ones to look into if you're hungry for database learning
 
-### From other amazing instructors
-
-- I want to get better at MongoDB from Scott Moss
-  - [Intro to MongoDB (including Mongoose ORM)][intro-mongo]
-  - [API Design with MongoDB][mongo]
-- I want to get better at GraphQL from Scott Moss
-  - [From the server][server-graphql]
-  - [From the client][client-graphql]
-  - [Advance GraphQL][advance-graphql]
-- [I want to get better at managing servers and cloud deployments][full-stack] from Jem Young
+- [Complete Intro to SQL][sql]
+- [Complete Intro to SQLite][sqlite]
+- [Intro to MongoDB][mongodb]
+- [Fullstack Next.js][next]
 
 ## Wrap Up
 
@@ -85,14 +85,9 @@ Thank you for sticking through this tutorial and congrats on your unlocked achie
 I hope you enjoyed the course!
 
 [kafka]: https://kafka.apache.org/
-[harry]: https://twitter.com/hswolff/
 [twitter]: https://twitter.com/holtbt
-[pr]: https://github.com/btholt/complete-intro-to-databases
-[mongo]: https://frontendmasters.com/courses/api-design-nodejs-v3/
-[cli]: https://frontendmasters.com/courses/linux-command-line/
-[containers]: https://frontendmasters.com/courses/complete-intro-containers/
-[advance-graphql]: https://frontendmasters.com/courses/advanced-graphql-v2/
-[intro-mongo]: https://frontendmasters.com/courses/mongodb/
-[full-stack]: https://frontendmasters.com/courses/fullstack-v2/
-[client-graphql]: https://frontendmasters.com/courses/client-graphql-react/
-[server-graphql]: https://frontendmasters.com/courses/server-graphql-nodejs/
+[pr]: https://github.com/btholt/complete-intro-to-databases-v2
+[fullstack]: https://frontendmasters.com/learn/fullstack/
+[next]: https://frontendmasters.com/courses/fullstack-app-next-v4/
+[mongodb]: https://frontendmasters.com/courses/mongodb/
+[hf]: https://huggingface.co/datasets?modality=modality:tabular&sort=trending
