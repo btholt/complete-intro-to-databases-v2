@@ -1,3 +1,18 @@
+---
+description: >-
+  Learn vector search and RAG (retrieval-augmented generation) with Postgres
+  pgvector. Brian Holt demonstrates how to implement semantic search using
+  embeddings from OpenAI or Ollama for database-powered AI applications with
+  practical examples.
+keywords:
+  - vector search
+  - RAG
+  - pgvector
+  - postgres embeddings
+  - semantic search
+  - ollama
+  - openai embeddings
+---
 Let's talk about vector search, which is most frequently used with a technique called RAG (retrieval-augmented generation). At its most simple, RAG is the idea that you have a database full of useful context for LLMs. 
 
 Let's say you run an outdoor equipment retailer and a user asks for gloves are that good in warmer, spring skiing. You have a database full of descriptions of gloves. Before you ask your LLM for recommendation, you query your database with their search string and feed that as context into the LLM so it already has a list of products that are related to their query, giving it all the context it needs to make an informed recommendation based on actual products you have.

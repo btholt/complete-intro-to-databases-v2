@@ -1,5 +1,17 @@
 ---
-description: "Brian wraps up the course and says his parting, wise words."
+description: >-
+  Complete guide to choosing the right database for your project by Brian Holt.
+  Learn database selection criteria including SQL, NoSQL, MongoDB, PostgreSQL
+  considerations, paradigm matching, read/write patterns, caching strategies,
+  and production deployment best practices.
+keywords:
+  - database selection
+  - SQL vs NoSQL
+  - database architecture
+  - MongoDB PostgreSQL
+  - caching strategies
+  - database paradigms
+  - production databases
 ---
 
 Congratulations! You survived a tidal wave of information coming your way about how to store data in a variety different settings. You have enough context now to make a good judgment call on the best way to store you data n a variety of different settings and needs. Let's go over a few more considerations for you to make as you're considering decisions to choose when and where.

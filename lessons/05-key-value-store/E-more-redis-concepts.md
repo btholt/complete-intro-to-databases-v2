@@ -1,5 +1,16 @@
 ---
-description: "This course only covers some of Redis's core capabilities, but there are a few more use cases a developer should know about Redis."
+description: >-
+  Learn advanced Redis features with Brian Holt including Lua scripting with
+  EVAL, pub/sub messaging, transactions, and LRU cache configuration for
+  database optimization and real-time applications.
+keywords:
+  - redis advanced features
+  - redis lua scripting
+  - redis pub sub
+  - redis transactions
+  - redis lru cache
+  - redis eval
+  - database optimization
 ---
 
 Redis has a pretty large surface area of capabilities and power that you should be aware of. These are going to be for advanced to very-advanced use cases of Redis (as in I have never shipped anything with these in them.)

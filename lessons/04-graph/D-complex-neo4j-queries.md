@@ -1,5 +1,17 @@
 ---
-description: "Graph databases are great when you need to define relations between objects that can have complex webs of relations especially for things like social networks."
+description: >-
+  Learn Neo4j graph database queries with practical examples including shortest
+  path algorithms, relationship traversal, and solving the Six Degrees of Kevin
+  Bacon problem using Cypher query language in Brian Holt's Complete Intro to
+  Databases v2.
+keywords:
+  - neo4j
+  - cypher
+  - graph database
+  - shortest path
+  - kevin bacon
+  - database queries
+  - neo4j tutorial
 ---
 
 This section assumes you've inserted all the people and movies from the previous section. If not, [run this query][sample] to get all the data.

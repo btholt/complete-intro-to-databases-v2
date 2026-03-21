@@ -1,5 +1,16 @@
 ---
-description: "Graph databases are great when you need to define relations between objects that can have complex webs of relations especially for things like social networks."
+description: >-
+  Learn graph databases with Neo4j in Brian Holt's Complete Intro to Databases
+  v2 course. Discover nodes, relationships, and properties for modeling complex
+  data relationships like movies, actors, and directors in your applications.
+keywords:
+  - neo4j
+  - graph database
+  - nodes
+  - relationships
+  - database tutorial
+  - brian holt
+  - data modeling
 ---
 
 Another tool in your toolbox should be graph databases. Graph databases, as the name implies, are wonderful for defining data that has complex relationships with other pieces of data in your database. The docs for Neo4j (the database we'll be learning today) uses the examples of movies, actors, and directors. A movie will have many actors and one or more directors while the actors and directors will all likely have been in more than one movies. Some people like Taika Waititi or Angelina Jolie have done both acting and directing! This is where a graph database can come in super handy.

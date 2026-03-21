@@ -1,5 +1,17 @@
 ---
-description: "Brian shows you how to update and delete the documents that have been inserted into the database."
+title: Updating MongoDB
+description: >-
+  Learn MongoDB CRUD operations including insertOne, insertMany, updateOne,
+  updateMany, upsert, deleteOne, deleteMany, and bulkWrite commands in Brian
+  Holt's Complete Intro to Databases course.
+keywords:
+  - mongodb crud operations
+  - insertOne insertMany
+  - updateOne updateMany
+  - mongodb upsert
+  - deleteOne deleteMany
+  - mongodb tutorial
+  - brian holt database course
 ---
 
 ## insert, insertOne, and insertMany

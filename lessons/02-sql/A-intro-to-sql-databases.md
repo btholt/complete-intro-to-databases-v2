@@ -1,6 +1,17 @@
 ---
-title: "Intro to SQL Database"
-description: "The most common databases today are relational databases. Brian goes over the landscape of current SQL-based relational databases and some of their features."
+title: Intro to SQL Database
+description: >-
+  Learn about SQL and relational databases in this Complete Intro to Databases
+  course by Brian Holt. Explore PostgreSQL and more database
+  management systems with practical comparisons and use cases.
+keywords:
+  - sql
+  - postgresql
+  - mysql
+  - sqlite
+  - relational database
+  - database tutorial
+  - brian holt
 ---
 
 First things first: when I say SQL databases I mean relational databases (also frequently abbreviated as RDBMS, relational database management system.) It's important to note that not all relational databases use SQL and not all non-relational databases don't use SQL (i.e. some NoSQL databases do use SQL.) However I'm using the most common terminology here to help you integrate with the information already out on the Internet. This is a case (like serverless) where marketing won and we ended up with weird terminology.

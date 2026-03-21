@@ -1,5 +1,16 @@
 ---
-description: "Useful when using Redis is the ability to define when documents get deleted with TTLs and when a query will fail with NX and XX."
+description: >-
+  Learn Redis NX/XX commands for conditional key setting and TTL (time to live)
+  for automatic key expiration in Brian Holt's Complete Intro to Databases
+  course. Master Redis caching strategies and avoid thundering herd problems.
+keywords:
+  - redis
+  - TTL
+  - caching
+  - NX XX commands
+  - database
+  - thundering herd
+  - key expiration
 ---
 
 ## NX and XX

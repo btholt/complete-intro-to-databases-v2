@@ -1,5 +1,18 @@
 ---
-title: "DuckDB"
+title: DuckDB
+description: >-
+  Learn DuckDB basics with Brian Holt in this Complete Intro to Databases
+  tutorial - discover how this columnar OLAP database queries remote files,
+  loads parquet data from S3, and performs fast analytical queries for data
+  science and business intelligence.
+keywords:
+  - duckdb
+  - olap database
+  - columnar database
+  - parquet files
+  - data analytics
+  - sql queries
+  - brian holt
 ---
 
 We are going to be using DuckDB which can be a bit confusing, so let's get that out of the way. The other databases we've used so far are servers - you run a Postgres or a MongoDB database and then you use a client to connect to that database. Your `psql` or `mongosh` clients just send requests to the database and then the server does the work.

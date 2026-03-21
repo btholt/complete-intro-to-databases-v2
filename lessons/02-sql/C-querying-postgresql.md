@@ -1,5 +1,17 @@
 ---
-description: "SQL is a very flexible and expressive way to describe what data you want out of a database. In this section Brian talks about the various ways to read from and modify a database using SQL."
+description: >-
+  Learn essential SQL operations including SELECT, WHERE, UPDATE, and DELETE
+  with PostgreSQL in Brian Holt's Complete Intro to Databases v2 course. Master
+  database queries, filtering, sorting, and data manipulation with practical
+  examples.
+keywords:
+  - sql
+  - postgres
+  - postgresql
+  - database queries
+  - select statement
+  - where clause
+  - brian holt
 ---
 
 You'll find there's a lot of depth to SQL. There are people who most of their jobs is just writing SQL. But let's hop into the basics here. First thing I want to do is insert some dummy data into our users database.

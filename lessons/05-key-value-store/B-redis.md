@@ -1,5 +1,16 @@
 ---
-description: "Graph databases are great when you need to define relations between objects that can have complex webs of relations especially for things like social networks."
+description: >-
+  Learn Redis basics with Brian Holt in this Complete Intro to Databases v2
+  tutorial - master SET, GET, INCR, DECR commands and Redis key naming
+  conventions using Docker setup.
+keywords:
+  - redis
+  - redis commands
+  - database tutorial
+  - redis docker
+  - brian holt
+  - set get redis
+  - redis basics
 ---
 
 Let's get Redis running through Docker. Run this

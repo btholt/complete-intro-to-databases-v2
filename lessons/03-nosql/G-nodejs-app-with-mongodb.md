@@ -1,6 +1,18 @@
 ---
-title: "Write a Node.js App with MongoDB"
-description: "Brian shows you a quick project to demonstrate how to translate these command line concepts into code with a Node.js app to query our pets database"
+title: Write a Node.js App with MongoDB
+description: >-
+  Learn how to build a Node.js application with MongoDB integration in Brian
+  Holt's Complete Intro to Databases v2 course, featuring practical code
+  examples for connecting Express server to MongoDB database with search
+  functionality.
+keywords:
+  - nodejs
+  - mongodb
+  - express
+  - database
+  - javascript
+  - backend
+  - tutorial
 ---
 
 Let's quickly write up a quick Node.js project to help you transfer your skills from the command line to the coding world.

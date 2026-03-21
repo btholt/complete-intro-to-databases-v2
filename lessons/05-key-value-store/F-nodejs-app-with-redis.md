@@ -1,6 +1,17 @@
 ---
-title: "Node.js App with Redis"
-description: "Take the learnings from how to use Redis as a key-value store and cache from the command line to code! Brian whips up two examples of how and why you'd want to use Redis with Node.js."
+title: Node.js App with Redis
+description: >-
+  Learn to build a Redis Node.js application with Brian Holt's Complete Intro to
+  Databases v2. Build a pageview counter and implement caching patterns using
+  Express and Redis SDK for high-performance web apps.
+keywords:
+  - redis
+  - nodejs
+  - caching
+  - express
+  - database
+  - pageview counter
+  - brian holt
 ---
 
 Let's quickly write up a Node.js project to help you transfer your skills from the command line to the coding world.

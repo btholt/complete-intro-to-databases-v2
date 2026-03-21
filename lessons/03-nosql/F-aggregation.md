@@ -1,5 +1,15 @@
 ---
-description: ""
+description: >-
+  Learn MongoDB aggregation with pipelines and $bucket, $match, and $sort stages
+  to analyze and group data efficiently from Brian Holt's Complete Intro to
+  Databases course.
+keywords:
+  - mongodb aggregation
+  - aggregation pipeline
+  - mongodb tutorial
+  - database queries
+  - mongodb bucket
+  - data analysis
 ---
 
 MongoDB has a fun feature called aggregation. There's two ways of doing it, aggregation pipelines and map-reduce. Map-reduce is exactly what you'd expect if you're from a functional programming background: you provide MongoDB a map function that it will run every item in the array and then a reduce function to aggregate your collection into a smaller set of data.

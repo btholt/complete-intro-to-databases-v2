@@ -1,5 +1,16 @@
 ---
-description: "Welcome to the Complete Intro to Databases! Brian goes over what you need to know to get started."
+description: >-
+  Learn databases with Brian Holt's Complete Intro to Databases v2 course -
+  master PostgreSQL, MongoDB, Redis, Neo4J and more to advance your career and
+  build better apps with proper data storage and retrieval techniques.
+keywords:
+  - database course
+  - brian holt
+  - postgres
+  - mongodb
+  - redis
+  - neo4j
+  - sql database tutorial
 ---
 
 > This the second revision of the Complete Intro to Databases. You do not need to have taken v1 - this is just an updated version of it!

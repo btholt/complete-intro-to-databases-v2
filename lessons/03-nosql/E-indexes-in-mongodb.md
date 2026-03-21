@@ -1,5 +1,17 @@
 ---
-description: "When querying against MongoDB, query performance can be very important. Brian shows you how to think about indexing a MongoDB database to improve performance and capabilities."
+title: Indexes in MongoDB
+description: >-
+  Learn MongoDB database indexing techniques with Brian Holt's Complete Intro to
+  Databases v2 - create compound indexes, unique indexes, and text indexes for
+  full-text search optimization.
+keywords:
+  - mongodb indexing
+  - mongodb explain
+  - compound index
+  - unique index
+  - text index
+  - database optimization
+  - mongodb performance
 ---
 
 This works very similarly to how it works in PostgreSQL so we're going to breeze over this pretty quickly.
@@ -95,7 +107,7 @@ To see the actual scores:
 db.pets
   .find(
     { $text: { $search: "dog Havanese Luna" } },
-    { score: { $meta: "textScore" } }
+    { score: { $meta: "textScore" } },
   )
   .sort({ score: { $meta: "textScore" } });
 ```
@@ -104,7 +116,7 @@ The `""` and `-` operators work here too. To search for all Lunas that are not c
 
 ```javascript
 db.pets
-  .find({ $text: { $search: '-cat Luna' } })
+  .find({ $text: { $search: "-cat Luna" } })
   .sort({ score: { $meta: "textScore" } });
 ```
 

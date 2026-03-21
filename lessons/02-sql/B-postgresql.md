@@ -1,6 +1,17 @@
 ---
-title: "PostgreSQL"
-description: "PostgreSQL is a relational database that lets developers write amazing apps. Brian goes over how to get PostgreSQL started on your computer and help you write your first query."
+title: PostgreSQL
+description: >-
+  Learn PostgreSQL fundamentals with Brian Holt's Complete Intro to Databases v2
+  - set up Docker containers, create databases and tables, and write your first
+  SQL queries with step-by-step examples.
+keywords:
+  - postgresql
+  - sql
+  - database tutorial
+  - docker postgres
+  - create table
+  - brian holt
+  - database beginner
 ---
 
 So we examined a bit of the general relational databases in the previous section, let's get into some interacting with some databases.

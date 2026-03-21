@@ -1,6 +1,17 @@
 ---
-title: "MongoDB"
-description: "MongoDB is a document-based NoSQL database that allows developers to write unstructured data to be queried later. Brian goes into what this means for a developer and when you might want to use it"
+title: MongoDB
+description: >-
+  Learn MongoDB fundamentals in Brian Holt's Complete Intro to Databases v2
+  course - set up MongoDB with Docker, create databases and collections, and
+  insert documents with practical examples.
+keywords:
+  - mongodb
+  - nosql database
+  - mongodb tutorial
+  - docker mongodb
+  - database collections
+  - mongodb insertone
+  - brian holt
 ---
 
 [MongoDB][stackoverflow] is one of the most popular databases in the world today. Over the past decade it has established itself as a reliable custodian of database workloads both small and large. I think it's a fairly uncontroversial thing to say it is one of the most popular NoSQL database in the world, if not the most popular one.

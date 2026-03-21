@@ -1,5 +1,16 @@
 ---
-description: "Brian discusses what databases are, what the various type we will cover, and get you in the mindset of storing data."
+description: >-
+  Learn database fundamentals with Brian Holt's Complete Intro to Databases v2
+  course, covering essential terminology, ACID principles, transactions, and
+  different database types including SQL, NoSQL, and key-value stores.
+keywords:
+  - database fundamentals
+  - ACID principles
+  - database transactions
+  - SQL databases
+  - NoSQL
+  - Brian Holt
+  - database terminology
 ---
 
 Before we hop in to working with these various sorts of database I want to make sure we are clear on some common terminology and what the goals are for today, what we are going to cover and what we are not.

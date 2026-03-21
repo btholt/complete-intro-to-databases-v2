@@ -1,5 +1,17 @@
 ---
-description: "Query performance in a graph database is just as important as it is in any database. Brian teaches you to profile Neo4j queries and how to tune them for performance with indexes."
+description: >-
+  Learn how to optimize Neo4j database performance using indexes with Brian
+  Holt's Complete Intro to Databases v2. This tutorial covers creating indexes
+  on Node properties, using EXPLAIN to analyze query performance, and improving
+  database query efficiency for graph databases.
+keywords:
+  - neo4j
+  - database
+  - index
+  - query performance
+  - cypher
+  - graph database
+  - optimization
 ---
 
 Just as with PostgreSQL and MongoDB, frequently having an index becomes very important to query performance for your "hot paths" for your database querying habits.

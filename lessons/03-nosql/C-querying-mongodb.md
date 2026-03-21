@@ -1,5 +1,17 @@
 ---
-description: "After inserting documents into MongoDB, you are going to want to be able to query those documents. Brian shows you how in this section to write find queries for MongoDB."
+title: Querying MongoDB
+description: >-
+  Learn MongoDB querying techniques with Brian Holt's Complete Intro to
+  Databases course - master findOne, find, query operators, logical operations,
+  sorting, and projections for effective database retrieval.
+keywords:
+  - mongodb
+  - database querying
+  - findOne
+  - query operators
+  - mongodb projections
+  - database tutorial
+  - brian holt
 ---
 
 So now that we've put a lot of documents into our database, it's time to query our database to get information out of it. There are a variety of reasons and methods you can query a database. You could be querying a database to get one a specific record, like if you're querying for a user object to show a profile page, or you could be querying for a bunch of things at once, like if a user was searching for pets and you wanted to show five results.

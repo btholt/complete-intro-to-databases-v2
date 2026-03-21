@@ -1,6 +1,17 @@
 ---
-title: "Neo4j Browser"
-description: "An amazing tool that Neo4j provides dev is a built in browser that allows you run queries and visualize your graph"
+title: Neo4j Browser
+description: >-
+  Learn to use Neo4j's browser portal at localhost:7474 to run Cypher queries
+  and visualize graph database relationships in Brian Holt's Complete Intro to
+  Databases v2 course.
+keywords:
+  - neo4j
+  - cypher
+  - graph database
+  - brian holt
+  - database tutorial
+  - neo4j browser
+  - cypher queries
 ---
 
 Let's hop into their nice portal that Neo4j provides. Open [http://localhost:7474](http://localhost:7474) in a browser. When asked to authenticate just choose the drop down "no authentication." If you didn't provide the no auth option on startup, the default username and password is neo4j/neo4j.

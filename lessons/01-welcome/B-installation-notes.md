@@ -1,5 +1,17 @@
 ---
-description: "Brian gives you notes on how you can install the various databases you will be using in this course."
+description: >-
+  Brian Holt's Complete Intro to Databases v2 setup guide covers installation
+  options for MongoDB, PostgreSQL, Neo4j, Redis, and DuckDB using Docker,
+  package managers, or direct downloads with specific version requirements and
+  Node.js configuration.
+keywords:
+  - database installation
+  - mongodb setup
+  - postgresql setup
+  - docker databases
+  - redis installation
+  - neo4j setup
+  - database course
 ---
 
 In this course we will be using four different databases: MongoDB, PostgreSQL, Neo4j, and Redis. These are software packages that you will have to download and get running and you have several options to do that. All of these will work on macOS, Windows, and Linux. I'll be sure to cover in depth how to do it on macOS and Windows and I assume all my Linux friends can adapt the macOS instructions to themselves.

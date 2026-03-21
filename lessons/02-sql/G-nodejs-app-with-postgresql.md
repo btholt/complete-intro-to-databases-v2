@@ -1,6 +1,17 @@
 ---
-title: "Node.js App with PostgreSQL"
-description: "To help transfer learnings from the command line to code, Brian shows you how to quickly write an app for our message board tables using Node.js"
+title: Node.js App with PostgreSQL
+description: >-
+  Learn to build a Node.js app with PostgreSQL in Brian Holt's Complete Intro to
+  Databases course - includes Express setup, SQL queries, and critical SQL
+  injection security practices.
+keywords:
+  - nodejs
+  - postgresql
+  - express
+  - sql-injection
+  - database
+  - postgres
+  - parameterized-queries
 ---
 
 Let's quickly write up a quick Node.js project to help you transfer your skills from the command line to the coding world.

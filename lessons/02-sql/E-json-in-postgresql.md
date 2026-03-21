@@ -1,6 +1,18 @@
 ---
-title: "JSON in PostgreSQL"
-description: "One of PostgreSQL's super powers is that it's able to store and query JSON"
+title: JSON in PostgreSQL
+description: >-
+  Learn PostgreSQL's JSONB data type with Brian Holt in Complete Intro to
+  Databases v2. Master storing and querying JSON objects in PostgreSQL using
+  brackets, operators, and text extraction techniques for flexible schema-less
+  data.
+keywords:
+  - postgresql jsonb
+  - postgres json queries
+  - database json
+  - jsonb operators
+  - postgres brackets notation
+  - sql json extraction
+  - postgresql tutorial
 ---
 
 ## JSONB

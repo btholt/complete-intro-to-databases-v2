@@ -1,5 +1,18 @@
 ---
-description: "Indexes are critical to a well functional relational database. Brian explains how to investigate query performance and how to create an index to solve that problem."
+title: Indexes in PostgreSQL
+description: >-
+  Learn database performance optimization with indexes in Brian Holt's Complete
+  Intro to Databases v2. Master PostgreSQL indexing, EXPLAIN queries, compound
+  indexes, unique constraints, and full-text search to make your database
+  queries faster and more efficient.
+keywords:
+  - database indexes
+  - postgres performance
+  - sql optimization
+  - database tuning
+  - postgresql indexes
+  - query performance
+  - database indexes tutorial
 ---
 
 Databases are honestly marvels of technology. I remember in my computer science program I had to write one and it could barely run the rudimentary queries it needed to pass the class. These databases are powering everything around you and munging through petabytes of data at scale.
@@ -81,8 +94,8 @@ Frequently something you want to do is called "full text search." This is simila
 PostgreSQL has built-in full text search capabilities. Let's say we want to search comments for specific words:
 
 ```sql
-SELECT comment_id, LEFT(comment, 50) 
-FROM comments 
+SELECT comment_id, LEFT(comment, 50)
+FROM comments
 WHERE to_tsvector('english', comment) @@ to_tsquery('english', 'love');
 ```
 
@@ -102,13 +115,13 @@ You can do more complex searches too:
 
 ```sql
 -- Search for comments containing "love" AND "dog"
-SELECT comment_id, LEFT(comment, 50) 
-FROM comments 
+SELECT comment_id, LEFT(comment, 50)
+FROM comments
 WHERE to_tsvector('english', comment) @@ to_tsquery('english', 'love & dog');
 
 -- Search for "love" OR "hate"
-SELECT comment_id, LEFT(comment, 50) 
-FROM comments 
+SELECT comment_id, LEFT(comment, 50)
+FROM comments
 WHERE to_tsvector('english', comment) @@ to_tsquery('english', 'love | hate');
 ```
 

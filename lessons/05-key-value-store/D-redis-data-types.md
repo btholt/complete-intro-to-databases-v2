@@ -1,5 +1,16 @@
 ---
-description: "Redis has a few different data types. Brian goes over when and where you would use each of them."
+description: >-
+  Learn Redis data types in Brian Holt's Complete Intro to Databases v2 course -
+  explore strings, lists, sets, sorted sets, and hashes with practical examples
+  for storing and retrieving app data efficiently.
+keywords:
+  - redis data types
+  - redis tutorial
+  - database course
+  - redis strings lists
+  - redis hashes sets
+  - brian holt
+  - redis commands
 ---
 
 Redis has a few different types of data. We won't go over all of them because most of them cover more advanced use cases, but so you know, here they are:

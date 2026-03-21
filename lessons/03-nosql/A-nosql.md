@@ -1,5 +1,18 @@
 ---
-description: ""
+title: NoSQL
+description: >-
+  Learn about NoSQL and document-based databases like MongoDB in Brian Holt's
+  Complete Intro to Databases v2. Discover when to choose unstructured data
+  storage over relational databases and explore key advantages of document
+  databases for JavaScript developers.
+keywords:
+  - nosql
+  - mongodb
+  - document database
+  - database tutorial
+  - brian holt
+  - unstructured data
+  - javascript database
 ---
 
 Let's hop into our second paradigm of databases, NoSQL databases. The term "NoSQL" is definitely a buzzword and actually doesn't really mean much. When you say NoSQL, you're basically saying it's just not a relational database. This can get even more fuzzy when you realize that some NoSQL databases can handle SQL queries. All-in-all, it's a barely-useful marketing term that I put in here just because you'll see it everywhere. You can essentially take it to mean "it's not Postgres/MySQL/SQL Server/etc."

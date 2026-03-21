@@ -1,5 +1,17 @@
 ---
-description: "Graph databases are great when you need to define relations between objects that can have complex webs of relations especially for things like social networks."
+description: >-
+  Brian Holt explains key-value databases like Redis and Valkey in his Complete
+  Intro to Databases v2 course, covering their use cases as caches, session
+  storage, and analytics tools that complement primary databases like PostgreSQL
+  and MongoDB.
+keywords:
+  - redis
+  - key-value database
+  - valkey
+  - database caching
+  - memcached
+  - brian holt
+  - database course
 ---
 
 A key-value store is a very different beast than what we've been looking at so far. The first thing to realize is that very rarely (if ever) will a key-value store be your primary database. It will almost always be a supplementary tool to another database that you're using. There are examples of people _just_ using a key-value store so I can be proven wrong but I'll say that's a very advanced and unusual use case.

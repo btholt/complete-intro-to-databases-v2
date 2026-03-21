@@ -1,12 +1,25 @@
 ---
-description: "Brian dives into how to compound queries, joins, unions, group bys, and other ways to get obtain powerful results with the expressiveness of SQL"
+title: Complex SQL Queries
+description: >-
+  Learn advanced PostgreSQL queries including foreign keys, JOINs, subqueries,
+  and GROUP BY with Brian Holt's Complete Intro to Databases v2. Master
+  relational database concepts through practical examples building a message
+  board system.
+keywords:
+  - postgresql
+  - sql joins
+  - foreign keys
+  - database queries
+  - relational database
+  - subqueries
+  - group by
 ---
 
 Let's get into some more complicated querying. First thing we're going to need is two more tables, comments and boards. We'll be making the data structure for a very simple message board system that has users, comments, and boards. The interesting part here is that every comment is posted by a user and therefore will need to reference the user table, and it will be posted to board and therefore will need to reference a board from the boards table. This is what you would call relational data and where relational databases really shine.
 
 ## Foreign Keys
 
-Let's jot down all of our schemas for our users, boards, and comments. 
+Let's jot down all of our schemas for our users, boards, and comments.
 
 > You don't need to run these if you ran the previous sample SQL statement. This is just for you to look at the schema.
 
@@ -187,6 +200,5 @@ ORDER BY
 ```
 
 Tricky! It's important to know your data, what you expect to see, and be aware of the constraints of your queries!
-
 
 [sql]: https://db-v2.holt.courses/sample-postgresql.sql

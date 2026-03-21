@@ -1,6 +1,18 @@
 ---
-title: "Node.js App with Neo4j"
-description: "Time to put some of that graph magic into practice! Put together with Brian an app to find the smallest path between two people in a graph."
+title: Node.js App with Neo4j
+description: >-
+  Learn to build a Node.js application with Neo4j graph database using Brian
+  Holt's Complete Intro to Databases course - includes Express server, frontend
+  interface, and parameterized queries for finding shortest paths between
+  people.
+keywords:
+  - neo4j
+  - nodejs
+  - graph database
+  - express
+  - database tutorial
+  - shortest path
+  - brian holt
 ---
 
 Let's quickly write up a quick Node.js project to help you transfer your skills from the command line to the coding world.

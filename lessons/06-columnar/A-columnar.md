@@ -1,3 +1,18 @@
+---
+description: >-
+  Learn about columnar databases like DuckDB and Clickhouse for analytical
+  workloads (OLAP) vs traditional row-based databases (OLTP) in Brian Holt's
+  Complete Intro to Databases v2 course, covering ETL processes and data formats
+  like Parquet and Iceberg.
+keywords:
+  - columnar databases
+  - DuckDB
+  - OLAP vs OLTP
+  - ETL
+  - Parquet
+  - data analytics
+  - Brian Holt
+---
 This is going to be a bit different than what we've talked about in other sections. Whereas the previous databases were very oriented towards building apps and directly tools you as a web developer would use, this is a bit different. These sorts of databases veer more towards the data science side of the house and are more for exploring data, deriving insights, reporting, and other ways of slicing and dicing data with the database as a tool.
 
 Importantly, you will never use a columnar database by itself. You don't load data into something like DuckDB or Clickhouse and then read from it later to show your product catalog or your users table. These are databases designed for analytical workloads, not general purpose "transactional" workloads.

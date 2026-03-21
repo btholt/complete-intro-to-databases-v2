@@ -1,6 +1,18 @@
 ---
-title: "Neo4j"
-description: "Graph databases are great when you need to define relations between objects that can have complex webs of relations especially for things like social networks."
+title: Neo4j
+description: >-
+  Learn how to set up and query Neo4j graph database using Docker and Cypher
+  query language. Follow along as Brian Holt demonstrates creating nodes,
+  relationships, and complex graph queries using movie/actor examples in this
+  Complete Intro to Databases v2 tutorial.
+keywords:
+  - neo4j
+  - cypher
+  - graph database
+  - docker
+  - database tutorial
+  - brian holt
+  - nodes relationships
 ---
 
 Let's get our database up and running! Run the following.
