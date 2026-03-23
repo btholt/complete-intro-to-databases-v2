@@ -122,4 +122,4 @@ Let's go over a few notes here. To be clear, this is mostly to show you how to c
 
 That's it! That's a quick Node.js server that connects to MongoDB!
 
-[samples]: https://github.com/btholt/db-samples
+[samples]: https://github.com/btholt/db-v2-samples

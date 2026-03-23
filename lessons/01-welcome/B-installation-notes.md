@@ -62,7 +62,7 @@ If you are able to, it's great to use an LLM like ChatGPT, Claude, or Gemini wit
 
 [Here is the link to the text file][llms].
 
-[containers]: https://frontendmasters.com/courses/complete-intro-container-v2/
+[containers]: https://frontendmasters.com/courses/complete-intro-containers-v2/
 [docker]: https://www.docker.com/products/docker-desktop
 [winget]: https://docs.microsoft.com/en-us/windows/package-manager/winget/#install-winget
 [choc]: https://chocolatey.org/

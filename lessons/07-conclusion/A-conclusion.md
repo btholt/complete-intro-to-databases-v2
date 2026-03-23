@@ -102,4 +102,6 @@ I hope you enjoyed the course!
 [fullstack]: https://frontendmasters.com/learn/fullstack/
 [next]: https://frontendmasters.com/courses/fullstack-app-next-v4/
 [mongodb]: https://frontendmasters.com/courses/mongodb/
+[sql]: https://frontendmasters.com/courses/sql/
+[sqlite]: https://frontendmasters.com/courses/sqlite/
 [hf]: https://huggingface.co/datasets?modality=modality:tabular&sort=trending
