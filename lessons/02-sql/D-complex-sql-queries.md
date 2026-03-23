@@ -103,7 +103,7 @@ Magic! The big key here is the `INNER JOIN` which allows us to match up all the 
 
 Let's talk about `INNER` for a second. There are multiple kinds of JOINs. INNER is a good one start with. It says "find where user_ids match. If you find a record where the user_id exists in one but not in the other, omit it in the results." This isn't a particularly useful distinction for us right now becase all user_ids will exist in users and we're assured of that due to the foreign key restraints we used. However if a comment had a user_id that didn't exist, it would omit that comment in the results.
 
-[![diagram of SQL joins](./images/SQL_Joins.png)](https://commons.wikimedia.org/wiki/File:SQL_Joins.svg)
+[![diagram of SQL joins](/images/SQL_Joins.png)](https://commons.wikimedia.org/wiki/File:SQL_Joins.svg)
 
 A `LEFT JOIN` would say "if a comment has a user_id that doesn't exist, include it anyway." A `RIGHT JOIN` wouldn't make much sense here but it would include users even if they didn't have a comment on that board.
 
