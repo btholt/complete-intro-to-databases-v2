@@ -32,7 +32,7 @@ export default function LessonSlug({ post }) {
       setHeader({});
       elementsToClean = [];
     }
-  }, []);
+  }, [post.section, post.title, post.icon]);
 
   const title = post.title
     ? `${post.title} – ${courseInfo.title}`
