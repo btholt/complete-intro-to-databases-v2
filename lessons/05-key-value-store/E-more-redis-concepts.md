@@ -66,4 +66,4 @@ What I just described is exactly how Memcached works and if that's _all_ you nee
 
 [pubsub]: https://redis.io/topics/notifications
 [transactions]: https://redis.io/topics/transactions
-[lru]: https://redis.io/topics/lru-cache
+[lru]: https://redis.io/docs/latest/develop/reference/eviction/
