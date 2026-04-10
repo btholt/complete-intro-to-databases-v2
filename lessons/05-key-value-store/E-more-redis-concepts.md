@@ -62,8 +62,8 @@ Imagine you have a service that serves users' profile pictures that gets hit a l
 
 The first thing you would do is set how big you want Redis to get. 100MB, 1GB, 10GB, whatever you have space for. Then in your code you first check to see if the request URL is in the cache. If it is, serve it. If it's not, find it in the other database, write it to Redis, and serve it to the user. Then Redis, once it reached its space limit, would evict the least recently used key when you wrote to it. The idea is that you will keep the most used keys easily since those users will be using them a lot, and users who rarely use it will just have to hit the database. Therefore you'll maximize your cache hits!
 
-What I just described is exactly how Memcached works and if that's _all_ you need (and don't mind if you have to rewarm (aka repopulate) that cache again if Redis crashes) then I'd suggest Memcached because it's so fast. However, Redis has many ways of doing key eviction and I'll just leave this here for you to peruse later. [See here][lru].
+What I just described is exactly how Memcached works and if that's _all_ you need (and don't mind if you have to rewarm (aka repopulate) that cache again if Redis crashes) then I'd suggest Memcached because it's so fast. However, Redis has many ways of doing key eviction and I'll just leave this here for you to peruse later. [See here][eviction].
 
 [pubsub]: https://redis.io/topics/notifications
 [transactions]: https://redis.io/topics/transactions
-[lru]: https://redis.io/topics/lru-cache
+[eviction]: https://redis.io/docs/latest/develop/reference/eviction/

@@ -201,4 +201,4 @@ ORDER BY
 
 Tricky! It's important to know your data, what you expect to see, and be aware of the constraints of your queries!
 
-[sql]: https://db-v2.holt.courses/sample-postgresql.sql
+[sql]: https://databases-v2.holt.courses/sample-postgresql.sql

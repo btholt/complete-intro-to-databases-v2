@@ -105,3 +105,4 @@ I hope you enjoyed the course!
 [sql]: https://frontendmasters.com/courses/sql/
 [sqlite]: https://frontendmasters.com/courses/sqlite/
 [hf]: https://huggingface.co/datasets?modality=modality:tabular&sort=trending
+[kaggle]: https://www.kaggle.com/
