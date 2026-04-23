@@ -24,7 +24,7 @@ Make a new directory. In that directory run:
 ```bash
 npm init -y
 npm pkg set type=module
-npm i express mongodb@7.1.0 express@5.2.1
+npm i mongodb@7.1.0 express@5.2.1
 mkdir static
 touch static/index.html server.js
 code . # or open this folder in VS Code or whatever editor you want
