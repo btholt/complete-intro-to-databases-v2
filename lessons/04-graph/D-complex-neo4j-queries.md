@@ -48,7 +48,7 @@ If you're using the browser and you want to see a pretty graph, try this:
 ```cql
 MATCH (Keanu:Person)-[:ACTED_IN]->(m:Movie)<-[r:ACTED_IN]-(Costar:Person)
 WHERE Keanu.name = "Keanu Reeves"
-RETURN Costar, m, Keanu;
+RETURN Costar, m, Keanu, r;
 ```
 
 If you want the nice graphics you need to return whole nodes and not just fields.

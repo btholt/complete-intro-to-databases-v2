@@ -99,7 +99,7 @@ async function init() {
         posts: commentsRes.rows,
       })
       .end();
-    client.release();
+    client.release(); // don't use client.end()
   });
 
   const PORT = process.env.PORT || 3000;

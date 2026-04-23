@@ -33,7 +33,7 @@ Do none, some, or all of these fit? Do you have other considerations? Take a sec
 
 This has as much to do with _which database_ you're choosing as it does with _how you architect_ your data with whatever database you're choosing.
 
-Here's a great example. If you have relational data but it's almost never read and more frequently read and your other usecases are more favored to using a document-based database, MongoDB is actually a fine choice to make in that case. MongoDB does do joins, it's just not so optimized as something like PostgreSQL is for it.
+Here's a great example. If you have relational data that's infrequently read and your other usecases are more favored to using a document-based database, MongoDB is actually a fine choice to make in that case. MongoDB does do joins, it's just not so optimized as something like PostgreSQL is for it.
 
 Think a lot about where your hotspots of reads and writes are. Optimize for those. You can tolerate slowness and inefficiency in areas where they don't get run frequently.
 

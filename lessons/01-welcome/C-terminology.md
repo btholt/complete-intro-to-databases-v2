@@ -29,7 +29,7 @@ If I had a JSON object of user that looked like `{ "name": "Brian", "city": "Sea
 
 ## What are the types of databases
 
-There are many types of database available today. We're only going to cover four types but it's good to know what else is other there. Today we're covering relational databases (often called RDBMS or SQL databases,) document-based databases (often called NoSQL,) a graph database, and a key-value store. Here's a few we are _not_ covering.
+There are many types of database available today. We're only going to cover five types but it's good to know what else is other there. Today we're covering relational databases (often called RDBMS or SQL databases,) document-based databases (often called NoSQL,) a graph database, and a key-value store. Here's a few we are _not_ covering.
 
 - **Search engines** like Solr or Sphinx are often paired with databases to make search possible. If your database doesn't support full-text search this is a tool you could pair with a database to make a site-wide search engine possible.
 - **Wide Column Databases** uses the concepts of tables, rows, and columns like a relational database but has a dynamic nature to those formats of rows and names. As such it can sorta be interepted like a two dimensional key-value store. Apache Cassandra and Google Bigtable are two famous examples of this. These databases are famous for being able to be massive scale and very resilient.
