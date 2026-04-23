@@ -90,7 +90,7 @@ So add this embedding script to your project:
 import pg from "pg";
 
 const CONNECTION_STRING =
-  "postgresql://postgres:mysecretpassword@localhost:5432";
+  "postgresql://postgres:mysecretpassword@localhost:5432"; // NOTE you may need to add your database name (e.g. /message_boards) if you aren't using the default postgres database
 
 const PROVIDERS = {
   openai: {

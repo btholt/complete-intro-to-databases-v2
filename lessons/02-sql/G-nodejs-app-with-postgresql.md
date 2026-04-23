@@ -23,7 +23,7 @@ Make a new directory. In that directory run:
 ```bash
 npm init -y
 npm pkg set type=module
-npm i express pg@8.20.0 express@5.2.1
+npm i pg@8.20.0 express@5.2.1
 mkdir static
 touch static/index.html server.js
 code . # or open this folder in VS Code or whatever editor you want
@@ -99,7 +99,7 @@ async function init() {
         posts: commentsRes.rows,
       })
       .end();
-    await client.end();
+    client.release(); // don't use client.end()
   });
 
   const PORT = process.env.PORT || 3000;

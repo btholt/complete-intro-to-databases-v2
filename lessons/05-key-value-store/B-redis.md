@@ -104,3 +104,6 @@ EXISTS greeting
 DEL greeting
 EXISTS greeting
 ```
+
+[pipelines]: https://redis.io/docs/latest/develop/clients/jedis/transpipe/
+[transactions]: https://redis.io/docs/latest/develop/using-commands/transactions/

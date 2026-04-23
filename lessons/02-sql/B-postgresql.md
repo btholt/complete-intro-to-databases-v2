@@ -18,7 +18,7 @@ So we examined a bit of the general relational databases in the previous section
 
 ## Let's get PostgreSQL going
 
-Let's start by getting a PostgreSQL container going. I'm going to use version 13.0 (the latest container available) and I'd recommend for this tutorial you do the same. While newer ones might be available, this is the one that will work with this tutorial.
+Let's start by getting a PostgreSQL container going. I'm going to use version 18.0 (the latest container available) and I'd recommend for this tutorial you do the same. While newer ones might be available, this is the one that will work with this tutorial.
 
 ```bash
 docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d --rm pgvector/pgvector:pg18-trixie
