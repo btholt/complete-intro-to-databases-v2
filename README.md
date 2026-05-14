@@ -1,11 +1,11 @@
 <h1 align="center">Complete Intro to Databases, v2</h1> <br>
 
 <p align="center">
-  Course materials for the Complete Intro to Databases, v2 as taught on <a href="https://frontendmasters.com/workshops/databases-v2/">Frontend Masters</a>.
+  Course materials for the Complete Intro to Databases, v2 as taught on <a href="https://frontendmasters.com/courses/databases-v2/">Frontend Masters</a>.
 </p>
 
 <h3 align="center">
-  <a href="https://frontendmasters.com/workshops/databases-v2/">Watch on Frontend Masters</a>
+  <a href="https://frontendmasters.com/courses/databases-v2/">Watch on Frontend Masters</a>
 </h3>
 
 ## Course Notes
